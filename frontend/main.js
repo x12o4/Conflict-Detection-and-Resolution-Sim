@@ -22,18 +22,19 @@ const aircraftMarkers = {}; // dictionary used to store active aircraft markers
 function updateAircraftMarkers(aircraftData){
     aircraftData.forEach(aircraft => {
         const{id, lat,lon,heading} = aircraft;
+        if(aircraftMarkers[id]){ // checks for existing aircrafts
+            aircraftMarkers[id].setLatLng([lat, lon]); // updates the marker to its new position
+            aircraftMarkers[id].setRotationAngle(heading); // updates the marker angle to its new heading using leaflet marker rotation
+        } else {
+            // Create new marker
+            aircraftMarkers[id] = L.marker([lat, lon], {
+                icon: AeroplaneIcon,
+                rotationAngle: heading,
+                rotationStart: 'center'
+            }).addTo(map);
+        }
     })
-    if(aircraftMarkers[id]){ // checks for existing aircrafts
-        aircraftMarkers[id].setLatLng([lat, lon]); // updates the marker to its new position
-        aircraftMarkers.setRotationAngle(heading); // updates the marker angle to its new heading using leaflet marker rotation
-    } else {
-        // Create new marker
-        aircraftMarkers[id] = L.marker([lat, lon], {
-            icon: AeroplaneIcon,
-            rotationAngle: heading,
-            rotationStart: 'center'
-        }).addTo(map);
-    }
+    
     
         
 }
