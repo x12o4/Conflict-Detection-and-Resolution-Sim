@@ -39,6 +39,9 @@ function updateAircraftMarkers(aircraftData){
         
 }
 
+
+
+let angle = 0;
 const TestMarker = {id: "test", lat: 51.505, lon: -0.09, heading: 0}; // test marker to test the updateAircraftMarkers function
 updateAircraftMarkers([TestMarker]); 
 
@@ -48,5 +51,16 @@ setInterval(() => {
     updateAircraftMarkers([TestMarker]); // update the marker with the new heading
 }, 100) // updates the marker every 100ms
 
+const defaultIconSize = [30,30];
 
+let currentZoom = map.getZoom(); // get the current zoom level
+
+function ScaleIcon(zoom){
+    const scaleFactor = Math.pow(1.3, 13 - zoom); // scale factor based on zoom level, 13 is default zoom level
+    return L.icon({
+        icon: 'ICONS/airplane.png',
+        iconSize: defaultIconSize.map(size => size * scaleFactor), // scale the icon size based on the zoom level
+        iconAnchor: [15 * scaleFactor, 15 * scaleFactor] // scale the icon anchor based on the zoom level
+    })
+}
 
