@@ -26,12 +26,26 @@ function updateAircraftMarkers(aircraftData){
     if(aircraftMarkers[id]){ // checks for existing aircrafts
         aircraftMarkers[id].setLatLng([lat, lon]); // updates the marker to its new position
         aircraftMarkers.setRotationAngle(heading); // updates the marker angle to its new heading using leaflet marker rotation
-
+    } else {
+        // Create new marker
+        aircraftMarkers[id] = L.marker([lat, lon], {
+            icon: AeroplaneIcon,
+            rotationAngle: heading,
+            rotationStart: 'center'
+        }).addTo(map);
     }
+    
+        
 }
 
+const TestMarker = {id: "test", lat: 51.505, lon: -0.09, heading: 0}; // test marker to test the updateAircraftMarkers function
+updateAircraftMarkers([TestMarker]); 
 
-
+setInterval(() => {
+    angle = (angle + 5) % 360; // add 5 degrees until 360 degrees is reached
+    TestMarker.heading = angle; // set angle to the aircraft heading
+    updateAircraftMarkers([TestMarker]); // update the marker with the new heading
+}, 100) // updates the marker every 100ms
 
 
 
