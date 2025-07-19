@@ -18,6 +18,33 @@ var AeroplaneIcon = L.icon({
 
 const aircraftMarkers = {}; // dictionary used to store active aircraft markers
 
+const defaultIconSize = [12,12]; // default icon size for the aircraft markers, used to scale the icon size based on the zoom level
+
+const DefaultZoom = 7;
+
+const minimumScale = 0.3; // maximum scale factor for the icon size
+const maximumScale = 1.3; // minimum scale factor for the icon size
+
+let currentZoom = map.getZoom(); // get the current zoom level
+
+function ScaleIcon(zoom){
+    const scaleFactor = Math.min(maximumScale, Math.max(minimumScale, Math.pow(1.2,DefaultZoom - zoom))); // calculates the scale factor based on the zoom level, ensuring it stays within the minimum and maximum scale limits
+    // scale factor is calculated by taking the difference between the default zoom level and the current zoom level, and raising 1.2 to that power, then clamping it between the minimum and maximum scale limits
+    return L.icon({
+        
+        iconUrl: 'ICONS/airplane.png',
+        iconSize: defaultIconSize.map(size => size * scaleFactor), // scales the icon size based on the zoom level
+        iconAnchor: [defaultIconSize[0]/2 * scaleFactor, defaultIconSize[1]/2 * scaleFactor] // centers the icon on long, lat coordinates based on the scaled size
+    })
+}
+
+map.on('zoomend', () => { // zoomend event is triggered when the zoom level animation is finished 
+    currentZoom = map.getZoom(); // get the current zoom level
+    Object.values(aircraftMarkers).forEach(marker => { // object.values converts our aircraftMarkers dictionary into an array of markers
+        marker.setIcon(ScaleIcon(currentZoom)); // update the icon size based on the zoom level and refreshes the icon of the marker
+    });
+});
+
 // updates the aircraft positions
 function updateAircraftMarkers(aircraftData){
     aircraftData.forEach(aircraft => {
@@ -28,9 +55,9 @@ function updateAircraftMarkers(aircraftData){
         } else {
             // Create new marker
             aircraftMarkers[id] = L.marker([lat, lon], {
-                icon: AeroplaneIcon,
+                icon: ScaleIcon(currentZoom), // sets the icon size based on the zoom level
                 rotationAngle: heading,
-                rotationStart: 'center'
+                rotationOrigin: 'center'
             }).addTo(map);
         }
     })
@@ -51,16 +78,5 @@ setInterval(() => {
     updateAircraftMarkers([TestMarker]); // update the marker with the new heading
 }, 100) // updates the marker every 100ms
 
-const defaultIconSize = [30,30];
 
-let currentZoom = map.getZoom(); // get the current zoom level
-
-function ScaleIcon(zoom){
-    const scaleFactor = Math.pow(1.3, 13 - zoom); // scale factor based on zoom level, 13 is default zoom level
-    return L.icon({
-        icon: 'ICONS/airplane.png',
-        iconSize: defaultIconSize.map(size => size * scaleFactor), // scale the icon size based on the zoom level
-        iconAnchor: [15 * scaleFactor, 15 * scaleFactor] // scale the icon anchor based on the zoom level
-    })
-}
 
