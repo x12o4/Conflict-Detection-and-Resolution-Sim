@@ -10,7 +10,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var AeroplaneIcon = L.icon({
-    iconUrl: 'ICONS/airplane.png', // sets image for the aeroplane
+    iconUrl: 'ICONS/airplane.svg', // sets image for the aeroplane
     iconSize: [30, 30], // size of the icon
     iconAnchor: [15, 15] // centers the icon on long, lat coordinates.
 
@@ -22,8 +22,8 @@ const defaultIconSize = [12,12]; // default icon size for the aircraft markers, 
 
 const DefaultZoom = 7;
 
-const minimumScale = 0.3; // maximum scale factor for the icon size
-const maximumScale = 1.3; // minimum scale factor for the icon size
+const minimumScale = 1; // minimum scale factor for the icon size
+const maximumScale = 1.6; // maximum scale factor for the icon size
 
 let currentZoom = map.getZoom(); // get the current zoom level
 
@@ -32,7 +32,7 @@ function ScaleIcon(zoom){
     // scale factor is calculated by taking the difference between the default zoom level and the current zoom level, and raising 1.2 to that power, then clamping it between the minimum and maximum scale limits
     return L.icon({
         
-        iconUrl: 'ICONS/airplane.png',
+        iconUrl: 'ICONS/airplane.svg',
         iconSize: defaultIconSize.map(size => size * scaleFactor), // scales the icon size based on the zoom level
         iconAnchor: [defaultIconSize[0]/2 * scaleFactor, defaultIconSize[1]/2 * scaleFactor] // centers the icon on long, lat coordinates based on the scaled size
     })
