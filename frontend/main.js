@@ -16,20 +16,22 @@ var AeroplaneIcon = L.icon({
 
 })
 
-const aircraftMarkers = {}; // used to store active aircraft markers
+const aircraftMarkers = {}; // dictionary used to store active aircraft markers
 
 // updates the aircraft positions
 function updateAircraftMarkers(aircraftData){
     aircraftData.forEach(aircraft => {
         const{id, lat,lon,heading} = aircraft;
     })
+    if(aircraftMarkers[id]){ // checks for existing aircrafts
+        aircraftMarkers[id].setLatLng([lat, lon]); // updates the marker to its new position
+        aircraftMarkers.setRotationAngle(heading); // updates the marker angle to its new heading using leaflet marker rotation
+
+    }
 }
 
-const iconHeading = L.icon({
-    icon: 'ICONS/airplane.png', // refresh icon on map
-    iconSize: [30, 30], 
-    iconAnchor: [15, 15], 
-    
-})
-var marker = L.marker([51.5, -0.09], { icon: AeroplaneIcon }).addTo(map);
+
+
+
+
 
