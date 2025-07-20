@@ -1,9 +1,15 @@
 from flask import Flask, jsonify  # Flask web framework for building APIs, jsonify for converting python data to JSON
 from bluesky import simulation  # bluesky flight simulation model
+from flask_caching import Cache  # flask caching for caching responses to improve performance
 
 application = Flask(__name__)  # creates flask webserver
-simulation = simulation.Sim()  # creates a bluesky simulation  
+simulation = simulation.Sim()  # creates a bluesky simulation 
 
+cache = Cache(application, config = {
+    "CACHE_TYPE": "SimpleCache",  # using simple cache for caching responses
+    "CACHE_DEFAULT_TIMEOUT": 2 # default timeout for cache is 2 seconds 
+})  # initializes cache
+    
 try: # try catch block to handle potential errors during simulation initialization
   simulation = simulation.Sim() # init sim
 except Exception as e:
@@ -11,16 +17,18 @@ except Exception as e:
   sim = None # fallback if simulation fails to initialize
 
 @application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
+@cache.cached()  # caches the response for 2 seconds to reduce server load
 
-def GET_aircraft(): # executes when /aircraft is accessed
+def get_aircraft(): # executes when /aircraft is accessed
   if not simulation: # check if simulation is initialized
     return jsonify({"error": "Simulation is not initialized!"}), 500  # return error if simulation is not initialized
     
-    simulation.step() # advances the simulation by a timestep which makes the aircraft move to the next position
-    return jsonify([{ # converts to JSON to send to the frontend
+  simulation.step() # advances the simulation by a timestep which makes the aircraft move to the next position
+
+  return jsonify([{ # converts to JSON to send to the frontend
         "id": aircraft.id,
         "lat": aircraft.lat,
         "lon": aircraft.lon,
-        "heading": ac.heading
+        "heading": aircraft.heading
     } for aircraft in sim.get_aircraft()]) # retrieves all active aircraft and extracts their id, latitude, longitude, and heading
 
