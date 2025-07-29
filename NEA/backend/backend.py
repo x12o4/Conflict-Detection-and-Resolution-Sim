@@ -1,14 +1,17 @@
 from flask import Flask, jsonify  # Flask web framework for building APIs, jsonify for converting python data to JSON
-from bluesky import settings, traffic  # bluesky flight simulation model used to mimic flight, pip install "bluesky-simulator[full]", docs = 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/' 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/API-Reference', 'https://github.com/TUDelft-CNS-ATM/bluesky/blob/master/docs/python_demo.ipynb'
+from bluesky import settings, traffic, navdb  # bluesky flight simulation model used to mimic flight, pip install "bluesky-simulator[full]", docs = 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/' 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/API-Reference', 'https://github.com/TUDelft-CNS-ATM/bluesky/blob/master/docs/python_demo.ipynb'
   # NavDatabase for managing navigation data like airports, runways, etc.
 from flask_caching import Cache  # flask caching for caching responses to improve performance, pip install -U flask-caching
 import random as random # used to generate random numbers
 import requests # used to make HTTP requests, pip install requests
 from threading import Lock # used to handle multiple requests simultaneously without conflicts, so that a request has to finish before another is made
+import traceback # used for more detailed debugging
+from flask_cors import CORS # used to allow cross-origin requests, so that the frontend can access the backend API from a different domain or port, pip install flask-cors
 
 
 application = Flask(__name__)  # creates flask webserver
 
+CORS(application)  # enables CORS for the application, allowing cross-origin requests from the frontend
 cache = Cache(application, config = { # refers to the https://flask-caching.readthedocs.io/en/latest/ documentation
     "CACHE_TYPE": "SimpleCache",  # using simple cache for caching responses
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
@@ -18,20 +21,38 @@ simulationTraffic = None  # global variable to hold the traffic object, initiall
 def initBluesky():
     global simulationTraffic
     try:
-        settings.set_variable_defaults() # sets default settings for bluesky sim
+        
+         
+        settings.set_variable_defaults(performance_model ='openap',  wind_model = 'zeros', dt = 1.0)
         simulationTraffic = traffic.Traffic()  # create a Traffic instance for managing aircraft in the simulation
         
-        if simulationTraffic is None:
-            raise RuntimeError("Failed to create Traffic instance")
+        if not hasattr(simulationTraffic, 'ntraf'):
+           raise RuntimeError("Traffic object missing ntraf")
         
         # Create test aircraft with error checking
-        aircraft1 = simulationTraffic.cre('BAW123', 'A320', 51.4775, -0.4614, 0, 20000, 450) # aircraft ID, aircraft type, latitude, longitude, heading, altitude, speed
-        aircraft2 = simulationTraffic.cre('UAL456', 'B737', 51.50, -0.50, 90, 18000, 400)
+        # aircraft ID, aircraft type, latitude, longitude, heading, altitude, speed
+        aircraft1 = simulationTraffic.create(
+            'BAW1', 
+            'B744',  # Boeing 747
+            51.4775,
+            -0.4614,
+            0,
+            20000,
+            450
+        )
+        aircraft2 = simulationTraffic.create(
+            'UAL2',
+            'C172',  # Cessna 172 
+            51.50,
+            -0.50,
+            90,
+            18000,
+            400
+        )
+        if None in [aircraft1, aircraft2]:
+            raise RuntimeError("Failed to create aircraft returned None")
         
-        if aircraft1 is None or aircraft2 is None:
-            raise RuntimeError("Failed to create aircraft")
-        
-        # Perform an initial update to populate aircraft data
+        # Perform an update to populate aircraft data
         simulationTraffic.simdt = 1.0
         simulationTraffic.update()
         
@@ -98,4 +119,4 @@ def get_aircraft(): # executes when /aircraft is accessed
 if __name__ == '__main__':
   application.run(debug= True) # runs the flask application
 
-  
+

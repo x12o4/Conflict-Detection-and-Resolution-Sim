@@ -7,14 +7,12 @@ import requests # used to make HTTP requests, pip install requests
 from threading import Lock # used to handle multiple requests simultaneously without conflicts, so that a request has to finish before another is made
 
 
-help(traffic.Traffic)
-help(traffic.Traffic.update)  # Shows how the simulation update works
-help(settings.set_variable_defaults)
-print("\nCurrent settings:")
-print("Performance model:", settings.performance_model)
-print("Wind model:", settings.wind_model)
-print("Default dt:", settings.dt)
+
+
+
 help(navdb)
-print("\nAvailable aircraft types:", navdb.actypes.keys())
-print("A320 exists:", 'A320' in navdb.actypes)
-print("B737 exists:", 'B737' in navdb.actypes)
+allaircraft = sorted(navdb.actypes.keys())
+print("Common available aircraft types:")
+for ac_type in allaircraft:
+   if ac_type.startswith(('A3', 'B7', 'B7')):
+        print(f"- {ac_type}")

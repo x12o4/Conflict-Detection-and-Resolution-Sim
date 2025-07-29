@@ -78,5 +78,43 @@ setInterval(() => {
     updateAircraftMarkers([TestMarker]); // update the marker with the new heading
 }, 100) // updates the marker every 100ms
 
+const flaskURL = "http:localhost:5000"
 
+// async means the function will return a promise
+// fetchAircraftData fetches the aircraft data from the flask server
+async function fetchAircraftData(){ 
+    try{
+        const response = await fetch(flaskURL + "/aircraft"); // fetches the aircraft data from the flask server
+        if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
+        return await response.json(); // returns the response as json
 
+        
+    } catch(error){
+        console.error("Error fetching aircraft data:", error); // logs the error to the console
+        return {error:"failed to fetch aircraft data"};// returns an error message
+    }
+}
+
+async function updateAircraftData(){
+    const data = await fetchAircraftData(); // waits to fetch the aircraft data from the flask server
+    if(data.error){
+        console.error(data.error); // logs the error to the console
+        return; // exits the function if there is an error
+    }
+
+    // clears the existing aircraft markers before updating
+    Object.values(aircraftMarkers).forEach(marker => map.removeLayer(marker));
+    aircraftMarkers = {}; // clears the aircraft markers dictionary
+    
+    data.forEach(aircraft => {
+        aircraftMarkers[id] = L.marker([aircraft.lat, aircraft.lon], {
+            icon: ScaleIcon(currentZoom), // sets the icon size based on the zoom level
+            rotationAngle: aircraft.heading,
+        }).addTo(map);
+    })
+    .bindPopup("id: " + aircraft.id + "<br>altitude: " + aircraft.altitude).addTo(map); // binds a popup to every aeroplane with their id and altitude
+
+    setInterval(() => { 
+        updateAircraftData(); // repeats the function and updates the aircraft data every 5 seconds
+    }, 2000); // updates the aircraft data every 2 seconds and matches cache timeout
+}
