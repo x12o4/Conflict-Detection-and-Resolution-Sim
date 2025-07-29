@@ -26,31 +26,18 @@ def initBluesky():
         settings.set_variable_defaults(performance_model ='openap',  wind_model = 'zeros', dt = 1.0)
         simulationTraffic = traffic.Traffic()  # create a Traffic instance for managing aircraft in the simulation
         
-        if not hasattr(simulationTraffic, 'ntraf'):
+        if not hasattr(simulationTraffic, 'ntraf'): # catches ntraf (ntraf is number of aricraft) error
            raise RuntimeError("Traffic object missing ntraf")
         
         # Create test aircraft with error checking
         # aircraft ID, aircraft type, latitude, longitude, heading, altitude, speed
-        aircraft1 = simulationTraffic.create(
-            'BAW1', 
-            'B744',  # Boeing 747
-            51.4775,
-            -0.4614,
-            0,
-            20000,
-            450
-        )
-        aircraft2 = simulationTraffic.create(
-            'UAL2',
-            'C172',  # Cessna 172 
-            51.50,
-            -0.50,
-            90,
-            18000,
-            400
-        )
-        if None in [aircraft1, aircraft2]:
-            raise RuntimeError("Failed to create aircraft returned None")
+        # stack method not data structure
+        simulationTraffic.stack("CRE BAW1 B744 51.4775 -0.4614 0 20000 450")
+        simulationTraffic.stack("CRE UAL2 C172 51.50 -0.50 90 18000 400") 
+        simulationTraffic.process()  # process the stack commands to create aircraft
+        
+        if simulationTraffic.ntraf < 2:  # check if at least 2 aircraft were created
+            raise RuntimeError("created {simulationTraffic.ntraf} aircraft, expected at least 2")
         
         # Perform an update to populate aircraft data
         simulationTraffic.simdt = 1.0
@@ -60,6 +47,7 @@ def initBluesky():
         return True
         
     except Exception as e:
+        traceback.print_exc() # prints the stack trace for debugging
         print(f"BlueSky initialization failed: {str(e)}")
         simulationTraffic = None
         return False
@@ -82,41 +70,45 @@ class ourAirportsAPI:
           
 airportAPI = ourAirportsAPI()  # creates an instance of the ourAirportsAPI class to access airport data
 
+print("Initializing Bluesky Simulation")
+if initBluesky():
+    print("Bluesky Simulation initialized successfully")
+else:
+    print("Bluesky Simulation initialization failed")
 
-
-
-
-
-
-initBluesky() # calls the function to initialize the BlueSky simulation
 @application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
-@cache.cached()  # caches the response for 2 seconds to reduce server load
+@cache.cached(timeout=0.5)  # caches the response for 2 seconds to reduce server load
 
 def get_aircraft(): # executes when /aircraft is accessed
-  if not simulationTraffic: # check if simulation is initialized
-    if not initBluesky():  # if not initialized, try to initialize it
-      return jsonify({"error": "Simulation is not initialized!"}), 500  # return error if simulation is not initialized
+    global simulationTraffic
+    if simulationTraffic is None:  # checks if the simulationTraffic object is initialized
+        print("Simulation traffic not initialized, initializing now...")
+        if not initBluesky():
+         return jsonify({"error": "Simulation initialization failed"}), 503  # returns error if simulationTraffic is not initialized
     
-  simulationTraffic.simdt = 1  # sets simulation time step to 1 second
-  simulationTraffic.update()  # updates the simulation traffic to different positions
+    try:
+        simulationTraffic.simdt = 1  # sets simulation time step to 1 second
+        simulationTraffic.update()  # updates the simulation traffic to different positions
  
-  aircraftdata = []
-  for aircraft in simulationTraffic:
-     if aircraft is None:
-        continue # skip if aircraft = none
-     aircraftdata.append({
-                "id": aircraft.id,
-                "lat": aircraft.lat,
-                "lon": aircraft.lon,
-                "heading": aircraft.hdg, # heading in degrees
-                "altitude": aircraft.alt, # altitude in feet
-                "speed": getattr(aircraft, 'tas', 0)  # Using getattr as safety
-            }) # retrieves all active aircraft and extracts their id, latitude, longitude, and heading
+        aircraftdata = []
+        for i in range(simulationTraffic.ntraf):
+            ac = simulationTraffic.aircraft[i]
+            aircraftdata.append({ # retrieves all active aircraft and extracts their id, latitude, longitude, and heading
+                "id": ac.id,
+                "lat": ac.lat,
+                "lon": ac.lon,
+                "heading": ac.hdg, # heading in degrees
+                "altitude": ac.alt, # altitude in feet
+                "speed": getattr(ac, 'tas', 0) # Using getattr as safety
+            })
+ 
 
-  return jsonify(aircraftdata)  # returns the aircraft data as JSON 
-
+        return jsonify(aircraftdata)  # returns the aircraft data as JSON 
+    except Exception as e:
+        traceback.print_exc()  # prints the stack trace for debugging
+        return jsonify({"error": str(e)}), 500  # returns error if anything goes wrong
 
 if __name__ == '__main__':
-  application.run(debug= True) # runs the flask application
+  application.run(debug= True, port=5000, use_reloader=False) # runs the flask application
 
 
