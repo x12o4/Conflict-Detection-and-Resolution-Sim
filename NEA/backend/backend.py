@@ -6,7 +6,7 @@ import requests # used to make HTTP requests, pip install requests
 from threading import Lock # used to handle multiple requests simultaneously without conflicts, so that a request has to finish before another is made
 import traceback # used for more detailed debugging
 from flask_cors import CORS # used to allow cross-origin requests, so that the frontend can access the backend API from a different domain or port, pip install flask-cors
-
+import math
 
 application = Flask(__name__)  # creates flask webserver
 
@@ -16,6 +16,11 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initializes cache 
 
+earthRadiusKM = 6378.0 # radius of the Earth in kilometers
+degreeToRadians = math.pi / 180.0
+radianToDegree = 180.0 / math.pi
+nmToKM = 1.852 # conversion factor from nautical miles to kilometers
+msToK = 1.94384 # conversion factor from meters per second to knots
 
 class ourAirportsAPI:
   URL = "https://www.ourairports.com/data"
@@ -34,6 +39,70 @@ class ourAirportsAPI:
             return None # if anything goes wrong, dont crash instead return None
           
 airportAPI = ourAirportsAPI()  # creates an instance of the ourAirportsAPI class to access airport data
+class Position:
+    lat: float # latitude in degrees
+    lon: float # longitude in degrees
+
+    def distancefrom(self, other: 'Position'):  
+        # calculate distance between two aircraft using the haversine formula
+        #a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2)
+        #c = 2 ⋅ atan2( √a, √(1−a) )
+        #d = R ⋅ c
+
+        lat1 = self.lat * degreeToRadians
+        lon1 = self.lon * degreeToRadians
+        lat2 = other.lat * degreeToRadians
+        lon2 = other.lon * degreeToRadians 
+
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+
+        a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2 
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+        return earthRadiusKM * c  # returns distance in kilometers
+
+class Aircraft:
+    def __init__(self, callsign: str, actype: str, alt: float, hdg: float, position: Position, speed: float, verticalspeed: float): # init is a constructor of the aircraft class
+        self.callsign = callsign
+        self.actype = actype
+        self.alt = alt
+        self.hdg = hdg
+        self.position = position
+        self.tas = speed
+        self.verticalspeed = verticalspeed
+        self.updateLOCK = Lock()  # lock to ensure thread safety when updating aircraft data
+        
+    def updateAircraftPosition(self, time: float = 1.0): 
+        with self.updateLOCK:
+            speedKMs = (self.speed * nmToKM) / 3600 # converts speed from knots to kilometers per second
+            headingRadians = self.hdg * degreeToRadians  # converts heading from degrees to radians
+            distance = speedKMs * time  # distance = speed x time
+            angularDistance = distance / earthRadiusKM  # angular distance in radians used for calculating new position
+
+            lat1 = self.position.lat * degreeToRadians  # converts latitude from degrees to radians
+            lon1 = self.position.lon * degreeToRadians  # converts longitude from degrees to radians
+            # φ₂ (newlat) = asin(sin(φ₁) * cos(d/R) + cos(φ₁) * sin(d/R) * cos(θ))
+            # λ₂ (newlon) = λ₁ + atan2(sin(θ) * sin(d/R) * cos(φ₁), cos(d/R) − sin(φ₁) * sin(φ₂))
+            newLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))  
+            newLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1),math.cos(angularDistance) - math.sin(lat1) * math.sin(newLat)) 
+
+            self.position.lat = newLat * radianToDegree  # converts latitude back to degrees
+            self.position.lon = newLon * radianToDegree  # converts longitude back to degrees
+            self.alt += self.verticalspeed * (time/60)  # updates altitude based on vertical speed and time
+
+
+    def dataToJsonDictionary(self): # use of abstract data type Dictionary to convert aircraft data to JSON to send to the frontend
+        return {
+            "callsign": self.callsign,
+            "actype": self.actype,
+            "altitude": self.alt,
+            "heading": self.hdg,
+            "lat": self.position.lat,
+            "lon": self.position.lon,
+            "speed": self.tas,
+            "verticalspeed": self.verticalspeed
+        }
 
 
 
