@@ -178,6 +178,48 @@ class simAirspace:
                 
 
                 return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
+    def calculateSpeedRisk(self, aircraft1: Aircraft, aircraft2: Aircraft): # calculates speed risk between two aircraft
+
+        vel1 = self.velocityvector(aircraft1)
+        vel2 = self.velocityvector(aircraft2)
+        # euclidean distance formula 
+        relativeVelocity = math.sqrt((vel1[0] - vel2[0]) ** 2 + (vel1[1] - vel2[1]) ** 2)  # calculates relative velocity between two aircraft
+        normalisedSpeedRisk = relativeVelocity /500 # normalises the speed risk to a value between 0 and 1, 500 is an arbitrary value for normalisation, can be adjusted 
+        return min(normalisedSpeedRisk, 1.0) # returns the minimum of the normalised speed risk and 1.0 to ensure it does not exceed 1.0
+    
+    def bearingTo(self, other: 'Position'):
+        lat1 = degreeToRadians * self.lat  # converts latitude from degrees to radians
+        lon1 = degreeToRadians * self.lon  # converts longitude from degrees to radians
+        lat2 = degreeToRadians * other.lat  # converts latitude from degrees to radians
+        lon2 = degreeToRadians * other.lon  # converts longitude from degrees to radians
+        # θ = atan2( sin Δλ ⋅ cos φ2 , cos φ1 ⋅ sin φ2 − sin φ1 ⋅ cos φ2 ⋅ cos Δλ )
+        dlon = lon2 - lon1  # calculates the difference in longitude
+        x = math.sin(dlon) * math.cos(lat2)  # calculates the x component of the bearing
+        y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)  # calculates the y component of the bearing
+
+        bearing = math.atan2(x, y)  # calculates the bearing in radians
+        return (radianToDegree(bearing) + 360) % 360  # converts bearing to degrees 
+
+    def Converging(self, aircraft1: Aircraft, aircraft2: Aircraft):
+        # checks if two aircraft are converging based on their headings
+        bearing = aircraft1.position.bearingTo(aircraft2.position)  # calculates bearing from aircraft1 to aircraft2 (0-360)
+        relAngle = (aircraft1.heading - bearing + 360) % 360  # calculates relative angle between aircraft1 and aircraft2
+        return abs(relAngle - 180) < 90 # checks if the relative angle is within 90 deg of convergence 
+    
+    
+
+
+    def calculateTimeToCollision(self, aircraft1: Aircraft, aircraft2: Aircraft):
+        if not self.Converging(aircraft1, aircraft2): # checks if the two aircraft are converging
+            return float('inf') # if aircraft are not converging, return infinity as there is no risk of collision (mathimatically, this means they are not on a collision course)
+        
+        currentDistanceKM = aircraft1.position.distancefrom(aircraft2.position)  # calculates current distance between two aircraft
+        closingSpeedKMH = self.getClosingSpeed(aircraft1, aircraft2)  # calculates closing speed between two aircraft in km/h
+
+        if closingSpeedKMH < 0.1: # avoids near-zero division
+            return float('inf')
+        
+        return (currentDistanceKM / closingSpeedKMH) * 60 # returns time to collision in mins
 @application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 2 seconds to reduce server load
 
