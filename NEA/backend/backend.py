@@ -10,6 +10,9 @@ import math
 from math import exp # exp used for exponential calculations
 import time
 import heapq # used for priority queue implementation
+import logging
+
+logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file named collision.log, logs warnings and above (error, critical) to the file
 
 application = Flask(__name__)  # creates flask webserver
 
@@ -24,6 +27,7 @@ degreeToRadians = math.pi / 180.0
 radianToDegree = 180.0 / math.pi
 nmToKM = 1.852 # conversion factor from nautical miles to kilometers
 msToK = 1.94384 # conversion factor from meters per second to knots
+kToKMH = 1.852 # conversion factor from knots to kilometers per hour
 
 class ourAirportsAPI:
   URL = "https://www.ourairports.com/data"
@@ -64,6 +68,19 @@ class Position:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
         return earthRadiusKM * c  # returns distance in kilometers
+    
+    def bearingTo(self, other: 'Position'):
+        lat1 = degreeToRadians * self.lat  # converts latitude from degrees to radians
+        lon1 = degreeToRadians * self.lon  # converts longitude from degrees to radians
+        lat2 = degreeToRadians * other.lat  # converts latitude from degrees to radians
+        lon2 = degreeToRadians * other.lon  # converts longitude from degrees to radians
+        # θ = atan2( sin Δλ ⋅ cos φ2 , cos φ1 ⋅ sin φ2 − sin φ1 ⋅ cos φ2 ⋅ cos Δλ )
+        dlon = lon2 - lon1  # calculates the difference in longitude
+        x = math.sin(dlon) * math.cos(lat2)  # calculates the x component of the bearing
+        y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)  # calculates the y component of the bearing
+
+        bearing = math.atan2(x, y)  # calculates the bearing in radians
+        return (radianToDegree(bearing) + 360) % 360  # converts bearing to degrees 
 
 class Aircraft:
     def __init__(self, callsign: str, actype: str, alt: float, hdg: float, position: Position, speed: float, verticalspeed: float): # init is a constructor of the aircraft class
@@ -78,7 +95,7 @@ class Aircraft:
         
     def updateAircraftPosition(self, time: float = 1.0): 
         with self.updateLOCK:
-            speedKMs = (self.speed * nmToKM) / 3600 # converts speed from knots to kilometers per second
+            speedKMs = (self.tas * nmToKM) / 3600 # converts speed from knots to kilometers per second
             headingRadians = self.hdg * degreeToRadians  # converts heading from degrees to radians
             distance = speedKMs * time  # distance = speed x time
             angularDistance = distance / earthRadiusKM  # angular distance in radians used for calculating new position
@@ -177,7 +194,17 @@ class simAirspace:
                 ))
                 
 
-                return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
+        return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
+            
+    
+    def velocityvector(self, aircraft: Aircraft): # calculates the velocity vector of an aircraft in km/h
+        speedKMs = (aircraft.tas * kToKMH) / 3600  # converts speed from knots to kilometers per second
+        headingRadians = aircraft.hdg * degreeToRadians
+
+        vEast = speedKMs * math.sin(headingRadians)  # calculates eastward velocity component, formula is v = speed * sin(heading) for eastward velocity
+        vNorth = speedKMs * math.cos(headingRadians)  # calculates northward velocity component, formula is v = speed * cos(heading) for northward velocity
+
+        return (vEast, vNorth)  # returns the velocity vector as a tuple (eastward velocity, northward velocity) in km/h
     def calculateSpeedRisk(self, aircraft1: Aircraft, aircraft2: Aircraft): # calculates speed risk between two aircraft
 
         vel1 = self.velocityvector(aircraft1)
@@ -187,23 +214,12 @@ class simAirspace:
         normalisedSpeedRisk = relativeVelocity /500 # normalises the speed risk to a value between 0 and 1, 500 is an arbitrary value for normalisation, can be adjusted 
         return min(normalisedSpeedRisk, 1.0) # returns the minimum of the normalised speed risk and 1.0 to ensure it does not exceed 1.0
     
-    def bearingTo(self, other: 'Position'):
-        lat1 = degreeToRadians * self.lat  # converts latitude from degrees to radians
-        lon1 = degreeToRadians * self.lon  # converts longitude from degrees to radians
-        lat2 = degreeToRadians * other.lat  # converts latitude from degrees to radians
-        lon2 = degreeToRadians * other.lon  # converts longitude from degrees to radians
-        # θ = atan2( sin Δλ ⋅ cos φ2 , cos φ1 ⋅ sin φ2 − sin φ1 ⋅ cos φ2 ⋅ cos Δλ )
-        dlon = lon2 - lon1  # calculates the difference in longitude
-        x = math.sin(dlon) * math.cos(lat2)  # calculates the x component of the bearing
-        y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)  # calculates the y component of the bearing
-
-        bearing = math.atan2(x, y)  # calculates the bearing in radians
-        return (radianToDegree(bearing) + 360) % 360  # converts bearing to degrees 
+    
 
     def Converging(self, aircraft1: Aircraft, aircraft2: Aircraft):
         # checks if two aircraft are converging based on their headings
         bearing = aircraft1.position.bearingTo(aircraft2.position)  # calculates bearing from aircraft1 to aircraft2 (0-360)
-        relAngle = (aircraft1.heading - bearing + 360) % 360  # calculates relative angle between aircraft1 and aircraft2
+        relAngle = (aircraft1.hdg - bearing + 360) % 360  # calculates relative angle between aircraft1 and aircraft2
         return abs(relAngle - 180) < 90 # checks if the relative angle is within 90 deg of convergence 
     
     
@@ -220,6 +236,20 @@ class simAirspace:
             return float('inf')
         
         return (currentDistanceKM / closingSpeedKMH) * 60 # returns time to collision in mins
+    
+    def getClosingSpeed(self, aircraft1: Aircraft, aircraft2: Aircraft): # closing speed is the negative derivative of the distance between two aircraft
+        v1East = aircraft1.tas * math.sin(degreeToRadians * aircraft1.hdg)  # formula is v = speed * sin(heading) for eastward velocity
+        v1North = aircraft1.tas * math.cos(degreeToRadians * aircraft1.hdg) # formula is v = speed * cos(heading) for northward velocity
+
+        v2East = aircraft2.tas * math.sin(degreeToRadians * aircraft2.hdg)
+        v2North = aircraft2.tas * math.cos(degreeToRadians* aircraft2.hdg)
+
+        relativeEast = v1East - v2East  # calculates relative eastward velocity
+        relativeNorth = v1North - v2North # calculates relative northward velocity
+
+        # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
+        return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
+    
 @application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 2 seconds to reduce server load
 
