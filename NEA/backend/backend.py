@@ -1,6 +1,5 @@
+
 from flask import Flask, jsonify  # Flask web framework for building APIs, jsonify for converting python data to JSON
-from bluesky import settings, traffic, navdb  # bluesky flight simulation model used to mimic flight, pip install "bluesky-simulator[full]", docs = 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/' 'https://github.com/TUDelft-CNS-ATM/bluesky/wiki/API-Reference', 'https://github.com/TUDelft-CNS-ATM/bluesky/blob/master/docs/python_demo.ipynb'
-  # NavDatabase for managing navigation data like airports, runways, etc.
 from flask_caching import Cache  # flask caching for caching responses to improve performance, pip install -U flask-caching
 import random as random # used to generate random numbers
 import requests # used to make HTTP requests, pip install requests
@@ -17,41 +16,7 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initializes cache 
 
-simulationTraffic = None  # global variable to hold the traffic object, initially set to None
-def initBluesky():
-    global simulationTraffic
-    try:
-        
-         
-        settings.set_variable_defaults(performance_model ='openap',  wind_model = 'zeros', dt = 1.0)
-        simulationTraffic = traffic.Traffic()  # create a Traffic instance for managing aircraft in the simulation
-        
-        if not hasattr(simulationTraffic, 'ntraf'): # catches ntraf (ntraf is number of aricraft) error
-           raise RuntimeError("Traffic object missing ntraf")
-        
-        # Create test aircraft with error checking
-        # aircraft ID, aircraft type, latitude, longitude, heading, altitude, speed
-        # stack method not data structure
-        simulationTraffic.stack("CRE BAW1 B744 51.4775 -0.4614 0 20000 450")
-        simulationTraffic.stack("CRE UAL2 C172 51.50 -0.50 90 18000 400") 
-        simulationTraffic.process()  # process the stack commands to create aircraft
-        
-        if simulationTraffic.ntraf < 2:  # check if at least 2 aircraft were created
-            raise RuntimeError("created {simulationTraffic.ntraf} aircraft, expected at least 2")
-        
-        # Perform an update to populate aircraft data
-        simulationTraffic.simdt = 1.0
-        simulationTraffic.update()
-        
-        print("BlueSky initialized successfully with 2 aircraft")
-        return True
-        
-    except Exception as e:
-        traceback.print_exc() # prints the stack trace for debugging
-        print(f"BlueSky initialization failed: {str(e)}")
-        simulationTraffic = None
-        return False
- 
+
 class ourAirportsAPI:
   URL = "https://www.ourairports.com/data"
   LOCK = Lock()
@@ -70,29 +35,24 @@ class ourAirportsAPI:
           
 airportAPI = ourAirportsAPI()  # creates an instance of the ourAirportsAPI class to access airport data
 
-print("Initializing Bluesky Simulation")
-if initBluesky():
-    print("Bluesky Simulation initialized successfully")
-else:
-    print("Bluesky Simulation initialization failed")
+
 
 @application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 2 seconds to reduce server load
 
 def get_aircraft(): # executes when /aircraft is accessed
-    global simulationTraffic
-    if simulationTraffic is None:  # checks if the simulationTraffic object is initialized
-        print("Simulation traffic not initialized, initializing now...")
-        if not initBluesky():
-         return jsonify({"error": "Simulation initialization failed"}), 503  # returns error if simulationTraffic is not initialized
+    global traffic
+    if traffic is None:  # checks if the traffic object is initialized
+        return jsonify({"error": "Simulation initialization failed"}), 503  # returns error if traffic is not initialized
+    
     
     try:
-        simulationTraffic.simdt = 1  # sets simulation time step to 1 second
-        simulationTraffic.update()  # updates the simulation traffic to different positions
+        
+        traffic.update()  # updates the simulation traffic to different positions
  
         aircraftdata = []
-        for i in range(simulationTraffic.ntraf):
-            ac = simulationTraffic.aircraft[i]
+        for i in range(traffic.ntraf):
+            ac = traffic.aircraft[i]
             aircraftdata.append({ # retrieves all active aircraft and extracts their id, latitude, longitude, and heading
                 "id": ac.id,
                 "lat": ac.lat,
