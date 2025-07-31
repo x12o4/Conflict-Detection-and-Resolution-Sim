@@ -35,7 +35,7 @@ class ourAirportsAPI:
 
   @cache.memoize(timeout=3600)  # caches the response for 1 hour to reduce server load, memoize is used to cache result, timeout is an hour because airport data rarely changes
 
-  def get_airport(self, icao): 
+  def getAirport(self, icao): 
         try:
             with self.LOCK: # makes sure only one thread can access at a time, used for multiple users requesting the airport data simultaneously
                 url = f"{self.URL}/airports/{icao}/airport.json" # retrieves airport data from ourairports.com API using the ICAO code
@@ -250,39 +250,23 @@ class simAirspace:
         # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
-@application.route('/aircraft') # defines route for bluesky api to retrieve live aircraft data at localhost/aircraft
-@cache.cached(timeout=0.5)  # caches the response for 2 seconds to reduce server load
+
+airspace = simAirspace() # creates an instance of the simAirspace class to manage aircraft data and conflicts
+airspace.addAircraft(Aircraft("BAW1", "B744", 35000, 45, Position(51.4775, -0.4614), 450, 0)) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute
+airspace.addAircraft(Aircraft("UAL2", "B744", 36000, 225, Position(51.50, -0.40), 500, 0))
+@application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
+@cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 
 
-def get_aircraft(): # executes when /aircraft is accessed
-    global traffic
-    if traffic is None:  # checks if the traffic object is initialized
-        return jsonify({"error": "Simulation initialization failed"}), 503  # returns error if traffic is not initialized
-    
-    
-    try:
-        
-        traffic.update()  # updates the simulation traffic to different positions
- 
-        aircraftdata = []
-        for i in range(traffic.ntraf):
-            ac = traffic.aircraft[i]
-            aircraftdata.append({ # retrieves all active aircraft and extracts their id, latitude, longitude, and heading
-                "id": ac.id,
-                "lat": ac.lat,
-                "lon": ac.lon,
-                "heading": ac.hdg, # heading in degrees
-                "altitude": ac.alt, # altitude in feet
-                "speed": getattr(ac, 'tas', 0) # Using getattr as safety
-            })
- 
+def getAircraft(): # executes when /aircraft is accessed
+   try:
+       simAirspace.updateAirspace(1.0)  # updates the airspace with a time step of 1 second
+       return jsonify(simAirspace.getAircraftData())  # returns the aircraft data in JSON format
+   except Exception as e:
+       traceback.print_exc()
+       return jsonify({"error": str(e)}), 500
+       
 
-        return jsonify(aircraftdata)  # returns the aircraft data as JSON 
-    except Exception as e:
-        traceback.print_exc()  # prints the stack trace for debugging
-        return jsonify({"error": str(e)}), 500  # returns error if anything goes wrong
 
-if __name__ == '__main__':
-  application.run(debug= True, port=5000, use_reloader=False) # runs the flask application
 
 
