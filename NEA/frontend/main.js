@@ -47,6 +47,7 @@ map.on('zoomend', () => { // zoomend event is triggered when the zoom level anim
 
 // updates the aircraft positions
 function updateAircraftMarkers(aircraftData){
+    
     aircraftData.forEach(aircraft => {
         const{id, lat,lon,heading} = aircraft;
         if(aircraftMarkers[id]){ // checks for existing aircrafts
@@ -78,7 +79,7 @@ setInterval(() => {
     updateAircraftMarkers([TestMarker]); // update the marker with the new heading
 }, 100) // updates the marker every 100ms
 
-const flaskURL = "http:localhost:5000"
+const flaskURL = "http://localhost:5000"
 
 // async means the function will return a promise
 // fetchAircraftData fetches the aircraft data from the flask server
@@ -93,7 +94,7 @@ async function fetchAircraftData(){
         console.error("Error fetching aircraft data:", error); // logs the error to the console
         return {error:"failed to fetch aircraft data"};// returns an error message
     }
-}
+
 
 async function updateAircraftData(){
     const data = await fetchAircraftData(); // waits to fetch the aircraft data from the flask server
@@ -101,20 +102,30 @@ async function updateAircraftData(){
         console.error(data.error); // logs the error to the console
         return; // exits the function if there is an error
     }
+    const currentaircraftIDs = new Set(data.map(aircraft => aircraft.id)); // tracks the current aircrafts, hashset used for no duplicates and fast lookups
 
-    // clears the existing aircraft markers before updating
-    Object.values(aircraftMarkers).forEach(marker => map.removeLayer(marker));
-    aircraftMarkers = {}; // clears the aircraft markers dictionary
+    // clears the markers that no longer exist before updating
+    Object.keys(aircraftMarkers).forEach(id => {
+        if (!currentAircraftIDs.has(id)) {
+            map.removeLayer(aircraftMarkers[id]);
+            delete aircraftMarkers[id];}});
     
+    // updates/adds markers for the aircraft/aircrafts
     data.forEach(aircraft => {
-        aircraftMarkers[id] = L.marker([aircraft.lat, aircraft.lon], {
-            icon: ScaleIcon(currentZoom), // sets the icon size based on the zoom level
-            rotationAngle: aircraft.heading,
-        }).addTo(map);
-    })
-    .bindPopup("id: " + aircraft.id + "<br>altitude: " + aircraft.altitude).addTo(map); // binds a popup to every aeroplane with their id and altitude
-
-    setInterval(() => { 
-        updateAircraftData(); // repeats the function and updates the aircraft data every 5 seconds
-    }, 2000); // updates the aircraft data every 2 seconds and matches cache timeout
+        if (!aircraftMarkers[aircraft.id]) {
+            aircraftMarkers[aircraft.id] = L.marker([aircraft.lat, aircraft.lon], {
+                icon: ScaleIcon(currentZoom),
+                rotationAngle: aircraft.heading,
+                rotationOrigin: 'center'
+            }).bindPopup(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft`).addTo(map);
+        } else {
+            aircraftMarkers[aircraft.id]
+                .setLatLng([aircraft.lat, aircraft.lon])
+                .setRotationAngle(aircraft.heading);
+        }
+    });
+    
 }
+}
+updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
+setInterval(updateAircraftData, 2000); // updates the aircraft data every 2 seconds
