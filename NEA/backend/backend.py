@@ -12,6 +12,7 @@ import time
 import heapq # used for priority queue implementation
 import logging
 
+# cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file named collision.log, logs warnings and above (error, critical) to the file
 
 application = Flask(__name__)  # creates flask webserver
@@ -47,8 +48,12 @@ class ourAirportsAPI:
           
 airportAPI = ourAirportsAPI()  # creates an instance of the ourAirportsAPI class to access airport data
 class Position:
-    lat: float # latitude in degrees
-    lon: float # longitude in degrees
+
+    def __init__(self, lat: float, lon: float):
+        self.lat = lat
+        self.lon = lon
+        
+    
 
     def distancefrom(self, other: 'Position'):  
         # calculate distance between two aircraft using the haversine formula
@@ -141,6 +146,7 @@ class simAirspace:
                 del self.aircraft[aircraft.callsign]
 
     def updateAirspace(self, time):
+        print(f"\n updating airspace ")
         with self.LOCK:
             for aircraft in self.aircraft.values():
                 aircraft.updateAircraftPosition(time)  # updates the position of each aircraft in the airspace
@@ -252,21 +258,26 @@ class simAirspace:
     
 
 airspace = simAirspace() # creates an instance of the simAirspace class to manage aircraft data and conflicts
-airspace.addAircraft(Aircraft("BAW1", "B744", 35000, 45, Position(51.4775, -0.4614), 450, 0)) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute
-airspace.addAircraft(Aircraft("UAL2", "B744", 36000, 225, Position(51.50, -0.40), 500, 0))
+airspace.addAircraft(Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=Position(51.4775, -0.4614), speed=450, verticalspeed=0)) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute
+airspace.addAircraft(Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=Position(51.50, -0.40), speed=500, verticalspeed=0))
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 
 
+
+
 def getAircraft(): # executes when /aircraft is accessed
    try:
-       simAirspace.updateAirspace(1.0)  # updates the airspace with a time step of 1 second
-       return jsonify(simAirspace.getAircraftData())  # returns the aircraft data in JSON format
+       airspace.updateAirspace(1.0) # updates the airspace with a time step of 1 second
+       return jsonify(airspace.getAircraftData())  # returns the aircraft data in JSON format
    except Exception as e:
        traceback.print_exc()
        return jsonify({"error": str(e)}), 500
        
-
+if __name__ == '__main__':
+    print("Starting Simulation..")
+    
+    application.run(debug=True, port=5000, use_reloader=False)
 
 
 

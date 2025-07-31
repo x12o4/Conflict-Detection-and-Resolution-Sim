@@ -46,38 +46,45 @@ map.on('zoomend', () => { // zoomend event is triggered when the zoom level anim
 });
 
 // updates the aircraft positions
-function updateAircraftMarkers(aircraftData){
+function updateAircraftMarkers(aircraftData) {
+    // Track which aircraft we've processed
+    const processIDs = new Set();
     
     aircraftData.forEach(aircraft => {
-        const{id, lat,lon,heading} = aircraft;
-        if(aircraftMarkers[id]){ // checks for existing aircrafts
-            aircraftMarkers[id].setLatLng([lat, lon]); // updates the marker to its new position
-            aircraftMarkers[id].setRotationAngle(heading); // updates the marker angle to its new heading using leaflet marker rotation
-        } else {
-            // Create new marker
-            aircraftMarkers[id] = L.marker([lat, lon], {
-                icon: ScaleIcon(currentZoom), // sets the icon size based on the zoom level
-                rotationAngle: heading,
-                rotationOrigin: 'center'
-            }).addTo(map);
-        }
-    })
-    
-    
+        processIDs.add(aircraft.id);
         
+        if(aircraftMarkers[aircraft.id]) {
+            // Update every existing marker
+            aircraftMarkers[aircraft.id]
+                .setLatLng([aircraft.lat, aircraft.lon])
+                .setRotationAngle(aircraft.heading)
+                .getPopup()
+                .setContent(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt`); // binds a popup to the marker with the aircraft information
+        } else {
+            // Create a new aircraft marker
+            aircraftMarkers[aircraft.id] = L.marker([aircraft.lat, aircraft.lon], {
+                icon: ScaleIcon(currentZoom),
+                rotationAngle: aircraft.heading,
+                rotationOrigin: 'center'
+            }).bindPopup(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt`)
+              .addTo(map);
+        }
+    });
+    
+    // Remove old markers
+    Object.keys(aircraftMarkers).forEach(id => {
+        if(!processIDs.has(id)) {
+            map.removeLayer(aircraftMarkers[id]);
+            delete aircraftMarkers[id];
+        }
+    });
 }
 
 
 
-let angle = 0;
-const TestMarker = {id: "test", lat: 51.505, lon: -0.09, heading: 0}; // test marker to test the updateAircraftMarkers function
-updateAircraftMarkers([TestMarker]); 
 
-setInterval(() => {
-    angle = (angle + 5) % 360; // add 5 degrees until 360 degrees is reached
-    TestMarker.heading = angle; // set angle to the aircraft heading
-    updateAircraftMarkers([TestMarker]); // update the marker with the new heading
-}, 100) // updates the marker every 100ms
+
+
 
 const flaskURL = "http://localhost:5000"
 
@@ -85,16 +92,28 @@ const flaskURL = "http://localhost:5000"
 // fetchAircraftData fetches the aircraft data from the flask server
 async function fetchAircraftData(){ 
     try{
-        const response = await fetch(flaskURL + "/aircraft"); // fetches the aircraft data from the flask server
+        const response = await fetch("http://localhost:5000/aircraft"); // fetches the aircraft data from the flask server
         if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
-        return await response.json(); // returns the response as json
+        const data = await response.json(); // returns the response as json
+        console.log("aircraft data from server:", data);
+
+        if(!Array.isArray(data)) throw new Error("Expected array but got " + JSON.stringify(data))
+            
+        return data.map(aircraft => ({ // maps the data to the required format
+            id: aircraft.callsign,
+            lat: aircraft.lat,
+            lon: aircraft.lon,
+            heading: aircraft.hdg,
+            altitude: aircraft.alt,
+            speed: aircraft.tas
+        })); 
 
         
     } catch(error){
         console.error("Error fetching aircraft data:", error); // logs the error to the console
-        return {error:"failed to fetch aircraft data"};// returns an error message
+        return [];
     }
-
+}
 
 async function updateAircraftData(){
     const data = await fetchAircraftData(); // waits to fetch the aircraft data from the flask server
@@ -102,7 +121,7 @@ async function updateAircraftData(){
         console.error(data.error); // logs the error to the console
         return; // exits the function if there is an error
     }
-    const currentaircraftIDs = new Set(data.map(aircraft => aircraft.id)); // tracks the current aircrafts, hashset used for no duplicates and fast lookups
+    const currentAircraftIDs = new Set(data.map(aircraft => aircraft.id)); // tracks the current aircrafts, hashset used for no duplicates and fast lookups
 
     // clears the markers that no longer exist before updating
     Object.keys(aircraftMarkers).forEach(id => {
@@ -126,6 +145,12 @@ async function updateAircraftData(){
     });
     
 }
+
+
+function startUpdate(){
+    updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
+    setInterval(updateAircraftData, 2000); // updates the aircraft data every 2 seconds
 }
-updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
-setInterval(updateAircraftData, 2000); // updates the aircraft data every 2 seconds
+
+map.whenReady(startUpdate); // when the map is ready, start updating the aircraft data
+// ensures that the map is fully loaded before starting the update process
