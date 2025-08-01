@@ -13,7 +13,7 @@ import heapq # used for priority queue implementation
 import logging
 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
-logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file named collision.log, logs warnings and above (error, critical) to the file
+logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file, logs warnings and above (error, critical) to the file
 
 application = Flask(__name__)  # creates flask webserver
 
@@ -29,6 +29,7 @@ radianToDegree = 180.0 / math.pi
 nmToKM = 1.852 # conversion factor from nautical miles to kilometers
 msToK = 1.94384 # conversion factor from meters per second to knots
 kToKMH = 1.852 # conversion factor from knots to kilometers per hour
+
 
 class ourAirportsAPI:
   URL = "https://www.ourairports.com/data"
