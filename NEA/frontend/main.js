@@ -21,7 +21,7 @@ const maximumScale = 1.6; // maximum scale factor for the icon size
 let currentZoom = map.getZoom(); // get the current zoom level
 
 function calculateRotation(heading){
-    return (360 - heading + 90) % 360; // converts the heading to a true heading, as Leaflet uses clockwise rotation
+    return heading;// converts the heading to a true heading, as Leaflet uses clockwise rotation
 }
 
 function ScaleIcon(zoom){
