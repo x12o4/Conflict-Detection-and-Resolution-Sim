@@ -12,6 +12,7 @@ import time
 import heapq # used for priority queue implementation
 import logging
 
+
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file, logs warnings and above (error, critical) to the file
 
@@ -23,6 +24,7 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initializes cache 
 
+airportCache = {}; 
 earthRadiusKM = 6378.0 # radius of the Earth in kilometers
 degreeToRadians = math.pi / 180.0
 radianToDegree = 180.0 / math.pi
@@ -31,23 +33,41 @@ msToK = 1.94384 # conversion factor from meters per second to knots
 kToKMH = 1.852 # conversion factor from knots to kilometers per hour
 
 
-class ourAirportsAPI:
-  URL = "https://www.ourairports.com/data"
-  LOCK = Lock()
+def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API#Quick_Start_(60_seconds):_for_Developers/Programmers
+    overpassURL = 'https://overpass-api.de/api/interpreter'
+    overpassQuery = f'[out:json];(nwr[aeroway~"aerodrome|airport"][icao="{icao.upper()}"];);out center;'
+    try:
+        response = requests.get(overpassURL, params={'data': overpassQuery}, timeout=5) # make GET request to overpass
+        if response.status_code == 200: # checks if the request was successful
+            data = response.json() # converts to json
+            for element in data.get('elements', []): # iterate through elements in the response
+                if 'tags' in element: # only process elements with tags (overpass data is stored in tags)
+                    return {
+                        'icao': icao.upper(), # converts ICAO code to uppercase
+                        'name': element['tags'].get('name', 'Unknown Airport'),
+                        'lat': element.get('lat') or element.get('center', {}).get('lat'), # get lat and lon from either node or center
+                        'lon': element.get('lon') or element.get('center', {}).get('lon'),
+                    }
+    except Exception as e:
+        logging.warning(f"Error fetching airport data for {icao}: {str(e)}")
+        return None  # returns None if no data is found or an error occurs
 
-  @cache.memoize(timeout=3600)  # caches the response for 1 hour to reduce server load, memoize is used to cache result, timeout is an hour because airport data rarely changes
+@application.route('/airport/<icao>')  # defines route to retrieve airport data at localhost/airport/ICAO
 
-  def getAirport(self, icao): 
-        try:
-            with self.LOCK: # makes sure only one thread can access at a time, used for multiple users requesting the airport data simultaneously
-                url = f"{self.URL}/airports/{icao}/airport.json" # retrieves airport data from ourairports.com API using the ICAO code
-                response = requests.get(url, timeout=3) # makes a GET request to the API with a timeout of 3 seconds
-                return response.json() if response.status_code == 200 else None # returns 200 if successful, otherwise return None
-        except:
-            print(f"Airport API error")
-            return None # if anything goes wrong, dont crash instead return None
-          
-airportAPI = ourAirportsAPI()  # creates an instance of the ourAirportsAPI class to access airport data
+def fetchAirport(icao):
+    with Lock():
+        if icao in airportCache:
+            return jsonify(airportCache[icao])
+        airportData = overpassAirportAPI(icao)
+        if airportData:
+            airportCache[icao] = airportData
+            return jsonify(airportData)
+    
+    return jsonify({"error": "Airport not found"}), 404  # returns 404 if airport not found or an error occurs
+
+
+
+
 class Position:
 
     def __init__(self, lat: float, lon: float):
@@ -89,7 +109,7 @@ class Position:
         return (radianToDegree(bearing) + 360) % 360  # converts bearing to degrees 
 
 class Aircraft:
-    def __init__(self, callsign: str, actype: str, alt: float, hdg: float, position: Position, speed: float, verticalspeed: float): # init is a constructor of the aircraft class
+    def __init__(self, callsign: str, actype: str, alt: float, hdg: float, position: Position, speed: float, verticalspeed: float, departureICAO: str, arrivalICAO: str): # init is a constructor of the aircraft class, icao is a 4 letter code for recognising an airport
         self.callsign = callsign
         self.actype = actype
         self.alt = alt
@@ -98,6 +118,8 @@ class Aircraft:
         self.tas = speed
         self.verticalspeed = verticalspeed
         self.updateLOCK = Lock()  # lock to ensure thread safety when updating aircraft data
+        self.departureICAO = departureICAO  # ICAO code of the departure airport
+        self.arrivalICAO = arrivalICAO  # ICAO code of the arrival airport
         
     def updateAircraftPosition(self, time: float = 1.0): 
         with self.updateLOCK:
@@ -127,8 +149,12 @@ class Aircraft:
             "lat": self.position.lat,
             "lon": self.position.lon,
             "speed": self.tas,
-            "verticalspeed": self.verticalspeed
+            "verticalspeed": self.verticalspeed,
+            "departureICAO": self.departureICAO,
+            "arrivalICAO": self.arrivalICAO
+
         }
+    
 
 class simAirspace:
 
@@ -259,8 +285,8 @@ class simAirspace:
     
 
 airspace = simAirspace() # creates an instance of the simAirspace class to manage aircraft data and conflicts
-airspace.addAircraft(Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=Position(51.4775, -0.4614), speed=450, verticalspeed=0)) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute
-airspace.addAircraft(Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=Position(51.50, -0.40), speed=500, verticalspeed=0))
+airspace.addAircraft(Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=Position(51.4775, -0.4614), speed=450, verticalspeed= 0, departureICAO="EGLL", arrivalICAO="KJFK")) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute, departure and arrival ICAO codes
+airspace.addAircraft(Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=Position(51.50, -0.40), speed=500, verticalspeed=0, departureICAO="KJFK", arrivalICAO="EGLL")) 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 

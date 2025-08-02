@@ -16,9 +16,49 @@ var AeroplaneIcon = L.icon({
 const aircraftMarkers = {}; // dictionary used to store active aircraft markers
 const defaultIconSize = [12,12]; // default icon size for the aircraft markers, used to scale the icon size based on the zoom level
 const DefaultZoom = 7;
-const minimumScale = 1; // minimum scale factor for the icon size
+const minimumScale = 1.3; // minimum scale factor for the icon size
 const maximumScale = 1.6; // maximum scale factor for the icon size
 let currentZoom = map.getZoom(); // get the current zoom level
+const airportMarkers = {};
+
+
+async function fetchAirport(icao){
+    try{
+        const response = await fetch(`http://localhost:5000/airport/${icao}`); // fetches the airport data from the flask server
+        if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
+        const data = await response.json(); // returns the response as json
+        return data;
+    } catch(error)
+    {
+        console.error("Error occured fetching airport", error); // logs the error to the console
+        return null; // returns null if there is an error
+    }
+        
+}
+
+async function createAirportMarker(icao){
+    if(airportMarkers[icao])
+    {
+        return airportMarkers[icao];
+    }
+    const airport = await fetchAirport(icao); // fetches the airport data from the flask server
+    if(airport && airport.lat && airport.lon){ // checks if the airport data is valid
+        const marker = L.marker([airport.lat, airport.lon], {
+            icon: L.divIcon({
+                className: 'airport',
+                html: `${airport.icao}`,
+                iconSize: [60, 20]
+            })
+        });
+        marker.bindPopup(`ICAO: ${airport.icao}<br>Name: ${airport.name}`);
+        marker.addTo(map);
+        airportMarkers[icao] = marker;  
+        return marker; 
+    }
+    return null; // Return null if airport data is invalid
+}
+
+    
 
 function calculateRotation(heading){
     return heading;// converts the heading to a true heading, as Leaflet uses clockwise rotation
@@ -57,9 +97,11 @@ async function fetchAircraftData(){
             id: aircraft.callsign,
             lat: aircraft.lat,
             lon: aircraft.lon,
-            heading: aircraft.hdg,
-            altitude: aircraft.alt,
-            speed: aircraft.tas
+            heading: aircraft.heading,
+            altitude: aircraft.altitude,
+            speed: aircraft.speed,
+            departureICAO: aircraft.departureICAO,
+            arrivalICAO: aircraft.arrivalICAO
         }));         
     } catch(error){
         console.error("Error fetching aircraft data:", error); // logs the error to the console
@@ -84,8 +126,17 @@ async function updateAircraftData(){
     });
         
     // updates/adds markers for the aircraft/aircrafts
-    data.forEach(aircraft => {
+    for (const aircraft of data) {
         const Rotation = calculateRotation(aircraft.heading);
+        if (aircraft.departureICAO){
+            await createAirportMarker(aircraft.departureICAO);
+        } 
+        if (aircraft.arrivalICAO){
+            await createAirportMarker(aircraft.arrivalICAO);
+        }
+
+        
+        
         if (!aircraftMarkers[aircraft.id]) {
             // create a marker and assign it
             const newMarker = L.marker([aircraft.lat, aircraft.lon], {
@@ -103,7 +154,7 @@ async function updateAircraftData(){
                 .getPopup()
                 .setContent(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt`);
         }
-    });
+    };
 }
 
 function startUpdate(){
