@@ -67,7 +67,7 @@ def fetchAirport(icao):
 
 
 
-
+        
 class Position:
 
     def __init__(self, lat: float, lon: float):
@@ -106,8 +106,34 @@ class Position:
         y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)  # calculates the y component of the bearing
 
         bearing = math.atan2(x, y)  # calculates the bearing in radians
-        return (radianToDegree(bearing) + 360) % 360  # converts bearing to degrees 
+        return (radianToDegree * bearing + 360) % 360  # converts bearing to degrees 
+    
+class Waypoint:
+    def __init__(self, position: Position, name: str = ""):
+        self.position = position
+        self.name = name
 
+class flightPath:
+    def __init__(self, departureAirport: Position, arrivalAirport: Position):
+        self.waypoints = []  # list to store waypoints in the flight path
+        self.currentWaypointIndex = 0 # index of the current waypoint in the flight path
+        self.departureAirport = departureAirport  
+        self.arrivalAirport = arrivalAirport
+        self.generateRoute()
+
+    def generateRoute(self):
+        self.waypoints = [Waypoint(self.departureAirport, "Departure"), Waypoint(self.arrivalAirport, "Arrival")]  # adds departure airport as the first waypoint and arrival airport as the last waypoint in the flight path
+    
+    def getCurWaypoint(self):
+        if self.currentWaypointIndex < len(self.waypoints): # checks if the current waypoint index is within the bounds of the waypoints list
+            return self.waypoints[self.currentWaypointIndex]
+        return None # returns None if the current waypoint index is out of bounds
+
+    def advWaypoint(self):
+        self.currentWaypointIndex += 1 # advances to the next waypoint in the flight path
+
+    def pathIsComplete(self):
+        return self.currentWaypointIndex >= len(self.waypoints)  # checks if the flight path is complete by comparing the current waypoint index with the length of the waypoints list, returns a bool
 class Aircraft:
     def __init__(self, callsign: str, actype: str, alt: float, hdg: float, position: Position, speed: float, verticalspeed: float, departureICAO: str, arrivalICAO: str): # init is a constructor of the aircraft class, icao is a 4 letter code for recognising an airport
         self.callsign = callsign
@@ -120,9 +146,57 @@ class Aircraft:
         self.updateLOCK = Lock()  # lock to ensure thread safety when updating aircraft data
         self.departureICAO = departureICAO  # ICAO code of the departure airport
         self.arrivalICAO = arrivalICAO  # ICAO code of the arrival airport
+        self.flightPath = None # flight path set to none until it is assigned
+        self.targetHeading = hdg  # target heading for the aircraft, used for autopilot and navigation purposes
+        self.waypointTolerance = 5.0 # tolerance in kilometres 
+        self.headingChangeRate = 2.0 # rate of change in heading in degrees, used for smooth changes
+        self.flightStatus = "Departure"  # flight status, can be "Departure", "Enroute","Arriving", "Arrived", etc. used to determine the current phase of flight
+
+    def setFlightPath(self, departurePosition: Position, arrivalPosition: Position):
+        self.flightPath = flightPath(departurePosition, arrivalPosition)
+
+    def navigateWaypoint(self):
+        if not self.flightPath or self.flightPath.pathIsComplete():
+            return
+        curWaypoint = self.flightPath.getCurWaypoint()  # gets the current waypoint in the flight path
+        if not curWaypoint:
+            return
         
+        self.targetHeading = self.position.bearingTo(curWaypoint.position)  # sets the target heading to the bearing to the current waypoint
+        distanceFromWaypoint = self.position.distancefrom(curWaypoint.position)  # calculates the distance from the current waypoint
+
+        if distanceFromWaypoint < self.waypointTolerance:  # checks if the aircrft is within waypoint tolerance
+            print(f"Aircraft {self.callsign} reached waypoint {curWaypoint.name}")
+            self.flightPath.advWaypoint()  # advances to the next waypoint in the flight path
+
+            if self.flightPath.pathIsComplete():  # checks if the flight path is complete
+                self.flightStatus = "Arrived"  # sets the flight status to "Arrival" if the flight path is complete
+                self.tas = 0 # sets the speed of the plane to 0
+                print(f"{self.callsign} has arrived at {self.arrivalICAO} from {self.departureICAO}.")  # prints a message to the console when the aircraft arrives at its destination
+            elif self.flightPath.currentWaypointIndex == len(self.flightPath.waypoints) - 1: # checks if the current waypoint is the last waypoint in the flight path
+                self.flightStatus = "Arriving"
+            else:
+                self.flightStatus = "Enroute"
+    def updateHeading(self, time: float):
+        headingDifference = (self.targetHeading - self.hdg + 360) % 360 # calculates the difference between the target heading and the current heading, ensures it is positive by adding 360 and taking modulo 360
+        if headingDifference > 180:  # checks if greater than 180 degrees
+            headingDifference -= 360  # subtracts 360 to get the shortest path to the target heading
+        maxHeadingChangeRate = self.headingChangeRate * time  # calculates the maximum heading change rate based on the time step
+        if abs(headingDifference) > maxHeadingChangeRate: 
+            if headingDifference > 0:
+                self.hdg = (self.hdg + maxHeadingChangeRate) % 360  # updates the heading by adding the maximum heading change rate, ensures it is within 0-360 degrees
+            else:
+                self.hdg = (self.hdg - maxHeadingChangeRate + 360) % 360 # subtracts instead of adding to ensure it is within 0-360 degrees
+        else:
+            self.hdg = self.targetHeading # set the heading to the target heading if the difference is less than the maximum heading change rate
+
     def updateAircraftPosition(self, time: float = 1.0): 
         with self.updateLOCK:
+            if(self.flightStatus == "Arrived"):
+                return
+            
+            self.navigateWaypoint()  # navigates to the next waypoint in the flight path
+            self.updateHeading(time)
             speedKMs = (self.tas * nmToKM) / 3600 # converts speed from knots to kilometers per second
             headingRadians = self.hdg * degreeToRadians  # converts heading from degrees to radians
             distance = speedKMs * time  # distance = speed x time
@@ -151,7 +225,9 @@ class Aircraft:
             "speed": self.tas,
             "verticalspeed": self.verticalspeed,
             "departureICAO": self.departureICAO,
-            "arrivalICAO": self.arrivalICAO
+            "arrivalICAO": self.arrivalICAO,
+            "flightStatus": self.flightStatus,
+            "targetHeading": self.targetHeading
 
         }
     
@@ -284,9 +360,21 @@ class simAirspace:
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
 
+
+
+        
+        
+
 airspace = simAirspace() # creates an instance of the simAirspace class to manage aircraft data and conflicts
-airspace.addAircraft(Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=Position(51.4775, -0.4614), speed=450, verticalspeed= 0, departureICAO="EGLL", arrivalICAO="KJFK")) #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute, departure and arrival ICAO codes
-airspace.addAircraft(Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=Position(51.50, -0.40), speed=500, verticalspeed=0, departureICAO="KJFK", arrivalICAO="EGLL")) 
+heathrowPosition = Position(51.4775, -0.4614)  # creates a position object for Heathrow Airport
+jfkPosition = Position(40.6413, -73.7781)  # creates a position object for JFK Airport
+
+aircraft1 = Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=heathrowPosition, speed=450, verticalspeed= 0, departureICAO="EGLL", arrivalICAO="KJFK") #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute, departure and arrival ICAO codes
+aircraft2 = Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=jfkPosition, speed=500, verticalspeed=0, departureICAO="KJFK", arrivalICAO="EGLL")
+aircraft1.setFlightPath(heathrowPosition, jfkPosition)  
+aircraft2.setFlightPath(jfkPosition, heathrowPosition)  
+airspace.addAircraft(aircraft1)  # adds aircraft1 to the airspace
+airspace.addAircraft(aircraft2)  # adds aircraft2 to the airspace
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 

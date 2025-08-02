@@ -5003,3 +5003,40 @@ INFO:werkzeug:127.0.0.1 - - [01/Aug/2025 21:20:55] "GET /aircraft HTTP/1.1" 200 
 INFO:werkzeug:127.0.0.1 - - [01/Aug/2025 21:20:57] "GET /aircraft HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [01/Aug/2025 21:20:59] "GET /aircraft HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [01/Aug/2025 21:21:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:11] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:11] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:13] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:15] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:16] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:17] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:18] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:19] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:20] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:21] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:22] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:23] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:24] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:25] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:26] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:27] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:27] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:28] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:29] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:30] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:31] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:32] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:33] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:34] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:35] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:36] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:37] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:38] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:39] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:40] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:41] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:42] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:43] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Aug/2025 17:29:44] "[35m[1mGET /aircraft HTTP/1.1[0m" 500 -
