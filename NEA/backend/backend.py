@@ -13,6 +13,8 @@ import heapq # used for priority queue implementation
 import logging
 
 
+
+
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file, logs warnings and above (error, critical) to the file
 
@@ -249,7 +251,6 @@ class simAirspace:
                 del self.aircraft[aircraft.callsign]
 
     def updateAirspace(self, time):
-        print(f"\n updating airspace ")
         with self.LOCK:
             for aircraft in self.aircraft.values():
                 aircraft.updateAircraftPosition(time)  # updates the position of each aircraft in the airspace
@@ -360,21 +361,97 @@ class simAirspace:
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
 
+def generateRandomAircraft(callsign = None):
+    airportICAOS = [
+        "EGLL",  # london heathrow
+        "KJFK",  # new york JFK  
+        "LFPG",  # paris CDG
+        "EDDF",  # frankfurt
+        "EHAM",  # amsterdam
+        "KLAX",  # los angeles
+        "OMDB",  # dubai
+        "RJTT",  # tokyo haneda
+        "EGKK",  # london gatwick
+        "EDDM",  # munich
+        "LEMD",  # madrid
+        "LIRF",  # rome fiumicino
+        "CYYZ",  # toronto pearson
+        "YSSY",  # sydney
+        "VHHH",  # hong kong
+        "WSSS",  # singapore
+        "ZBAA",  # beijing capital
+        "RKSI",  # seoul incheon
+        "OTHH",  # doha
+        "UUEE"   # moscow sheremetyevo]
+    ]
+    aircraftTypes = [
+        "B744", "B777", "A380", "B737", "A320", "A330", "B787", "A350"
+    ]
+    airlinePrefixes = [ "BAW", "UAL", "AAL", "DLH", "AFR", "KLM", "EZY", "RYR", "SWA", "JBU"] 
 
+    departureICAO = random.choice(airportICAOS)  # randomly selects a departure airport from the list
+    arrivalICAO = random.choice([icao for icao in airportICAOS if icao != departureICAO ])  # randomly selects an arrival airport from the list, makes sure arrival airport cannot be the same as departure airport
+    aircrafttype = random.choice(aircraftTypes)  # randomly selects an aircraft type from the list
+
+    if callsign is None:
+        airline = random.choice(airlinePrefixes)  
+        number = random.randint(100,999)
+        callsign = f"{airline}{number}" # assigns a random callsign
+
+    def getAirportPos(icao):
+        if icao in airportCache:
+            airportData = airportCache[icao]  # retrieves airport data from the cache
+            return Position(airportData['lat'], airportData['lon'])  # returns the position of the airport with lat and long
+        
+        airportData = overpassAirportAPI(icao)  # fetches airport data from the overpass API
+        if airportData and airportData.get('lat') and airportData.get('lon'):  # checks if the airport data is valid
+            airportData[icao] = airportData  # adds the airport data to the cache
+            return Position(airportData['lat'], airportData['lon']) # returns the position of the airport with lat and long
+        
+        print(f"Error fetching data for the airport: {icao}")  # prints an error message if the airport data is not valid
+        return Position(51.4775, 0.4614) # default position is set to heathrow
 
         
-        
+    departurePos = getAirportPos(departureICAO)  # gets the position of the departure airport
+    arrivalPos = getAirportPos(arrivalICAO)  # gets the position of the arrival airport
+    heading = departurePos.bearingTo(arrivalPos) # calculates the bearing from the departure airport to the arrival airport
+    lat = departurePos.lat 
+    lon = departurePos.lon 
+    alt = random.uniform(30000, 42000)
+    speed = random.uniform(450, 550)  # random speed between 450 and 550 knots
+    verticalspeed = random.uniform(-200, 200)  # random vertical speed between -200 and 200 feet per minute
 
-airspace = simAirspace() # creates an instance of the simAirspace class to manage aircraft data and conflicts
-heathrowPosition = Position(51.4775, -0.4614)  # creates a position object for Heathrow Airport
-jfkPosition = Position(40.6413, -73.7781)  # creates a position object for JFK Airport
+    aircraft = Aircraft(
+        callsign=callsign,
+        actype=aircrafttype,
+        alt=alt,
+        hdg=heading,
+        position = Position(lat,lon),
+        speed=speed,
+        verticalspeed= verticalspeed,
+        departureICAO=departureICAO,
+        arrivalICAO=arrivalICAO
 
-aircraft1 = Aircraft(callsign="BAW1", actype="B744", alt=35000, hdg=45, position=heathrowPosition, speed=450, verticalspeed= 0, departureICAO="EGLL", arrivalICAO="KJFK") #  callsign, aircraft type, altitude in feet,  heading in degrees, latitude, longitude, speed in knots, vertical speed in feet per minute, departure and arrival ICAO codes
-aircraft2 = Aircraft(callsign="UAL2", actype="B744", alt=36000, hdg=225, position=jfkPosition, speed=500, verticalspeed=0, departureICAO="KJFK", arrivalICAO="EGLL")
-aircraft1.setFlightPath(heathrowPosition, jfkPosition)  
-aircraft2.setFlightPath(jfkPosition, heathrowPosition)  
-airspace.addAircraft(aircraft1)  # adds aircraft1 to the airspace
-airspace.addAircraft(aircraft2)  # adds aircraft2 to the airspace
+    )
+    aircraft.setFlightPath(departurePos, arrivalPos)  
+    return aircraft
+
+def initialiseAirspace(numAircraft = 10):
+    airspace = simAirspace()  # creates an instance of the simAirspace class to manage aircraft data and conflicts
+    print(f"Creating {numAircraft} random aircraft for the simulation")
+
+    for i in range(numAircraft):
+        try:
+            aircraft = generateRandomAircraft()
+            airspace.addAircraft(aircraft)  # adds the generated aircraft to the airspace
+            print(f"Aircraft {aircraft.callsign} added to the simulation")  # prints when an aircraft is added to the simulation
+        except Exception as e:
+            print(f"Error creating aircraft: {str(e)}") 
+    return airspace
+
+
+airspace = initialiseAirspace(10)  # initializes the airspace with 10 random aircraft
+
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 
@@ -383,7 +460,7 @@ airspace.addAircraft(aircraft2)  # adds aircraft2 to the airspace
 
 def getAircraft(): # executes when /aircraft is accessed
    try:
-       airspace.updateAirspace(1.0) # updates the airspace with a time step of 1 second
+       airspace.updateAirspace(3000) # updates the airspace with a time step of 40 second
        return jsonify(airspace.getAircraftData())  # returns the aircraft data in JSON format
    except Exception as e:
        traceback.print_exc()

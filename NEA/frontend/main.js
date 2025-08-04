@@ -50,7 +50,7 @@ async function createAirportMarker(icao){
                 iconSize: [60, 20]
             })
         });
-        marker.bindPopup(`ICAO: ${airport.icao}<br>Name: ${airport.name}`);
+        marker.bindPopup(`ICAO: ${airport.icao}<br>Name: ${airport.name}`); // binds a popup to the marker with the airport information<br>Altitude:
         marker.addTo(map);
         airportMarkers[icao] = marker;  
         return marker; 
