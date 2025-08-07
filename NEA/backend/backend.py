@@ -11,7 +11,7 @@ from math import exp # exp used for exponential calculations
 import time
 import heapq # used for priority queue implementation
 import logging
-
+from typing import Tuple # used for type hinting
 
 
 
@@ -33,6 +33,10 @@ radianToDegree = 180.0 / math.pi
 nmToKM = 1.852 # conversion factor from nautical miles to kilometers
 msToK = 1.94384 # conversion factor from meters per second to knots
 kToKMH = 1.852 # conversion factor from knots to kilometers per hour
+degreesToMeters = 111320 # conversion factor from degrees to meters
+feetToMeters = 0.3048 # conversion factor from feet to meters
+knotsToMs = 0.514444 # conversion factor from knots to meters per second
+feetPerMinToMS = 0.00508 # conversion factor from feet per minute to meters per second
 
 
 def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API#Quick_Start_(60_seconds):_for_Developers/Programmers
@@ -233,6 +237,87 @@ class Aircraft:
 
         }
     
+class CPA(): # store result of cpa
+    def __init__(self, timeToCollision: float, distanceAtCPA: float, cpaPosition1: Tuple[float,float], cpaPosition2: Tuple[float,float]):
+        self.timeToCollision = timeToCollision
+        self.distanceAtCPA = distanceAtCPA
+        self.cpaPosition1 = cpaPosition1
+        self.cpaPosition2 = cpaPosition2
+
+def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
+    avgLAT = math.radians((aircraft1.position.lat + aircraft2.position.lat) / 2)  # calculates average latitude in radians
+
+    # https://stackoverflow.com/questions/7477003/calculating-new-longitude-latitude-from-old-n-meters
+    x1 = aircraft1.position.lon * math.cos(avgLAT) * degreesToMeters
+    y1 = aircraft1.position.lat * degreesToMeters
+    z1 = aircraft1.alt * feetToMeters
+
+    x2 = aircraft2.position.lon * math.cos(avgLAT) * degreesToMeters
+    y2 = aircraft2.position.lat * degreesToMeters
+    z2 = aircraft2.alt * feetToMeters
+
+    # converts speed from knots to meters per second
+    velocity1toMS = aircraft1.tas * knotsToMs
+    velocity2toMS = aircraft2.tas * knotsToMs
+
+    # formula is v = speed * sin(heading) for eastward velocity and v = speed * cos(heading) for northward velocity and z component is vertical speed in feet per minute converted to meters per second
+    velocity1X = velocity1toMS * math.sin(math.radians(aircraft1.hdg))  # eastward velocity component 
+    velocity1Y = velocity1toMS * math.cos(math.radians(aircraft1.hdg))  # northward velocity component
+    velocity1Z = aircraft1.verticalspeed * feetPerMinToMS
+
+    velocity2X = velocity2toMS * math.sin(math.radians(aircraft2.hdg))  # eastward velocity component
+    velocity2Y = velocity2toMS * math.cos(math.radians(aircraft2.hdg))  # northward velocity component
+    velocity2Z = aircraft2.verticalspeed * feetPerMinToMS
+
+    # calculate relative position and velocity vectors, Vab = Va - Vb
+
+    dx = x1 - x2  # difference in x coordinates
+    dy = y1 - y2  # difference in y coordinates
+    dz = z1 - z2  # difference in z coordinates
+
+    dvx = velocity1X - velocity2X  # difference in eastward velocity components
+    dvy = velocity1Y - velocity2Y  # difference in northward velocity components
+    dvz = velocity1Z - velocity2Z  # difference in vertical velocity components
+
+    # t_cpa = -(dr · dv) / |dv|²
+    # https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/dot-products-mvc
+    drDotDv = dx * dvx + dy * dvy + dz * dvz  # dot product of position and velocity vectors
+    dvSquared = dvx * dvx + dvy * dvy + dvz * dvz  # squared magnitude of the velocity vector
+
+
+    if(abs(dvSquared) < 1e-6): # if the relative velocity is near 0, the aircraft are moving parallel, i used 1e-6 as a threshold to avoid division by zero
+        return None
+
+    timeToCPA = -drDotDv / dvSquared  
+
+    if timeToCPA < 0:  # if time to CPA is negative, the aircraft are moving away from each other
+        return None
+
+    x1atCPA = x1 + velocity1X * timeToCPA  # calculates x coordinate of aircraft 1 at CPA
+    y1atCPA = y1 + velocity1Y * timeToCPA  # calculates y coordinate of aircraft 1 at CPA
+    z1atCPA = z1 + velocity1Z * timeToCPA  # calculates z coordinate of aircraft 1 at CPA
+
+    x2atCPA = x2 + velocity2X * timeToCPA  # calculates x coordinate of aircraft 2 at CPA
+    y2atCPA = y2 + velocity2Y * timeToCPA  # calculates y coordinate of aircraft 2 at CPA
+    z2atCPA = z2 + velocity2Z * timeToCPA  # calculates z coordinate of aircraft 2 at CPA
+
+   #https://en.wikipedia.org/wiki/Euclidean_distance
+   # d(p,q) = sqrt((x2 - x1)² + (y2 - y1)² + (z2 - z1)²)
+    distanceAtCPA = math.sqrt((x1atCPA - x2atCPA) ** 2 + (y1atCPA - y2atCPA) ** 2 + (z1atCPA - z2atCPA) ** 2)  # calculates distance between aircraft at CPA
+    
+    lat1atCPA = y1atCPA / degreesToMeters  # converts y coordinate back to latitude
+    lon1atCPA = x1atCPA / (degreesToMeters * math.cos(avgLAT)) # converts x coordinate back to longitude
+    alt1atCPA = z1atCPA / feetToMeters  # converts z coordinate back to altitude in feet
+    lat2atCPA = y2atCPA / degreesToMeters  # converts y coordinate back to latitude
+    lon2atCPA = x2atCPA / (degreesToMeters * math.cos(avgLAT))  # converts x coordinate back to longitude
+    alt2atCPA = z2atCPA / feetToMeters  # converts z coordinate back to altitude in feet
+
+    return CPA(timeToCollision=timeToCPA, distanceAtCPA=distanceAtCPA,cpaPosition1=(lat1atCPA, lon1atCPA, alt1atCPA), cpaPosition2=(lat2atCPA, lon2atCPA, alt2atCPA))  # returns a CPA object with time to collision, distance to collision and positions of aircraft at CPA
+
+
+
+
+        
 
 class simAirspace:
 
@@ -263,7 +348,7 @@ class simAirspace:
 
     # priority queue implementation
     def DetectConflicts(self,  minimumSeperationDistanceKM: float = nmToKM * 5,
-     minimumAltitudeDifferenceFT: float = 1000.0):
+     minimumAltitudeDifferenceFT: float = 1000.0, lookaheadTime: float = 15): # looks 15 mins ahead for conflicts 
 
      conflict = [] # list to store conflicts
      aircraftList = list(self.aircraft.values())  # converts the dictionary of aircraft to a list 
@@ -275,37 +360,67 @@ class simAirspace:
             # compares each aircraft with every other aircraft to find conflicts
             aircraft1 = aircraftList[i] #
             aircraft2 = aircraftList[j]
-            distanceKM = aircraft1.position.distancefrom(aircraft2.position) # calculates distance between two aircraft using the distancefrom subroutine in Position class     
-            altitudeDifferenceFT = abs(aircraft1.alt - aircraft2.alt) # calculates altitude difference between two aircraft, abs used to get the absolute value
 
+            if aircraft1.flightStatus == "Arrived" or aircraft2.flightStatus == "Arrived": # checks if either aircraft has arrived at its destination
+                continue  
+
+            cpa = calculateCPA(aircraft1, aircraft2)  # calculates the closest point of approach (CPA) between the two aircraft
+
+            if cpa is None:  # if CPA is None, the aircraft are not on a collision course
+                continue  # skip to the next pair of aircraft
+
+            if cpa.timeToCollision > lookaheadTime * 60:  # check if the time to collision is greater than the lookahead time in seconds
+                continue  
+            
+            horizontalViolation = cpa.distanceAtCPA< minimumSeperationDistanceKM  # checks if the distance at CPA is less than the minimum separation distance
+            altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])  # calculates the altitude difference at CPA
+            verticalViolation = altitudeDifferenceAtCPA < minimumAltitudeDifferenceFT  # checks if the altitude difference at CPA is less than the minimum altitude difference
+            
             # checks if the distance and altitude difference are below the minimum standard for aeroplanes by ICAO standards
-            if distanceKM < minimumSeperationDistanceKM and altitudeDifferenceFT < minimumAltitudeDifferenceFT:
+            if horizontalViolation and verticalViolation:
                 # used to determine the place in the priority queue, the closer to 1 means the higher the risk of colliding
-                horizontalRisk = 1 - (distanceKM / minimumSeperationDistanceKM)
-                verticalRisk = 1 - (altitudeDifferenceFT / minimumAltitudeDifferenceFT)
+                currDistance = aircraft1.position.distancefrom(aircraft2.position)
+                currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
+
+                # # normalises the risk to a value between 0 and 1, 1 being the highest risk
+                horizontalRisk = max(0, 1 - (cpa.distanceAtCPA / minimumSeperationDistanceKM))  
+                verticalRisk = max(0, 1-(altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT))  
+                timeRisk = max(0, 1 - (cpa.timeToCollision / (lookaheadTime * 60)))
 
                 # placeholders until the actual function is implemented
                 speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
-                timeToCollision = self.calculateTimeToCollision(aircraft1, aircraft2) 
 
                 # risk score ranging from 0 to 1, used to determine the place in the priority queue
-                riskScore = 0.4 * horizontalRisk + 0.4 * verticalRisk + 0.2 * speedRisk * 0.1 * (1 / (1 + exp(timeToCollision)))
+                riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
                 
-
-                heapq.heappush(conflict, ( 
-                -riskScore, { # -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
-                "aircraft1": aircraft1.callsign,
-                "aircraft2": aircraft2.callsign,
-                "distanceKM": distanceKM,
-                "altitudeDifferenceFT": altitudeDifferenceFT,
-                "riskScore": riskScore,
-                "timeToCollision": timeToCollision
+                conflictInfo = {
+                    "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
+                    "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
+                    "currentDistanceKM": round(currDistance, 2),
+                    "currentAltitudeDiffFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
+                    "timeToCollisionMins": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
+                    "distanceAtCPAKM": round(cpa.distanceAtCPA, 2),  # distance at CPA in kilometers
+                    "altitudeDiffCpaFT": round(altitudeDifferenceAtCPA, 0),  # altitude difference at CPA in feet   
+                    "riskScore": round(riskScore, 3),  # risk score ranging from 0 to 1
+                    "cpaPosition1": {
+                        "lat": round(cpa.cpaPosition1[0], 6),
+                        "lon": round(cpa.cpaPosition1[1], 6),
+                        "alt": round(cpa.cpaPosition1[2], 0)
+                    },
+                    "cpaPosition2": {
+                        "lat": round(cpa.cpaPosition2[0], 6),
+                        "lon": round(cpa.cpaPosition2[1], 6),
+                        "alt": round(cpa.cpaPosition2[2], 0)
                     }
-                ))
+
+
+                }
+                heapq.heappush(conflict, (-riskScore, conflictInfo))# -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
+                
                 
 
-        return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
-            
+     return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
+                
     
     def velocityvector(self, aircraft: Aircraft): # calculates the velocity vector of an aircraft in km/h
         speedKMs = (aircraft.tas * kToKMH) / 3600  # converts speed from knots to kilometers per second
@@ -405,7 +520,7 @@ def generateRandomAircraft(callsign = None):
         
         airportData = overpassAirportAPI(icao)  # fetches airport data from the overpass API
         if airportData and airportData.get('lat') and airportData.get('lon'):  # checks if the airport data is valid
-            airportData[icao] = airportData  # adds the airport data to the cache
+            airportCache[icao] = airportData  # adds the airport data to the cache
             return Position(airportData['lat'], airportData['lon']) # returns the position of the airport with lat and long
         
         print(f"Error fetching data for the airport: {icao}")  # prints an error message if the airport data is not valid
@@ -450,21 +565,36 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(10)  # initializes the airspace with 10 random aircraft
+airspace = initialiseAirspace(40)  # this controls how many aircraft are created
+
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
-
-
-
-
 def getAircraft(): # executes when /aircraft is accessed
    try:
-       airspace.updateAirspace(3000) # updates the airspace with a time step of 40 second
+       airspace.updateAirspace(5) # updates the airspace with a time step of 5 second
        return jsonify(airspace.getAircraftData())  # returns the aircraft data in JSON format
    except Exception as e:
        traceback.print_exc()
        return jsonify({"error": str(e)}), 500
+   
+@application.route('/conflicts') # defines route to retrieve live aircraft data at localhost/aircraft
+def getConflicts():
+    try:
+        airspace.updateAirspace(1) # for faster checks
+        conflicts = airspace.DetectConflicts(
+                minimumSeperationDistanceKM=nmToKM * 5,  # 5 NM 
+                minimumAltitudeDifferenceFT=1000.0,      # 1000 ft 
+                lookaheadTime=15.0                 # 15 minutes lookahead 
+            )
+        print("current conflicts: ", conflicts)  # prints the current conflicts to the console
+        return jsonify(conflicts)  # returns the conflicts in JSON format
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+
        
 if __name__ == '__main__':
     print("Starting Simulation..")

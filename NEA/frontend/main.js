@@ -1,4 +1,5 @@
 // init map
+console.log("main.js loaded");
 var map = L.map('map').setView([51.505, -0.09], 3);
 
 // Create tile layer with openstreetmap 
@@ -8,11 +9,12 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var AeroplaneIcon = L.icon({
-    iconUrl: 'ICONS/airplane.svg', // sets image for the aeroplane
+    iconUrl: '/NEA/frontend/ICONS/airplane.svg', // sets image for the aeroplane
     iconSize: [30, 30], // size of the icon
     iconAnchor: [15, 15] // centers the icon on long, lat coordinates.
 })
 
+let conflictMarkers = {}; // dictionary used to store active conflict markers
 const aircraftMarkers = {}; // dictionary used to store active aircraft markers
 const defaultIconSize = [12,12]; // default icon size for the aircraft markers, used to scale the icon size based on the zoom level
 const DefaultZoom = 7;
@@ -87,6 +89,7 @@ map.on('zoomend', () => { // zoomend event is triggered when the zoom level anim
 // fetchAircraftData fetches the aircraft data from the flask server
 async function fetchAircraftData(){
     try{
+        
         const response = await fetch("http://localhost:5000/aircraft"); // fetches the aircraft data from the flask server
         if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
         const data = await response.json(); // returns the response as json
@@ -107,6 +110,50 @@ async function fetchAircraftData(){
         console.error("Error fetching aircraft data:", error); // logs the error to the console
         return [];
     }
+}
+
+function calculateMidpoint(latlng1, latlng2) {
+    return L.latLng(
+        // x2 + x1 / 2, y2 + y1 / 2
+        (latlng1.lat + latlng2.lat) / 2,
+        (latlng1.lng + latlng2.lng) / 2
+    )
+}
+
+async function displayConflicts(){
+    try{
+        const response = await fetch("http://localhost:5000/conflicts"); // fetches the conflicts data from the flask server
+        if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); 
+        const conflicts = await response.json(); 
+        console.log("conflicts data from flask:", conflicts); 
+
+
+        Object.values(conflictMarkers).forEach(marker => map.removeLayer(marker)); // clear previous conflict markers
+        conflictMarkers = {}; // clears the conflict markers dictionary
+
+        conflicts.forEach(conflict => {
+            const aircraft1 = aircraftMarkers[conflict.aircraft1];
+            const aircraft2 = aircraftMarkers[conflict.aircraft2];
+            if(aircraft1 && aircraft2){
+                const midpoint = calculateMidpoint(aircraft1.getLatLng(),  aircraft2.getLatLng());
+            
+            
+                let conflictMarker = L.marker(midpoint, {
+                    icon: L.divIcon({
+                        className: 'conflict',
+                        html: `&#9888;`,
+                        iconSize: [40, 40] 
+                    })
+                 }).bindPopup(`Conflict between ${conflict.aircraft1} and ${conflict.aircraft2}<br>Distance: ${conflict.distanceKM.toFixed(2)}m<br>Altitude difference: ${conflict.altitudeDifferenceFT.toFixed(0)}ft<br>Risk Score: ${(conflict.riskScore * 100).toFixed(0)}<br>Time till collision: ${conflict.timeToCollision.toFixed(2)} mins`).addTo(map); // binds a popup to the marker with the conflict information
+                conflictMarkers[`${conflict.aircraft1}-${conflict.aircraft2}`] = conflictMarker; // adds the conflict marker to the conflict markers dictionary
+        }
+    });
+}   catch (error) {
+        console.error("Error fetching conflicts data:", error); // logs the error to the console
+        return; // exits the function if there is an error
+}
+
+    
 }
 
 async function updateAircraftData(){
@@ -159,7 +206,9 @@ async function updateAircraftData(){
 
 function startUpdate(){
     updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
+    displayConflicts(); // calls the displayConflicts function to fetch and display the conflicts data
     setInterval(updateAircraftData, 2000); // updates the aircraft data every 2 seconds
+    setInterval(displayConflicts, 2000); // updates the conflicts data every 2 seconds
 }
 
 map.whenReady(startUpdate); // when the map is ready, start updating the aircraft data
