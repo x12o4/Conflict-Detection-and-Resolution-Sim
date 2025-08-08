@@ -1,7 +1,7 @@
 
 from flask import Flask, jsonify  # Flask web framework for building APIs, jsonify for converting python data to JSON
 from flask_caching import Cache  # flask caching for caching responses to improve performance, pip install -U flask-caching
-import random as random # used to generate random numbers
+import random
 import requests # used to make HTTP requests, pip install requests
 from threading import Lock # used to handle multiple requests simultaneously without conflicts, so that a request has to finish before another is made
 import traceback # used for more detailed debugging
@@ -279,16 +279,23 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
     dvy = velocity1Y - velocity2Y  # difference in northward velocity components
     dvz = velocity1Z - velocity2Z  # difference in vertical velocity components
 
+    altitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
+    currDistance = math.sqrt(dx * dx + dy * dy + dz * dz)  # calculates current distance between aircraft using Euclidean distance formula
+
+    # check for conflict immediately
+    if currDistance < 5000 and altitudeDifference < 1000:
+        return CPA(timeToCollision=0,distanceAtCPA=currDistance/1000, cpaPosition1=(aircraft1.position.lat, aircraft1.position.lon, aircraft1.alt), cpaPosition2=(aircraft2.position.lat, aircraft2.position.lon, aircraft2.alt))  
+        
     # t_cpa = -(dr · dv) / |dv|²
     # https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/dot-products-mvc
     drDotDv = dx * dvx + dy * dvy + dz * dvz  # dot product of position and velocity vectors
     dvSquared = dvx * dvx + dvy * dvy + dvz * dvz  # squared magnitude of the velocity vector
 
 
-    if(abs(dvSquared) < 1e-6): # if the relative velocity is near 0, the aircraft are moving parallel, i used 1e-6 as a threshold to avoid division by zero
-        return None
+    if(abs(dvSquared) < 1e-6): #i used 1e-6 as a threshold to avoid division by zero
+        return None # if squared magnitude of the velocity vector is small
 
-    timeToCPA = -drDotDv / dvSquared  
+    timeToCPA = -(drDotDv) / dvSquared  
 
     if timeToCPA < 0:  # if time to CPA is negative, the aircraft are moving away from each other
         return None
@@ -312,7 +319,11 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
     lon2atCPA = x2atCPA / (degreesToMeters * math.cos(avgLAT))  # converts x coordinate back to longitude
     alt2atCPA = z2atCPA / feetToMeters  # converts z coordinate back to altitude in feet
 
-    return CPA(timeToCollision=timeToCPA, distanceAtCPA=distanceAtCPA,cpaPosition1=(lat1atCPA, lon1atCPA, alt1atCPA), cpaPosition2=(lat2atCPA, lon2atCPA, alt2atCPA))  # returns a CPA object with time to collision, distance to collision and positions of aircraft at CPA
+    
+    
+    return CPA(timeToCollision=timeToCPA, distanceAtCPA=distanceAtCPA / 1000,cpaPosition1=(lat1atCPA, lon1atCPA, alt1atCPA), cpaPosition2=(lat2atCPA, lon2atCPA, alt2atCPA))  # returns a CPA object with time to collision, distance to collision and positions of aircraft at CPA
+
+    
 
 
 
@@ -347,40 +358,52 @@ class simAirspace:
      # minimum altitude difference in feet, set to 1000 feet
 
     # priority queue implementation
-    def DetectConflicts(self,  minimumSeperationDistanceKM: float = nmToKM * 5,
-     minimumAltitudeDifferenceFT: float = 1000.0, lookaheadTime: float = 15): # looks 15 mins ahead for conflicts 
+    def DetectConflicts(self, minimumSeperationDistanceKM: float = nmToKM * 1,
+                    minimumAltitudeDifferenceFT: float = 500, lookaheadTime: float = 5):  # looks 15 mins ahead for conflicts 
 
-     conflict = [] # list to store conflicts
-     aircraftList = list(self.aircraft.values())  # converts the dictionary of aircraft to a list 
+        conflictHeap = []  # list to store current conflicts
+        aircraftList = list(self.aircraft.values())  # converts the dictionary of aircraft to a list 
 
     # use of 2 for loops means the function becomes O(N^2) in time complexity, n being the number of aircraft in the airspace
     # might need to be optimised if the number of aircraft increases 
-     for i in range(len(aircraftList)): 
-        for j in range(i + 1, len(aircraftList)): # iterate through the aircraft list, starting from the next aircraft to avoid comparing the same aircraft with itself
+        for i in range(len(aircraftList)): 
+            for j in range(i + 1, len(aircraftList)):  # iterate through the aircraft list, starting from the next aircraft to avoid comparing the same aircraft with itself
             # compares each aircraft with every other aircraft to find conflicts
-            aircraft1 = aircraftList[i] #
-            aircraft2 = aircraftList[j]
+                aircraft1 = aircraftList[i] 
+                aircraft2 = aircraftList[j]
 
-            if aircraft1.flightStatus == "Arrived" or aircraft2.flightStatus == "Arrived": # checks if either aircraft has arrived at its destination
-                continue  
+                if aircraft1.flightStatus == "Arrived" or aircraft2.flightStatus == "Arrived":  # checks if either aircraft has arrived at its destination
+                    continue  
 
-            cpa = calculateCPA(aircraft1, aircraft2)  # calculates the closest point of approach (CPA) between the two aircraft
+                cpa = calculateCPA(aircraft1, aircraft2)  # calculates the closest point of approach (CPA) between the two aircraft
 
-            if cpa is None:  # if CPA is None, the aircraft are not on a collision course
-                continue  # skip to the next pair of aircraft
+                if cpa is None:  # if CPA is None, the aircraft are not on a collision course
+                    continue  # skip to the next pair of aircraft
 
-            if cpa.timeToCollision > lookaheadTime * 60:  # check if the time to collision is greater than the lookahead time in seconds
-                continue  
+                if cpa.timeToCollision <= 60 or cpa.distanceAtCPA < 1.0:  # 1 minute or 1km
+                # for immediate conflicts add to a seperate list
+                    heapq.heappush(conflictHeap,(-1.0, {  # -1.0 highest priority
+                        "aircraft1": aircraft1.callsign,
+                        "aircraft2": aircraft2.callsign,
+                        "timeToCPA": cpa.timeToCollision,
+                        "distanceAtCPA": cpa.distanceAtCPA,
+                        "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
+                        "riskScore": 1.0  #  max risk
+                }))
+                    continue  # skip to the next pair of aircraft
+
+                if cpa.timeToCollision > lookaheadTime * 60:  # check if the time to collision is greater than the lookahead time in seconds
+                    continue  
             
-            horizontalViolation = cpa.distanceAtCPA< minimumSeperationDistanceKM  # checks if the distance at CPA is less than the minimum separation distance
-            altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])  # calculates the altitude difference at CPA
-            verticalViolation = altitudeDifferenceAtCPA < minimumAltitudeDifferenceFT  # checks if the altitude difference at CPA is less than the minimum altitude difference
+                horizontalViolation = cpa.distanceAtCPA < minimumSeperationDistanceKM  # checks if the distance at CPA is less than the minimum separation distance
+                altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])  # calculates the altitude difference at CPA
+                verticalViolation = altitudeDifferenceAtCPA < minimumAltitudeDifferenceFT  # checks if the altitude difference at CPA is less than the minimum altitude difference
             
             # checks if the distance and altitude difference are below the minimum standard for aeroplanes by ICAO standards
-            if horizontalViolation and verticalViolation:
+                if horizontalViolation and verticalViolation:
                 # used to determine the place in the priority queue, the closer to 1 means the higher the risk of colliding
-                currDistance = aircraft1.position.distancefrom(aircraft2.position)
-                currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
+                    currDistance = aircraft1.position.distancefrom(aircraft2.position)
+                    currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
 
                 # # normalises the risk to a value between 0 and 1, 1 being the highest risk
                 horizontalRisk = max(0, 1 - (cpa.distanceAtCPA / minimumSeperationDistanceKM))  
@@ -392,8 +415,8 @@ class simAirspace:
 
                 # risk score ranging from 0 to 1, used to determine the place in the priority queue
                 riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
-                
-                conflictInfo = {
+                #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
+                heapq.heappush(conflictHeap, (-riskScore,   {
                     "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
                     "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
                     "currentDistanceKM": round(currDistance, 2),
@@ -414,12 +437,17 @@ class simAirspace:
                     }
 
 
-                }
-                heapq.heappush(conflict, (-riskScore, conflictInfo))# -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
+                }))
+                
+        conflict = []
+        while conflictHeap:  # ensures the conflicts are returned in descending order of risk
+            conflict.append(heapq.heappop(conflictHeap)[1])  # adds all current conflicts to the conflict list
+        return conflict
+                
                 
                 
 
-     return [item[1] for item in heapq.nsmallest(len(conflict),conflict)] # returns conflicts sorted by risk score,  heapq.nsmallest(len(conflict),conflict)] returns items ordered asc, which because of the negative risk scores it # means the highest risk score is first, so we return the first item in the list, item[1] returns the second element in the tuple which is the dictionary 
+     
                 
     
     def velocityvector(self, aircraft: Aircraft): # calculates the velocity vector of an aircraft in km/h
@@ -584,15 +612,14 @@ def getConflicts():
         airspace.updateAirspace(1) # for faster checks
         conflicts = airspace.DetectConflicts(
                 minimumSeperationDistanceKM=nmToKM * 5,  # 5 NM 
-                minimumAltitudeDifferenceFT=1000.0,      # 1000 ft 
-                lookaheadTime=15.0                 # 15 minutes lookahead 
+                minimumAltitudeDifferenceFT=1000,      # 1000 ft 
+                lookaheadTime=15.0                # 15 minutes lookahead 
             )
         print("current conflicts: ", conflicts)  # prints the current conflicts to the console
         return jsonify(conflicts)  # returns the conflicts in JSON format
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
-
 
 
        
