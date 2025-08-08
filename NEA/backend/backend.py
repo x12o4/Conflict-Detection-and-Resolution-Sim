@@ -14,7 +14,7 @@ import logging
 from typing import Tuple # used for type hinting
 
 
-
+# using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file, logs warnings and above (error, critical) to the file
 
@@ -336,6 +336,7 @@ class simAirspace:
         self.aircraft: dict[str, Aircraft] = {}  # dictionary to store aircraft objects with callsign as key
         self.LOCK = Lock()  # lock to ensure thread safety when updating aircraft data
         self.startTime = time.time()  # records the start time of the simulation
+        self.conflictCounter = 0
 
     def addAircraft(self, aircraft: Aircraft):
         with self.LOCK:
@@ -382,7 +383,8 @@ class simAirspace:
 
                 if cpa.timeToCollision <= 60 or cpa.distanceAtCPA < 1.0:  # 1 minute or 1km
                 # for immediate conflicts add to a seperate list
-                    heapq.heappush(conflictHeap,(-1.0, {  # -1.0 highest priority
+                    self.conflictCounter += 1  
+                    heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {  # -1.0 highest priority
                         "aircraft1": aircraft1.callsign,
                         "aircraft2": aircraft2.callsign,
                         "timeToCPA": cpa.timeToCollision,
@@ -406,42 +408,43 @@ class simAirspace:
                     currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
 
                 # # normalises the risk to a value between 0 and 1, 1 being the highest risk
-                horizontalRisk = max(0, 1 - (cpa.distanceAtCPA / minimumSeperationDistanceKM))  
-                verticalRisk = max(0, 1-(altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT))  
-                timeRisk = max(0, 1 - (cpa.timeToCollision / (lookaheadTime * 60)))
+                    horizontalRisk = max(0, 1 - (cpa.distanceAtCPA / minimumSeperationDistanceKM))  
+                    verticalRisk = max(0, 1-(altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT))  
+                    timeRisk = max(0, 1 - (cpa.timeToCollision / (lookaheadTime * 60)))
 
                 # placeholders until the actual function is implemented
-                speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
+                    speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
 
                 # risk score ranging from 0 to 1, used to determine the place in the priority queue
-                riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
+                    riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
+                    self.conflictCounter += 1  
                 #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
-                heapq.heappush(conflictHeap, (-riskScore,   {
-                    "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
-                    "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
-                    "currentDistanceKM": round(currDistance, 2),
-                    "currentAltitudeDiffFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
-                    "timeToCollisionMins": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
-                    "distanceAtCPAKM": round(cpa.distanceAtCPA, 2),  # distance at CPA in kilometers
-                    "altitudeDiffCpaFT": round(altitudeDifferenceAtCPA, 0),  # altitude difference at CPA in feet   
-                    "riskScore": round(riskScore, 3),  # risk score ranging from 0 to 1
-                    "cpaPosition1": {
-                        "lat": round(cpa.cpaPosition1[0], 6),
-                        "lon": round(cpa.cpaPosition1[1], 6),
-                        "alt": round(cpa.cpaPosition1[2], 0)
-                    },
-                    "cpaPosition2": {
-                        "lat": round(cpa.cpaPosition2[0], 6),
-                        "lon": round(cpa.cpaPosition2[1], 6),
-                        "alt": round(cpa.cpaPosition2[2], 0)
-                    }
+                    heapq.heappush(conflictHeap, (-riskScore, self.conflictCounter,   {
+                        "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
+                        "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
+                        "currentDistanceKM": round(currDistance, 2),
+                        "currentAltitudeDiffFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
+                        "timeToCollisionMins": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
+                        "distanceAtCPAKM": round(cpa.distanceAtCPA, 2),  # distance at CPA in kilometers
+                        "altitudeDiffCpaFT": round(altitudeDifferenceAtCPA, 0),  # altitude difference at CPA in feet   
+                        "riskScore": round(riskScore, 3),  # risk score ranging from 0 to 1
+                        "cpaPosition1": {
+                            "lat": round(cpa.cpaPosition1[0], 6),
+                            "lon": round(cpa.cpaPosition1[1], 6),
+                            "alt": round(cpa.cpaPosition1[2], 0)
+                        },
+                        "cpaPosition2": {
+                            "lat": round(cpa.cpaPosition2[0], 6),
+                            "lon": round(cpa.cpaPosition2[1], 6),
+                            "alt": round(cpa.cpaPosition2[2], 0)
+                        }
 
 
-                }))
+                    }))
                 
         conflict = []
         while conflictHeap:  # ensures the conflicts are returned in descending order of risk
-            conflict.append(heapq.heappop(conflictHeap)[1])  # adds all current conflicts to the conflict list
+            conflict.append(heapq.heappop(conflictHeap)[2])  # adds all current conflicts to the conflict list, [2] extracts the third element (conflict dictionary)
         return conflict
                 
                 
