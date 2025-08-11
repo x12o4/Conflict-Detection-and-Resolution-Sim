@@ -11,8 +11,8 @@ from math import exp # exp used for exponential calculations
 import time
 import heapq # used for priority queue implementation
 import logging
-from typing import Tuple # used for type hinting
-
+from typing import Tuple, Optional # used for type hinting
+from dataclasses import dataclass, field
 
 # using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
@@ -37,8 +37,13 @@ degreesToMeters = 111320 # conversion factor from degrees to meters
 feetToMeters = 0.3048 # conversion factor from feet to meters
 knotsToMs = 0.514444 # conversion factor from knots to meters per second
 feetPerMinToMS = 0.00508 # conversion factor from feet per minute to meters per second
+feetToKM = 0.0003048 # conversion factor from feet to kilometers
 
 
+
+
+
+        
 def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API#Quick_Start_(60_seconds):_for_Developers/Programmers
     overpassURL = 'https://overpass-api.de/api/interpreter'
     overpassQuery = f'[out:json];(nwr[aeroway~"aerodrome|airport"][icao="{icao.upper()}"];);out center;'
@@ -506,6 +511,102 @@ class simAirspace:
         # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
+
+class aStarNode: # node for a star
+    position: Position
+    altitude: float
+    gCost: float = float('inf') # cost from start to current node
+    hCost: float = float('inf') # heuristic cost from current node to goal
+    fCost: float = field(init=False) # total cost, f(n) = g(n) + h(n), field(init=False), field(init=False) means fCost is not included in the constructor and is calculated automatically
+    parent: Optional['aStarNode'] = None  # parent node in the path, used to reconstruct the path after the search is complete
+
+    def post_init__(self): # runs after the constructor is finished, we cant calculate the fCost during init 
+        self.fCost = self.gCost + self.hCost
+
+    def __lt__(self, other: 'aStarNode'): # defines what < (less than) means for Nodes
+        return self.fCost < other.fCost
+        
+    def __eq__(self, other):  # defines what == (equal to) means for Nodes
+        if not isinstance(other, aStarNode):
+            return False
+        return (abs(self.position.lat - other.position.lat) < 1e-6 and
+        abs(self.position.lon - other.position.lon) < 1e-6 and
+        abs(self.altitude - other.altitude) < 500) 
+
+
+class aStarPathfinding: # nodes - 3D pos (lat,lon,alt)  edges - possible movements  goal - destination airport
+    # class to reroute the aircraft once a collision is detected, formula is f(n) = g(n) + h(n), g(n) = kilometers travelled + fuel for altitude change, h(n) = straight line distance + altitude change, f(n) being total cost
+    # 1. generate neighbours around aircraft 1 2. for each neighbour, predict where aircraft 2 will be in 60 seconds 3. only store safe neighbours 4.continue search from safe positions
+    def __init__(self, airspace: 'simAirspace'):
+        self.airspace = airspace
+        self.gridResDegrees = 0.1  # resolution of the grid, controls search space, good for a world map
+        self.altitudeLevel = [30000, 32000, 34000, 36000, 38000, 40000, 42000] # avg flight levels
+        self.safetyBufferKM = 10.0 # safety buffer for other aircraft
+
+    def Heuristic(self, node: aStarNode, goal: aStarNode): # calculates h(n)
+        horDistance = node.position.distancefrom(goal.position)  # calculates horizontal distance between current node and goal node
+        altDifference = abs(node.altitude - goal.altitude) * feetToKM # calculates altitude difference between current node and goal node, in KM
+        return horDistance + altDifference  # returns the heuristic cost, h(n) = straight line distance + altitude change, in KM
+    
+    def getNeighbours(self, node: aStarNode, goalPosition: Position): # generate neighbour nodes for a current node
+        neighbours = []
+        directions = [ # possible horizontal movement (8 directions)
+            (-1, -1), (-1, 0), (-1, 1),
+            (0, -1),           (0, 1),
+            (1, -1),  (1, 0),  (1, 1)
+        ]
+
+        for dx, dy in directions:
+            newLat = node.position.lat + (dx * self.gridResDegrees)
+            newLon = node.position.lon + (dy * self.gridResDegrees)
+            newPos = Position(newLat, newLon)  
+            neighbour = aStarNode(newPos, node.altitude)  # creates a new neighbour node with the new position and same altitude as the current node
+            if self.isSafePosition(neighbour, goalPosition):
+                neighbours.append(neighbour)  # adds the neighbour node to the list if it is a safe position
+
+            currentAltitudeIndex = min(range(len(self.altitudeLevel)), key=lambda i: abs(self.altitudeLevel[i] - node.altitude))  # finds the index of the closest altitude level to the current node's altitude
+
+            for altitudeChange in [-1,1]: # climbing or descending one
+                newAltitudeIndex = currentAltitudeIndex + altitudeChange  # calculates the new altitude index by adding or subtracting 1 from the current altitude index
+                if 0 <= newAltitudeIndex < len(self.altitudeLevel):
+                    newAlt = self.altitudeLevel[newAltitudeIndex]  # gets the new altitude from the altitude level list
+                    neighbour = aStarNode(node.position, newAlt)  # creates a new neighbour node with the node position and new altitude
+                    if self.isSafePosition(neighbour, goalPosition):  # checks if the new neighbour node is a safe position
+                        neighbours.append(neighbour)  
+
+            return neighbours  # returns the list of neighbour nodes
+        
+    def isSafePosition(self, node: aStarNode, goalPosition: aStarNode): # checks if a node is a safe position
+        nodePos = node.position  
+        for aircraft in self.airspace.aircraft.values():
+            if aircraft.flightStatus == "Arrived":
+                continue # skip if aircraft has arrived at its destination
+
+            predictionTime = 60  # prediction time in seconds, how far ahead to predict the aircraft's position
+            speedKMs = (aircraft.tas * nmToKM) / 3600  # converts speed from knots to kilometers per second
+            headingRadians = aircraft.hdg * degreeToRadians 
+
+            distance = speedKMs * predictionTime  # distance = speed x time
+            angularDistance = distance / earthRadiusKM 
+
+            lat1 = aircraft.position.lat * degreeToRadians  
+            lon1 = aircraft.position.lon * degreeToRadians  
+
+            # haversine formula
+            predictedLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))
+            predictedLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1), math.cos(angularDistance) - math.sin(lat1) * math.sin(predictedLat))
+            predictedPosition = Position(predictedLat * radianToDegree, predictedLon * radianToDegree)  
+            predictedAltitude = aircraft.alt + (aircraft.verticalspeed * (predictionTime / 60))  
+
+            horDistance = nodePos.distancefrom(predictedPosition)  
+            altDifference = abs(node.altitude - predictedAltitude) 
+
+            if(horDistance < self.safetyBufferKM and altDifference < 1500): # if the horizontal distance is less than the safety buffer and altitude difference is less than 1500 feet, the position is not safe
+                return False
+        return True
+    
+
+
 
 def generateRandomAircraft(callsign = None):
     airportICAOS = [
