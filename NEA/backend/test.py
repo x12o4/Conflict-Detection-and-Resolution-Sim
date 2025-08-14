@@ -10,21 +10,7 @@ from threading import Lock # used to handle multiple requests simultaneously wit
 import traceback # used for more detailed debugging
 from flask_cors import CORS # used to allow cross-origin requests, so that the frontend can access the backend API from a different domain or port, pip install flask-cors
 import bluesky.stack as stack
-
-def test_ourairports_connection():
-    
-    url = f"http://www.ourairports.com/data/airports/EGLL/airport.json"
-    
-    try:
-        response = requests.get(url, timeout=3)
-        print(f"Status Code: {response.status_code}")
-        print("Response Sample:", response.json().get("name", "No name field"))
-    except Exception as e:
-        print(f"Connection failed: {str(e)}")
-
-test_ourairports_connection()
-
-
-
-
+import time
+from backend import overpassAirportAPI  # your existing function
+from threading import Lock
 

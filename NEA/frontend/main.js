@@ -1,10 +1,20 @@
 // init map
 console.log("main.js loaded");
-var map = L.map('map').setView([51.505, -0.09], 3);
+var map = L.map('map', {
+    minZoom: 2,
+    worldCopyJump: true, // allows markers to stay on a single map (e.g if a marker flies to the west of america it will show near the west of the earth instead of moving to another map)
+    maxBounds: [ // defines the rectangle that you cant scroll out of
+        [-90, -Infinity], // north corner
+        [90, Infinity]    // south corner
+    ],
+    maxBoundsViscosity: 1.0 // makes the map not bounce back when scrolling out of view
+}).setView([20, 0], 2);
 
 // Create tile layer with openstreetmap 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
+    minZoom: 2, 
+    continuousWorld: true,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -136,15 +146,21 @@ async function displayConflicts(){
             const aircraft2 = aircraftMarkers[conflict.aircraft2];
             if(aircraft1 && aircraft2){
                 const midpoint = calculateMidpoint(aircraft1.getLatLng(),  aircraft2.getLatLng());
-            
+                
+                // ? is used like a boolean but its just shorter for me to use than if !distance etc
+                const distance = conflict.distanceKM != undefined ? conflict.distanceKM.toFixed(2) : 'n/a'
+                const altDiff = conflict.altitudeDifferenceFT != undefined ? conflict.distanceKM.toFixed(0) : 'n/a'
+                const riskScore = conflict.riskScore != undefined ? (conflict.riskScore * 100).toFixed(0) : 'n/a'
+                const timeToCollision = conflict.timeToCollision != undefined ? conflict.timeToCollision.toFixed(2) : 'n/a';
+                const status = conflict.status || 'unknown' 
             
                 let conflictMarker = L.marker(midpoint, {
                     icon: L.divIcon({
                         className: 'conflict',
                         html: `&#9888;`,
-                        iconSize: [40, 40] 
+                        iconSize: [100, 100] 
                     })
-                 }).bindPopup(`Conflict between ${conflict.aircraft1} and ${conflict.aircraft2}<br>Distance: ${conflict.distanceKM.toFixed(2)}m<br>Altitude difference: ${conflict.altitudeDifferenceFT.toFixed(0)}ft<br>Risk Score: ${(conflict.riskScore * 100).toFixed(0)}<br>Time till collision: ${conflict.timeToCollision.toFixed(2)} mins`).addTo(map); // binds a popup to the marker with the conflict information
+                 }).bindPopup(`Conflict between ${conflict.aircraft1} and ${conflict.aircraft2}<br>Distance: ${distance}m<br>Altitude difference: ${altDiff}ft<br>Risk Score: ${riskScore}<br>Time till collision: ${timeToCollision} mins <br> Status: ${status}`).addTo(map); // binds a popup to the marker with the conflict information
                 conflictMarkers[`${conflict.aircraft1}-${conflict.aircraft2}`] = conflictMarker; // adds the conflict marker to the conflict markers dictionary
         }
     });

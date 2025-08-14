@@ -25711,3 +25711,1974 @@ INFO:werkzeug:127.0.0.1 - - [08/Aug/2025 18:58:34] "GET /aircraft HTTP/1.1" 200 
 INFO:werkzeug:127.0.0.1 - - [08/Aug/2025 18:58:34] "GET /aircraft HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [08/Aug/2025 18:58:34] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
 INFO:werkzeug:127.0.0.1 - - [08/Aug/2025 18:58:34] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for VHHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for YSSY: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:42] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:42] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:42] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:42] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:42] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:43] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:44] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:45] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:46] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:47] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:47] "GET /airport/YSSY HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:51] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:52] "[33mGET /airport/OTHH HTTP/1.1[0m" 404 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:54] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:54] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:54] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:55] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:55] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:55] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:57] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:57] "[33mGET /airport/EDDM HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:16:59] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:01] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:01] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:02] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:02] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:02] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:03] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:03] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:03] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:04] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:07] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:11] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:16] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:18] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:18] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:20] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:24] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:25] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:27] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:32] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:36] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:39] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:54] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:17:58] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:02] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:17] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:19] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:21] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:23] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:23] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:25] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:27] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:31] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:33] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:35] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:37] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:38] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:40] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:40] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:42] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:46] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:48] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:49] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:51] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:53] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:55] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:57] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:18:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:05] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:07] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:15] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:15] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:19] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:21] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:21] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:25] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:29] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:31] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:33] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:35] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:35] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:39] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:41] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:44] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:44] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:45] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:45] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:47] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:51] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:54] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:19:55] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:04] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:04] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:04] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:07] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:13] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:19] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:32] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:20:44] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:21:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:21:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:44] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:44] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:45] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:45] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:46] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:46] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:46] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:47] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:47] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:48] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:49] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:49] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:49] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:50] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:51] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:52] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:52] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:22:53] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for YSSY: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:09] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:10] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:10] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:10] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:10] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:10] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:11] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:12] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:12] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:13] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for VHHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:15] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:17] "[33mGET /airport/KLAX HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:17] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:17] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:18] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:18] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:19] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:19] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:19] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:21] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:22] "[33mGET /airport/KLAX HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:23] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:27] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:28] "[33mGET /airport/KLAX HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:29] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:29] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:29] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:30] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:31] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:31] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:31] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:32] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:32] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:34] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:35] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:40] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:41] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:50] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:25:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:00] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:06] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:07] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:08] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:08] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:09] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:09] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:10] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:10] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:12] "[33mGET /airport/RJTT HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:12] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:12] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:13] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:13] "GET /airport/RJTT HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:14] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:23] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:36] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:37] "GET /airport/RJTT HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:39] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:41] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:47] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:49] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:49] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:53] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:54] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:26:55] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:03] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:11] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:12] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:12] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:16] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:19] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:22] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:25] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:30] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:32] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:32] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:33] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:34] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:39] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:40] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:42] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:46] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:46] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:46] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:51] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:53] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:54] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:56] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:27:58] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:00] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:02] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:02] "GET /aircraft HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:05] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:06] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:12] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:14] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Aug/2025 12:28:38] "GET /conflicts HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for VHHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for YSSY: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for WSSS: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KLAX: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for KJFK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RJTT: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for VHHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for OMDB: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for VHHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for WSSS: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LEMD: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for WSSS: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for UUEE: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LIRF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for RKSI: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+WARNING:root:Error fetching airport data for CYYZ: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGKK: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:20] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:20] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:20] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:21] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:22] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:23] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:24] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:25] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:25] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:25] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:25] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:26] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:28] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:30] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:30] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:32] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:35] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:37] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:39] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:47] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:49] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:51] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:53] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:55] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:57] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:01:59] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:01] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:03] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:05] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:07] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:09] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:11] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:13] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:15] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:17] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:19] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:21] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:23] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:25] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:27] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:29] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:31] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:02:33] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:14] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:14] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:14] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:14] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:15] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:16] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:17] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:18] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:18] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:18] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:18] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:19] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:21] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:23] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:33] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:33] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:33] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:33] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:33] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:03:34] "GET /airport/EDDF HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for YSSY: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for ZBAA: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EGLL: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:09] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:10] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:11] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:12] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:12] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:12] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:12] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:12] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:13] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:48] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:05:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:06:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:07:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:08:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:08:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:09:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:09:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:10:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:10:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:11:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:11:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:12:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:12:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:13:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:13:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:46] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:46] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:46] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:46] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:46] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:47] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:48] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:49] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:49] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:49] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:14:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:15:03] "GET /airport/VHHH HTTP/1.1" 200 -
+WARNING:root:Error fetching airport data for OTHH: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EHAM: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for EDDF: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+WARNING:root:Error fetching airport data for LFPG: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=5)
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:56] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:57] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:57] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:57] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:57] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:57] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:58] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:59] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:59] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:59] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:59] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:18:59] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:00] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:01] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:02] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:02] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:06] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:08] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:10] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:10] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:12] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:14] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:14] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:18] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:18] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:30] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:38] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:42] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:44] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:46] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:46] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:48] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:48] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:52] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:53] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:54] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:55] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:57] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:58] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:19:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:48] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:20:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:21:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:22:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:23:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:04] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:04] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:04] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:05] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:05] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:05] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:06] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:06] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:06] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:07] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:07] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:07] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:07] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:08] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:08] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:08] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:08] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:09] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:09] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:09] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:09] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:09] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:10] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:11] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:12] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:13] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:13] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:14] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:18] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:23] "[35m[1mGET /conflicts HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:30] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:38] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:42] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:44] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:46] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:46] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:48] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:48] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:52] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:54] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:54] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:58] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:24:58] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:02] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:02] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:06] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:08] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:10] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:10] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:25:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:12] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:14] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:44] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:46] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:52] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:54] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:58] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:26:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:02] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:08] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:10] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:12] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:14] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:14] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:18] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:36] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:36] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:38] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:38] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:40] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:40] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:42] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:42] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:44] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:44] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:46] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:46] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:48] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:48] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:50] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:50] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:52] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:52] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:54] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:54] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:58] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:27:58] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:00] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:00] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:02] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:02] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:04] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:04] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:06] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:06] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:08] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:08] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:10] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:10] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:12] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:12] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:14] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:14] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:16] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:16] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:18] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:18] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:22] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:22] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:24] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:24] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:26] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:26] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:28] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:28] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:30] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:30] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:32] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:32] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:28:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:34] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:34] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:53] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:54] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:55] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:56] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:57] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:29:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:55] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:55] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:30:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:17] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:17] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:19] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:19] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:21] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:21] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:23] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:23] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:25] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:25] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:27] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:27] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:29] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:29] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:31] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:31] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:33] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:33] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:35] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:35] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:37] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:37] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:39] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:39] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:41] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:41] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:43] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:43] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:45] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:45] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:47] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:47] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:49] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:49] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:51] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:51] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:53] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:53] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:56] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:56] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:57] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:57] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:57] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:57] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/KJFK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/CYYZ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/WSSS HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/RJTT HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:58] "GET /airport/YSSY HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/OMDB HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/EHAM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/KLAX HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:31:59] "GET /airport/OTHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/EGLL HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/LIRF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:00] "GET /airport/LEMD HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/EDDF HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/RKSI HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/EGKK HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:01] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:02] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:02] "GET /airport/ZBAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:03] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:03] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:05] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:05] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:07] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:07] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:09] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:09] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:11] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:11] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:13] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:13] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:15] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:15] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:18] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:18] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /aircraft HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /conflicts HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /airport/LFPG HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /airport/VHHH HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /airport/UUEE HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:20] "GET /airport/EDDM HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Aug/2025 15:32:21] "GET /airport/KJFK HTTP/1.1" 200 -

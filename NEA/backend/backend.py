@@ -11,8 +11,9 @@ from math import exp # exp used for exponential calculations
 import time
 import heapq # used for priority queue implementation
 import logging
-from typing import Tuple, Optional # used for type hinting
+from typing import Tuple, Optional, Set, List # used for type hinting
 from dataclasses import dataclass, field
+from enum import Enum # for named values
 
 # using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
@@ -26,7 +27,7 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initializes cache 
 
-airportCache = {}; 
+airportCache = {}; # this stores the airports in the cache as fetching everytime from the api is not optimal, also airport data rarely changes 
 earthRadiusKM = 6378.0 # radius of the Earth in kilometers
 degreeToRadians = math.pi / 180.0
 radianToDegree = 180.0 / math.pi
@@ -45,6 +46,11 @@ feetToKM = 0.0003048 # conversion factor from feet to kilometers
 
         
 def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API#Quick_Start_(60_seconds):_for_Developers/Programmers
+    cacheKey = f"{icao} airport" # creates key based upon icao code
+    if cacheKey in airportCache:
+        cacheData, timestamp = airportCache[cacheKey] # timestamp is the time the data was saved
+        if time.time() - timestamp < 3600: # 1 hour cache timeout
+            return cacheData # returns airport data such as lat lon
     overpassURL = 'https://overpass-api.de/api/interpreter'
     overpassQuery = f'[out:json];(nwr[aeroway~"aerodrome|airport"][icao="{icao.upper()}"];);out center;'
     try:
@@ -53,25 +59,32 @@ def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API
             data = response.json() # converts to json
             for element in data.get('elements', []): # iterate through elements in the response
                 if 'tags' in element: # only process elements with tags (overpass data is stored in tags)
-                    return {
+                    AirportData = {
                         'icao': icao.upper(), # converts ICAO code to uppercase
                         'name': element['tags'].get('name', 'Unknown Airport'),
                         'lat': element.get('lat') or element.get('center', {}).get('lat'), # get lat and lon from either node or center
                         'lon': element.get('lon') or element.get('center', {}).get('lon'),
                     }
+                    if AirportData['lat'] is not None and AirportData['lon'] is not None:
+                        airportCache[cacheKey] = (AirportData, time.time())
+                        return AirportData
+        print(f"No valid data for {icao}")
+        return None
     except Exception as e:
         logging.warning(f"Error fetching airport data for {icao}: {str(e)}")
         return None  # returns None if no data is found or an error occurs
 
 @application.route('/airport/<icao>')  # defines route to retrieve airport data at localhost/airport/ICAO
-
 def fetchAirport(icao):
     with Lock():
-        if icao in airportCache:
-            return jsonify(airportCache[icao])
+        cacheKey = f"{icao} airport" # same thing as above happens here
+        if cacheKey in airportCache:
+            cacheData, timestamp = airportCache[cacheKey]
+            if time.time() - timestamp < 3600:
+                return jsonify(cacheData)
         airportData = overpassAirportAPI(icao)
         if airportData:
-            airportCache[icao] = airportData
+            airportCache[cacheKey] = (airportData, time.time())
             return jsonify(airportData)
     
     return jsonify({"error": "Airport not found"}), 404  # returns 404 if airport not found or an error occurs
@@ -226,6 +239,17 @@ class Aircraft:
 
 
     def dataToJsonDictionary(self): # use of abstract data type Dictionary to convert aircraft data to JSON to send to the frontend
+        waypoints = []
+        if self.flightPath and self.flightPath.waypoints:
+            waypoints = [
+                {
+                    "lat": waypoint.position.lat,
+                    "lon": waypoint.position.lon,
+                    "name": waypoint.name
+                }
+                for waypoint in self.flightPath.waypoints
+            ]
+        
         return {
             "callsign": self.callsign,
             "actype": self.actype,
@@ -238,8 +262,9 @@ class Aircraft:
             "departureICAO": self.departureICAO,
             "arrivalICAO": self.arrivalICAO,
             "flightStatus": self.flightStatus,
-            "targetHeading": self.targetHeading
-
+            "targetHeading": self.targetHeading,
+            "waypoints": waypoints,
+            "currentWaypointIndex": self.flightPath.currentWaypointIndex if self.flightPath else 0
         }
     
 class CPA(): # store result of cpa
@@ -365,16 +390,17 @@ class simAirspace:
 
     # priority queue implementation
     def DetectConflicts(self, minimumSeperationDistanceKM: float = nmToKM * 1,
-                    minimumAltitudeDifferenceFT: float = 500, lookaheadTime: float = 5):  # looks 15 mins ahead for conflicts 
+                    minimumAltitudeDifferenceFT: float = 500, lookaheadTime: float = 5):  # looks 5 mins ahead for conflicts 
 
         conflictHeap = []  # list to store current conflicts
         aircraftList = list(self.aircraft.values())  # converts the dictionary of aircraft to a list 
-
+        resolvedConflicts = []
+    
     # use of 2 for loops means the function becomes O(N^2) in time complexity, n being the number of aircraft in the airspace
     # might need to be optimised if the number of aircraft increases 
         for i in range(len(aircraftList)): 
-            for j in range(i + 1, len(aircraftList)):  # iterate through the aircraft list, starting from the next aircraft to avoid comparing the same aircraft with itself
-            # compares each aircraft with every other aircraft to find conflicts
+            for j in range(i + 1, len(aircraftList)):  # iterate through the aircraft list
+                # compares each aircraft with every other aircraft to find conflicts
                 aircraft1 = aircraftList[i] 
                 aircraft2 = aircraftList[j]
 
@@ -387,16 +413,34 @@ class simAirspace:
                     continue  # skip to the next pair of aircraft
 
                 if cpa.timeToCollision <= 60 or cpa.distanceAtCPA < 1.0:  # 1 minute or 1km
-                # for immediate conflicts add to a seperate list
-                    self.conflictCounter += 1  
-                    heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {  # -1.0 highest priority
-                        "aircraft1": aircraft1.callsign,
-                        "aircraft2": aircraft2.callsign,
-                        "timeToCPA": cpa.timeToCollision,
-                        "distanceAtCPA": cpa.distanceAtCPA,
-                        "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
-                        "riskScore": 1.0  #  max risk
-                }))
+                    print(f"conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
+                    if self.resolveConflicts(aircraft1, aircraft2):
+                        resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
+                        print(f"Rerouted {aircraft1.callsign}")
+                        # for immediate conflicts add to a seperate list
+                        self.conflictCounter += 1  
+                        heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {  # -1.0 highest priority
+                            "aircraft1": aircraft1.callsign,
+                            "aircraft2": aircraft2.callsign,
+                            "timeToCPA": cpa.timeToCollision,
+                            "distanceAtCPA": cpa.distanceAtCPA,
+                            "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
+                            "riskScore": 1.0,  #  max risk
+                            "status": "Resolved"
+                        }
+                    ))
+                    else:
+                        print(f"Failed to resolve: {aircraft1.callsign} : {aircraft2.callsign}")
+                        self.conflictCounter += 1  
+                        heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {
+                            "aircraft1": aircraft1.callsign,
+                            "aircraft2": aircraft2.callsign,
+                            "timeToCPA": cpa.timeToCollision,
+                            "distanceAtCPA": cpa.distanceAtCPA,
+                            "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
+                            "riskScore": 1.0,
+                            "status": "Unresolved"
+                        }))
                     continue  # skip to the next pair of aircraft
 
                 if cpa.timeToCollision > lookaheadTime * 60:  # check if the time to collision is greater than the lookahead time in seconds
@@ -424,15 +468,28 @@ class simAirspace:
                     riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
                     self.conflictCounter += 1  
                 #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
+                    if riskScore > 0.8: # high risk
+                        print(f"High risk conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
+                        if self.resolveConflicts(aircraft1, aircraft2):
+                            resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
+                            print(f"rerouted {aircraft1.callsign}")
+                            conflictStatus = "Resolved"
+                        else:
+                            print(f"reroute failed: {aircraft1.callsign} : {aircraft2.callsign}")
+                            conflictStatus = "Unresolved"
+                    else:
+                        conflictStatus = "Monitoring"
+                    
                     heapq.heappush(conflictHeap, (-riskScore, self.conflictCounter,   {
                         "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
                         "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
-                        "currentDistanceKM": round(currDistance, 2),
-                        "currentAltitudeDiffFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
-                        "timeToCollisionMins": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
+                        "distanceKM": round(currDistance, 2),
+                        "altitudeDifferenceFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
+                        "timeToCollision": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
                         "distanceAtCPAKM": round(cpa.distanceAtCPA, 2),  # distance at CPA in kilometers
                         "altitudeDiffCpaFT": round(altitudeDifferenceAtCPA, 0),  # altitude difference at CPA in feet   
                         "riskScore": round(riskScore, 3),  # risk score ranging from 0 to 1
+                        "status": conflictStatus,
                         "cpaPosition1": {
                             "lat": round(cpa.cpaPosition1[0], 6),
                             "lon": round(cpa.cpaPosition1[1], 6),
@@ -450,10 +507,17 @@ class simAirspace:
         conflict = []
         while conflictHeap:  # ensures the conflicts are returned in descending order of risk
             conflict.append(heapq.heappop(conflictHeap)[2])  # adds all current conflicts to the conflict list, [2] extracts the third element (conflict dictionary)
+        if resolvedConflicts:
+            print(f"{len(resolvedConflicts)} resolved")
+            for conflicts in resolvedConflicts:
+                print(conflicts)
         return conflict
                 
                 
-                
+    
+    def resolveConflicts(self, aircraft1: Aircraft, aircraft2: Aircraft):
+        resolver = conflictResolver(self)
+        return resolver.resolveConflict(aircraft1, aircraft2)
 
      
                 
@@ -511,19 +575,21 @@ class simAirspace:
         # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
-
+@dataclass
 class aStarNode: # node for a star
     position: Position
     altitude: float
     gCost: float = float('inf') # cost from start to current node
     hCost: float = float('inf') # heuristic cost from current node to goal
     fCost: float = field(init=False) # total cost, f(n) = g(n) + h(n), field(init=False), field(init=False) means fCost is not included in the constructor and is calculated automatically
-    parent: Optional['aStarNode'] = None  # parent node in the path, used to reconstruct the path after the search is complete
+    parent: Optional['aStarNode'] = None  # parent node in the path, used to reconstruct the path after the search is complete, previous node in the path
 
-    def post_init__(self): # runs after the constructor is finished, we cant calculate the fCost during init 
+    def __post_init__(self):
         self.fCost = self.gCost + self.hCost
-
+    # runs after the constructor is finished, we cant calculate the fCost during init 
     def __lt__(self, other: 'aStarNode'): # defines what < (less than) means for Nodes
+        if self.fCost == other.fCost:
+            return self.hCost < other.hCost
         return self.fCost < other.fCost
         
     def __eq__(self, other):  # defines what == (equal to) means for Nodes
@@ -533,104 +599,401 @@ class aStarNode: # node for a star
         abs(self.position.lon - other.position.lon) < 1e-6 and
         abs(self.altitude - other.altitude) < 500) 
 
+    def __hash__(self): # to avoid unhashable type errors
+        return hash((round(self.position.lat, 4),
+        round(self.position.lon, 4), 
+        round(self.altitude, -2)))
 
+class conflictResolutionStrategy(Enum): # used for different strategies when rerouting 
+    altitudeChange = "altitudeChange"
+    horizontalReroute = "horizontalReroute"
+    speedAdjustment = "speedAdjustment"
+    combined = "combined"
+
+@dataclass
+class conflictResolution: # container for resolution info
+    aircraftID = str
+    strategy: conflictResolutionStrategy
+    newAltitude: float
+    newWaypoints: Optional[List['Position']] = None # can either be a list of positions or none
+    speedFactor: float = 1.0
+    estimatedDelay: float = 0.0
+    fuelCost: float = 0.0
+    
 class aStarPathfinding: # nodes - 3D pos (lat,lon,alt)  edges - possible movements  goal - destination airport
     # class to reroute the aircraft once a collision is detected, formula is f(n) = g(n) + h(n), g(n) = kilometers travelled + fuel for altitude change, h(n) = straight line distance + altitude change, f(n) being total cost
     # 1. generate neighbours around aircraft 1 2. for each neighbour, predict where aircraft 2 will be in 60 seconds 3. only store safe neighbours 4.continue search from safe positions
     def __init__(self, airspace: 'simAirspace'):
         self.airspace = airspace
-        self.gridResDegrees = 0.1  # resolution of the grid, controls search space, good for a world map
-        self.altitudeLevel = [30000, 32000, 34000, 36000, 38000, 40000, 42000] # avg flight levels
-        self.safetyBufferKM = 10.0 # safety buffer for other aircraft
+        self.gridResDegrees = 0.05  # resolution of the grid, controls search space, good for a world map
+        self.altitudeLevel = [30000, 32000, 34000, 36000, 38000, 40000, 42000, 44000] # avg flight levels
+        self.safetyBufferKM = 6.0 # safety buffer for other aircraft
+        self.cache = {}
+        self.maxNumberOfIterations = 2000
 
     def Heuristic(self, node: aStarNode, goal: aStarNode): # calculates h(n)
         horDistance = node.position.distancefrom(goal.position)  # calculates horizontal distance between current node and goal node
-        altDifference = abs(node.altitude - goal.altitude) * feetToKM # calculates altitude difference between current node and goal node, in KM
-        return horDistance + altDifference  # returns the heuristic cost, h(n) = straight line distance + altitude change, in KM
+        altDifference = abs(node.altitude - goal.altitude) * feetToMeters / 1000 # calculates altitude difference between current node and goal node, in KM
+
+        # penalty for straying away from route
+        directBearing = node.position.bearingTo(goal.position)
+        return horDistance + altDifference * 1.5 # returns the heuristic cost, h(n) = straight line distance + altitude change, in KM
     
+    def findClosestAltitudeIndex(self, altitude: float):
+        return min(range(len(self.altitudeLevel)), key=lambda i: abs(self.altitudeLevel[i] - altitude))  # finds the index of the closest altitude level to the current node's altitude
+
     def getNeighbours(self, node: aStarNode, goalPosition: Position): # generate neighbour nodes for a current node
         neighbours = []
+        distanceToGoal = node.position.distancefrom(goalPosition)
+
+        if distanceToGoal > 500: # far from goal
+            stepMultiplier = 2
+        elif distanceToGoal > 100: # medium distance
+            stepMultiplier = 1
+        else:
+            stepMultiplier = 0.5 # closer to goal
         directions = [ # possible horizontal movement (8 directions)
             (-1, -1), (-1, 0), (-1, 1),
             (0, -1),           (0, 1),
             (1, -1),  (1, 0),  (1, 1)
         ]
 
-        for dx, dy in directions:
-            newLat = node.position.lat + (dx * self.gridResDegrees)
-            newLon = node.position.lon + (dy * self.gridResDegrees)
+        bearingToGoal = node.position.bearingTo(goalPosition)
+        goalDirection = (math.sin(math.radians(bearingToGoal)), math.cos(math.radians(bearingToGoal))) # becomes a vector
+        directions.append(goalDirection)
+        for dx, dy in directions: # dx = sin(x), dy = cos(x)
+            stepSize = self.gridResDegrees * stepMultiplier
+            newLat = node.position.lat + (dx * stepSize)
+            newLon = node.position.lon + (dy * stepSize)
             newPos = Position(newLat, newLon)  
             neighbour = aStarNode(newPos, node.altitude)  # creates a new neighbour node with the new position and same altitude as the current node
             if self.isSafePosition(neighbour, goalPosition):
                 neighbours.append(neighbour)  # adds the neighbour node to the list if it is a safe position
 
-            currentAltitudeIndex = min(range(len(self.altitudeLevel)), key=lambda i: abs(self.altitudeLevel[i] - node.altitude))  # finds the index of the closest altitude level to the current node's altitude
+        currentAltitudeIndex = self.findClosestAltitudeIndex(node.altitude)  # finds the index of the closest altitude level to the current node's altitude
 
-            for altitudeChange in [-1,1]: # climbing or descending one
-                newAltitudeIndex = currentAltitudeIndex + altitudeChange  # calculates the new altitude index by adding or subtracting 1 from the current altitude index
-                if 0 <= newAltitudeIndex < len(self.altitudeLevel):
-                    newAlt = self.altitudeLevel[newAltitudeIndex]  # gets the new altitude from the altitude level list
-                    neighbour = aStarNode(node.position, newAlt)  # creates a new neighbour node with the node position and new altitude
-                    if self.isSafePosition(neighbour, goalPosition):  # checks if the new neighbour node is a safe position
+        for altitudeChange in [-1,1,-2,2]: # climbing or descending 
+            newAltitudeIndex = currentAltitudeIndex + altitudeChange  # calculates the new altitude index by adding or subtracting 1 from the current altitude index
+            if 0 <= newAltitudeIndex < len(self.altitudeLevel):
+                newAlt = self.altitudeLevel[newAltitudeIndex]  # gets the new altitude from the altitude level list
+                neighbour = aStarNode(node.position, newAlt)  # creates a new neighbour node with the node position and new altitude
+                if self.isSafePosition(neighbour, goalPosition):  # checks if the new neighbour node is a safe position
                         neighbours.append(neighbour)  
 
-            return neighbours  # returns the list of neighbour nodes
+        return neighbours  # returns the list of neighbour nodes
         
-    def isSafePosition(self, node: aStarNode, goalPosition: aStarNode): # checks if a node is a safe position
-        nodePos = node.position  
+    def isSafePosition(self, node: aStarNode, goalPosition: Position): # checks if a node is a safe position
+        cacheKey = (round(node.position.lat, 3),round(node.position.lon, 3), round(node.altitude, -2)) # check for frequently checked pos
+        if cacheKey in self.cache:
+            return self.cache[cacheKey]
+        
+        isSafe = True
+        predictedTime = 90 # 90 seconds lookahead
+ 
         for aircraft in self.airspace.aircraft.values():
             if aircraft.flightStatus == "Arrived":
                 continue # skip if aircraft has arrived at its destination
 
-            predictionTime = 60  # prediction time in seconds, how far ahead to predict the aircraft's position
-            speedKMs = (aircraft.tas * nmToKM) / 3600  # converts speed from knots to kilometers per second
-            headingRadians = aircraft.hdg * degreeToRadians 
+            predictedPosition = self.predictAircraftPosition(aircraft, predictedTime)
+            predictedAltitude = aircraft.alt + (aircraft.verticalspeed * (predictedTime / 60))
 
-            distance = speedKMs * predictionTime  # distance = speed x time
-            angularDistance = distance / earthRadiusKM 
-
-            lat1 = aircraft.position.lat * degreeToRadians  
-            lon1 = aircraft.position.lon * degreeToRadians  
-
-            # haversine formula
-            predictedLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))
-            predictedLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1), math.cos(angularDistance) - math.sin(lat1) * math.sin(predictedLat))
-            predictedPosition = Position(predictedLat * radianToDegree, predictedLon * radianToDegree)  
-            predictedAltitude = aircraft.alt + (aircraft.verticalspeed * (predictionTime / 60))  
-
-            horDistance = nodePos.distancefrom(predictedPosition)  
+            horDistance = node.position.distancefrom(predictedPosition)  
             altDifference = abs(node.altitude - predictedAltitude) 
 
-            if(horDistance < self.safetyBufferKM and altDifference < 1500): # if the horizontal distance is less than the safety buffer and altitude difference is less than 1500 feet, the position is not safe
+            if(horDistance < self.safetyBufferKM and altDifference < 2000): # if the horizontal distance is less than the safety buffer and altitude difference is less than 2000 feet, the position is not safe
+                isSafe = False
+                break
+        self.cache[cacheKey] = isSafe
+        return isSafe
+
+    def predictAircraftPosition(self, aircraft: Aircraft, predictedTime: float):
+        speedKMs = (aircraft.tas * nmToKM) / 3600  # converts speed from knots to kilometers per second
+        headingRadians = aircraft.hdg * degreeToRadians 
+
+        distance = speedKMs * predictedTime  # distance = speed x time
+        angularDistance = distance / earthRadiusKM 
+
+        lat1 = aircraft.position.lat * degreeToRadians  
+        lon1 = aircraft.position.lon * degreeToRadians  
+
+        # haversine formula
+        predictedLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))
+        predictedLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1), math.cos(angularDistance) - math.sin(lat1) * math.sin(predictedLat))
+        
+        return Position(predictedLon * radianToDegree, predictedLon * radianToDegree)
+
+    def getMovementCost(self, fNode: aStarNode, tNode: aStarNode): # calculates cost of moving from one node to another
+        horDistance = fNode.position.distancefrom(tNode.position)
+        altDifference = abs(tNode.altitude - fNode.altitude) * feetToMeters / 1000
+
+        cost = horDistance # base cost = horizontal distance 
+        cost += altDifference * 3.0 # added penalty for altitude change and fuel consumption 
+        
+        # penalty for direction change
+        if fNode.parent:
+            previousBearing = fNode.parent.position.bearingTo(fNode.position)
+            currentBearing = fNode.position.bearingTo(tNode.position)
+            bearingDifference = abs(previousBearing - currentBearing)
+            if bearingDifference > 180:
+                bearingDifference = 360 - bearingDifference
+            cost += bearingDifference / 180 # between 0-1
+
+
+        return cost
+
+    def findOptimalPath(self, startingAircraft: Aircraft, goalPosition: Position, maxNumberOfIterations: int = 1000): 
+        if maxNumberOfIterations is None:
+            maxNumberOfIterations = self.maxNumberOfIterations
+
+        strategies = [ # cycle through looser constraints
+            {'gridResolution': 0.05, 'safetyBuffer': 6.0},
+            {'gridResolution': 0.08, 'safetyBuffer': 4.0}, 
+            {'gridResolution': 0.1, 'safetyBuffer': 3.0}
+        ]
+
+        for strategy in strategies:
+            self.gridResDegrees = strategy['gridResolution']
+            self.safetyBufferKM = strategy['safetyBuffer']
+
+            path = self.aStarSearch(startingAircraft, goalPosition, maxNumberOfIterations)
+            if path: 
+                return path
+        return None
+        
+    
+    def aStarSearch(self, aircraft: Aircraft, goalPosition: Position, maxNumberOfIterations: int):
+        sNode = aStarNode(aircraft.position, aircraft.alt)
+        sNode.gCost = 0 # g(n)
+        goalAltitude = self.findSafeAltitudeNearGoal(goalPosition, aircraft.alt)
+        goalNode = aStarNode(goalPosition, goalAltitude) # assuming the same altitude
+        sNode.hCost = self.Heuristic(sNode, goalNode) # h(n)
+
+        openSet = [sNode] # nodes the program has found but not processed yet
+        heapq.heapify(openSet)
+        closedSet = set(); # nodes that are already processed, not revisited
+
+        bestNode = sNode
+        bestDistance = sNode.hCost
+        iterationCounter = 0
+
+        while openSet and iterationCounter < maxNumberOfIterations: # while there still is nodes is to be processed and not more than the failsafe max iteration count
+            iterationCounter += 1
+            currNode = heapq.heappop(openSet) # get the node with the lowest f(n) cost, which is the shortest and fastest path
+            distanceToGoal = currNode.position.distancefrom(goalPosition)
+            if distanceToGoal < 5.0: # within 5km
+                print(f"Path found in {iterationCounter} iterations")
+                return self.reconstructPath(currNode)
+
+            if distanceToGoal < bestDistance:
+                bestNode = currNode
+                bestDistance = distanceToGoal
+            
+            nodeTuple = self.nodeToTuple(currNode)
+            if nodeTuple in closedSet:
+                continue
+
+            closedSet.add(nodeTuple)
+
+            neighbours = self.getNeighbours(currNode, goalPosition)
+            for neighbour in neighbours: # gets all neighbour positions 
+                neighbourTuple = self.nodeToTuple(neighbour)
+                if neighbourTuple in closedSet:
+                    continue # avoids already visited nodes
+
+                predictedGCost = currNode.gCost + self.getMovementCost(currNode, neighbour)
+                if predictedGCost < neighbour.gCost: # if there is a cheaper route
+                    neighbour.parent = currNode
+                    neighbour.gCost = predictedGCost
+                    neighbour.hCost = self.Heuristic(neighbour, goalNode)
+                    neighbour.fCost = neighbour.gCost + neighbour.hCost
+
+                    if neighbour not in openSet:
+                        heapq.heappush(openSet, neighbour) # if neighbour isnt to be discovered yet push it into the heapq
+        if bestNode != sNode and bestDistance < sNode.hCost * 0.7:
+            return self.reconstructPath(bestNode) 
+        print(f"A* pathfinding failed at {iterationCounter} iterations") # this will occur if either the max number of iterations is reached or no path exists
+        return None
+    
+    def nodeToTuple(self, node: aStarNode):
+        return (
+            round(node.position.lat, 4),
+            round(node.position.lon, 4),
+            round(node.altitude, -2)
+        )
+    def reconstructPath(self, goalNode: aStarNode):
+        path = []
+        curr = goalNode
+
+        while curr is not None:
+            path.append(curr.position)
+            curr = curr.parent
+        path.reverse()
+        return path
+
+    def findSafeAltitudeNearGoal(self, goalPosition: Position, currentAltitude: float):
+        tNode = aStarNode(goalPosition, currentAltitude) # temp node to test current altitude
+        if self.isSafePosition(tNode, goalPosition):
+            return currentAltitude
+
+        currIndex = self.findClosestAltitudeIndex(currentAltitude)
+        for offset in [0, 1, -1, 2, -2, 3, -3]: # checks altitudes near the current one
+            newIndex = currIndex + offset
+            if 0 <= newIndex < len(self.altitudeLevel):
+                tAltitude = self.altitudeLevel[newIndex]
+                tNode = aStarNode(goalPosition, tAltitude)
+                if self.isSafePosition(tNode, goalPosition):
+                    return tAltitude
+
+        return currentAltitude # if no other altitude is safe
+
+
+
+class conflictResolver:
+    def __init__(self, airspace: 'simAirspace'):
+        self.airspace = airspace
+        self.pathfinder = aStarPathfinding(airspace)
+        self.resHistory = {}
+
+    def resolveConflict(self, aircraft1: Aircraft, aircraft2: Aircraft):
+        conflictKey = f"{aircraft1.callsign}:{aircraft2.callsign}"
+
+        if conflictKey in self.resHistory:
+            lastAttempt = self.resHistory[conflictKey]
+            if time.time() - lastAttempt < 60: # wait a min before retrying
                 return False
+        
+        self.resHistory[conflictKey] = time.time()
+
+        strategies = [self.tryAltitudeSeperation, self.tryHorizontalReroute, self.trySpeedAdjustment, self.tryCombinedResolution]
+
+        for strategy in strategies:
+            if strategy(aircraft1, aircraft2):
+                return True
+        
+        return False
+    
+    def tryAltitudeSeperation(self, aircraft1: Aircraft, aircraft2: Aircraft): # try to avoid conflicts throug hchanging the altitude of an aircraft
+        altitudeLevel = [28000, 30000, 32000, 34000 ,36000, 38000, 40000, 42000 ,44000]
+
+        for altitude in altitudeLevel:
+            if abs(altitude - aircraft2.alt) >= 2000: # 2000 feet seperation
+                testPosition = Position(aircraft1.position.lat, aircraft1.position.lon)
+                if self.isSafeAltitude(testPosition, altitude, aircraft1):
+                    aircraft1.alt = altitude
+                    aircraft1.targetHeading = aircraft1.position.bearingTo(aircraft1.flightPath.getCurWaypoint().position)
+                    print(f"Changed {aircraft1.callsign} altitude into {altitude}")
+                    return True
+                
+        return False
+    
+    def tryHorizontalReroute(self, aircraft1: Aircraft, aircraft2: Aircraft ): # try to avoid collision through horizontalReroute
+        arrivalData = self.getAirportData(aircraft1.arrivalICAO)
+
+        if not arrivalData or 'lat' not in arrivalData or 'lon' not in arrivalData:
+            return False
+        goalPosition = Position(arrivalData['lat'], arrivalData['lon'])
+        newPath = self.pathfinder.findOptimalPath(aircraft1, goalPosition)
+
+        if newPath and len(newPath) > 1:
+            aircraft1.flightPath.waypoints = [Waypoint(pos, f"Waypoint {i}") for i, pos in enumerate(newPath)]
+            aircraft1.flightPath.currentWaypointIndex = 0
+            print(f"Rerouted {aircraft1.callsign} with {len(newPath)} waypoints")
+            return True
+        
+        return False
+    
+    def trySpeedAdjustment(self, aircraft1: Aircraft, aircraft2: Aircraft): # seeing if adjusting the speed of an aircraft would stop collision
+        cpa = calculateCPA(aircraft1, aircraft2)
+        if not cpa or cpa.timeToCollision > 300: # 300 means 5 minutes
+            return False
+        
+        originalSpeed = aircraft1.tas
+        aircraft1.tas *= 0.9 # reduce aircraft speed by ten percent
+
+        newCPA = self.calculateCPA(aircraft1, aircraft2)
+        if newCPA and newCPA.distanceAtCPA > 5.0: # at a safe distance
+            print(f"Reduced {aircraft1.callsign} speed to {aircraft1.tas:.0f} knots")
+            return True
+        else:
+            aircraft1.tas = originalSpeed
+            return False
+        
+    def tryCombinedResolution(self, aircraft1: Aircraft, aircraft2: Aircraft): # try combined alt and route change
+        if self.tryAltitudeSeperation(aircraft1, aircraft2):
+            aircraft1.targetHeading = (aircraft1.targetHeading + 15) % 360
+            return True
+        return False
+    
+    def isSafeAltitude(self, position: Position, altitude: float, excludeAircraft: Aircraft): # check if the altitude is safe at a given pos
+        for aircraft in self.airspace.aircraft.values():
+            if aircraft == excludeAircraft or aircraft.flightStatus == 'Arrived':
+                continue
+
+            distance = position.distancefrom(aircraft.position)
+            altitudeDifference = abs(altitude - aircraft.alt)
+            if distance < 10 and altitudeDifference < 1500: # too close
+                return False
+        
         return True
     
+    def getAirportData(self, icao: str): # same thing as Overpass 
+        with Lock():
+            cacheKey = f"{icao} airport"
+            if cacheKey in airportCache:
+                cacheData, timestamp = airportCache[cacheKey]
+                if time.time() - timestamp < 3600:
+                    return cacheData
+            airportData = overpassAirportAPI(icao)
+            if airportData:
+                airportCache[cacheKey] = (airportData, time.time())
+                return airportData
+    
+        return None
+    
+    
+    def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
+        cpa = calculateCPA(aircraft1, aircraft2)
+        return cpa
 
 
+
+
+
+
+
+
+
+        
 
 def generateRandomAircraft(callsign = None):
-    airportICAOS = [
-        "EGLL",  # london heathrow
-        "KJFK",  # new york JFK  
-        "LFPG",  # paris CDG
-        "EDDF",  # frankfurt
-        "EHAM",  # amsterdam
-        "KLAX",  # los angeles
-        "OMDB",  # dubai
-        "RJTT",  # tokyo haneda
-        "EGKK",  # london gatwick
-        "EDDM",  # munich
-        "LEMD",  # madrid
-        "LIRF",  # rome fiumicino
-        "CYYZ",  # toronto pearson
-        "YSSY",  # sydney
-        "VHHH",  # hong kong
-        "WSSS",  # singapore
-        "ZBAA",  # beijing capital
-        "RKSI",  # seoul incheon
-        "OTHH",  # doha
-        "UUEE"   # moscow sheremetyevo]
+    
+    airportICAOS = [ # splited into continents with OSM supported icao codes, havent fully tested them yet
+        # europe
+        "EGLL", "EGKK", "EDDF", "EDDM", "LFPG", "LFPO", "LIRF", "LSZH",
+        "LOWW", "LTFM", "EBBR", "EIDW", "ESSA", "ENGM", "EFHK", "BIKF",
+
+        # north America
+        "KJFK", "KLAX", "KORD", "KATL", "KSFO", "KSEA", "CYYZ", "CYVR", "CYUL",
+        "KIAH", "KBOS", "KPHL", "KIAD", "KLGA", "KDEN", "KSLC",
+        "PANC", "KTPA", "KFLL", "KEWR",
+    
+        # south America
+        "SBGR", "SAEZ", "SPJC", "SKBO", "TJSJ", "MDPC", "MKJP",
+    
+        # asia
+        "OMDB", "RJTT", "VHHH", "WSSS", "ZBAA", "RKSI", "OTHH", "VABB", "VIDP",
+        "ZSPD", "RPLL", "RPVM", "VTBS", "WMKK", "VOCI", "VCBI", "VOBL",
+    
+        # oceania
+        "YSSY", "YPAD", "NZAA",
+    
+        # middle East
+        "OEJN", "OERK", "OIIE", "OMDB", "OTHH", "OOMS",
+    
+        # africa
+        "FAOR", "HAAB", "DNMM", "GMMN"
     ]
+    
     aircraftTypes = [
         "B744", "B777", "A380", "B737", "A320", "A330", "B787", "A350"
     ]
@@ -650,9 +1013,15 @@ def generateRandomAircraft(callsign = None):
             airportData = airportCache[icao]  # retrieves airport data from the cache
             return Position(airportData['lat'], airportData['lon'])  # returns the position of the airport with lat and long
         
+        cacheKey = f"{icao} airport"
+        if cacheKey in airportCache:
+            airportData, timestamp = airportCache[cacheKey]
+            if time.time() - timestamp < 3600:
+                return Position(airportData['lat'], airportData['lon'])
+            
         airportData = overpassAirportAPI(icao)  # fetches airport data from the overpass API
         if airportData and airportData.get('lat') and airportData.get('lon'):  # checks if the airport data is valid
-            airportCache[icao] = airportData  # adds the airport data to the cache
+            airportCache[cacheKey] = (airportData, time.time())  # adds the airport data to the cache
             return Position(airportData['lat'], airportData['lon']) # returns the position of the airport with lat and long
         
         print(f"Error fetching data for the airport: {icao}")  # prints an error message if the airport data is not valid
@@ -697,7 +1066,7 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(40)  # this controls how many aircraft are created
+airspace = initialiseAirspace(100)  # this controls how many aircraft are created
 
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
