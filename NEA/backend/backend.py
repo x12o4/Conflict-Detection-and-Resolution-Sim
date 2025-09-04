@@ -969,13 +969,13 @@ def generateRandomAircraft(callsign = None):
     
     airportICAOS = [ # splited into continents with OSM supported icao codes, havent fully tested them yet
         # europe
-        "EGLL", "EGKK", "EDDF", "EDDM", "LFPG", "LFPO", "LIRF", "LSZH",
+        "EGLL", "EGKK", "EDDM", "LFPG", "LFPO", "LIRF",
         "LOWW", "LTFM", "EBBR", "EIDW", "ESSA", "ENGM", "EFHK", "BIKF",
 
         # north America
         "KJFK", "KLAX", "KORD", "KATL", "KSFO", "KSEA", "CYYZ", "CYVR", "CYUL",
         "KIAH", "KBOS", "KPHL", "KIAD", "KLGA", "KDEN", "KSLC",
-        "PANC", "KTPA", "KFLL", "KEWR",
+        "KTPA", "KFLL", "KEWR",
     
         # south America
         "SBGR", "SAEZ", "SPJC", "SKBO", "TJSJ", "MDPC", "MKJP",
@@ -985,13 +985,13 @@ def generateRandomAircraft(callsign = None):
         "ZSPD", "RPLL", "RPVM", "VTBS", "WMKK", "VOCI", "VCBI", "VOBL",
     
         # oceania
-        "YSSY", "YPAD", "NZAA",
+        "YSSY", "YPAD",
     
         # middle East
-        "OEJN", "OERK", "OIIE", "OMDB", "OTHH", "OOMS",
+        "OEJN", "OERK", "OIIE", "OTHH", "OOMS",
     
         # africa
-        "FAOR", "HAAB", "DNMM", "GMMN"
+        "FAOR", "DNMM", "GMMN"
     ]
     
     aircraftTypes = [
@@ -1033,7 +1033,7 @@ def generateRandomAircraft(callsign = None):
     heading = departurePos.bearingTo(arrivalPos) # calculates the bearing from the departure airport to the arrival airport
     lat = departurePos.lat 
     lon = departurePos.lon 
-    alt = random.uniform(30000, 42000)
+    alt = random.uniform(31000, 42000)
     speed = random.uniform(450, 550)  # random speed between 450 and 550 knots
     verticalspeed = random.uniform(-200, 200)  # random vertical speed between -200 and 200 feet per minute
 
@@ -1066,7 +1066,7 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(100)  # this controls how many aircraft are created
+airspace = initialiseAirspace(200)  # this controls how many aircraft are created
 
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft

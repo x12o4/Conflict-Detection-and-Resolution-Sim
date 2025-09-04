@@ -1,5 +1,6 @@
 // init map
 console.log("main.js loaded");
+
 var map = L.map('map', {
     minZoom: 2,
     worldCopyJump: true, // allows markers to stay on a single map (e.g if a marker flies to the west of america it will show near the west of the earth instead of moving to another map)
@@ -32,6 +33,121 @@ const minimumScale = 1.3; // minimum scale factor for the icon size
 const maximumScale = 1.6; // maximum scale factor for the icon size
 let currentZoom = map.getZoom(); // get the current zoom level
 const airportMarkers = {};
+const flightPathLines = {}; // dictionary used to store flight path markers
+const waypointMarkers   = {}; // dictionary used to store waypoint markers
+let showFlightPath = true; // boolean to toggle flight path visibility
+
+function createFlightLines(aircraft){
+    const aircraftID = aircraft.id; // gets the aircraft id
+    if (flightPathLines[aircraftID]) { // checks if the flight path line already exists
+        map.removeLayer(flightPathLines[aircraftID]); // removes the existing flight path line from the map
+    }
+
+    if (waypointMarkers[aircraftID]){ // checks if the waypoint markers exist for the aircraft
+        waypointMarkers[aircraftID].forEach(marker => map.removeLayer(marker)); // removes any existing waypoint markers from the map
+        }
+
+    if (!showFlightPath || !aircraft.waypoints || aircraft.waypoints.length < 2) { // only create flight lines if showFlightPath is true and there are at least 2 waypoints
+        return; // exits the function if flight path is not shown or there are not enough waypoints
+    }
+    
+    const pathPoints = []; // array to store the path points for the flight path line
+
+    pathPoints.push([aircraft.lat, aircraft.lon]); // adds the current position of the aircraft to the path points
+
+    for(let i = aircraft.currentWaypointIndex || 0; i < aircraft.waypoints.length; i++)
+        {
+            const waypoint = aircraft.waypoints[i]; // gets the waypoint
+            pathPoints.push([waypoint.lat, waypoint.lon]) ; // adds the waypoint coordinates to the path points
+        }
+
+    if(pathPoints.length > 1)
+    {
+        const pathLine = L.polyline(pathPoints, {
+            color: getFlightColourPath(aircraft),
+            weight: 2, 
+            opacity: 0.6,
+            dashArray: '5, 5' // makes the line dashed
+        }).addTo(map); 
+    
+        pathLine.bindPopup(`Flight Path for ${aircraft.id}<br>From: ${aircraft.departureICAO}<br>To: ${aircraft.arrivalICAO}`); // binds a popup to the flight path line with the aircraft id
+        flightPathLines[aircraftID] = pathLine; // adds the flight path line to the flight path lines dictionary
+    }
+
+    const waypointMarkerArray = []; // to create waypoint markers 
+    for(let i = aircraft.currentWaypointIndex || 0; i < aircraft.waypoints.length; i++){
+        const waypoint = aircraft.waypoints[i]; // gets the waypoint
+        const currentTarget = i === (aircraft.currentWaypointIndex || 0)
+        const waypointMarker = L.circleMarker([waypoint.lat, waypoint.lon], {
+            radius: currentTarget ? 2 : 3, // makes the current target waypoint larger, ? used as a boolean
+            fillColor: currentTarget ? '' : 'blue', 
+            color: currentTarget? 'red' : 'blue', 
+            weight: 1,
+            opacity: 0.5,
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        waypointMarker.bindPopup(`Waypoint: ${waypoint.name}<br>Aircraft: ${aircraft.id}`)
+    }
+
+    waypointMarkers[aircraftID] = waypointMarkerArray; // adds the waypoint markers to the waypoint markers dictionary
+}
+function getFlightColourPath(aircraft){ // changes colour depending on altitude https://support.fr24.com/support/solutions/articles/3000115027-why-does-the-aircraft-s-trail-change-colour- for reference
+    if(aircraft.altitude < 100){
+        return 'white'
+    }
+    else if(aircraft.altitude >= 100 && aircraft.altitude < 400)
+    {
+        return 'yellow'
+    }
+    else if(aircraft.altitude >= 400 && aircraft.altitude < 2000){
+        return 'green'
+    }
+    else if(aircraft.altitude >= 2000 && aircraft.altitude < 4000){
+        return 'cyan'
+    }
+    else if(aircraft.altitude >= 4000 && aircraft.altitude < 6000){
+        return 'blue'
+    }
+    else if(aircraft.altitude >= 6000 && aircraft.altitude < 8000){
+        return 'darkblue'
+    }
+    else if(aircraft.altitude >= 8000 && aircraft.altitude < 10500){
+        return 'purple'
+    }
+    else if(aircraft.altitude >= 10500 && aircraft.altitude < 12500){
+        return '#FF69B4' // used hotpink as pink is too hard to see
+    }
+    else if(aircraft.altitude >= 12500){
+        return 'red'
+    }
+}
+
+function clearFlightLines(aircraftID){
+    if(flightPathLines(aircraftID)){
+        map.removeLayer(flightPathLines[aircraftID]); // removes the flight path line from the map
+        delete flightPathLines[aircraftID]; // deletes the flight path line from the flight path lines dictionary
+    }
+
+    if(waypointMarkers[aircraftID]){
+        waypointMarkers[aircraftID].forEach(marker => map.removeLayer(marker)); // removes the waypoint markers from the map
+        delete waypointMarkers[aircraftID]; // deletes the waypoint markers from the waypoint markers dictionary
+    }
+}
+
+function toggleFlightPath(){
+    showFlightPath = !showFlightPath; // toggles the flight path visibility
+
+    if(!showFlightPath){ // if flight path is not shown, clear the flight path lines and waypoint markers
+        Object.keys(flightPathLines).forEach(aircraftID => clearFlightLines(aircraftID)); // clears all flight path lines
+    }
+    else{
+
+    }
+}
+    
+    
+
 
 
 async function fetchAirport(icao){
@@ -114,7 +230,10 @@ async function fetchAircraftData(){
             altitude: aircraft.altitude,
             speed: aircraft.speed,
             departureICAO: aircraft.departureICAO,
-            arrivalICAO: aircraft.arrivalICAO
+            arrivalICAO: aircraft.arrivalICAO,
+            flightStatus: aircraft.flightStatus,
+            waypoints: aircraft.waypoints || [], // ensures waypoints is an array, defaulting to empty if not present
+            currentWaypointIndex: aircraft.currentWaypointIndex || 0 // ensures currentWaypointIndex is defined, defaulting to 0 if not present
         }));         
     } catch(error){
         console.error("Error fetching aircraft data:", error); // logs the error to the console
@@ -185,6 +304,7 @@ async function updateAircraftData(){
         if (!currentAircraftIDs.has(id)) {
             map.removeLayer(aircraftMarkers[id]);
             delete aircraftMarkers[id];
+            clearFlightLines(id); // clears the flight lines 
         }
     });
         
@@ -206,7 +326,7 @@ async function updateAircraftData(){
                 icon: ScaleIcon(currentZoom),
                 rotationAngle: Rotation,
                 rotationOrigin: 'center'
-            }).bindPopup(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt`).addTo(map);
+            }).bindPopup(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt<br>Journey: ${aircraft.departureICAO} to ${aircraft.arrivalICAO}`).addTo(map);
             
             aircraftMarkers[aircraft.id] = newMarker;  
         } else {
@@ -215,9 +335,10 @@ async function updateAircraftData(){
                 .setLatLng([aircraft.lat, aircraft.lon])
                 .setRotationAngle(Rotation)
                 .getPopup()
-                .setContent(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt`);
+                .setContent(`ID: ${aircraft.id}<br>Alt: ${aircraft.altitude}ft<br>Speed: ${aircraft.speed}kt<br>Journey: ${aircraft.departureICAO} to ${aircraft.arrivalICAO} `);
         }
-    };
+        createFlightLines(aircraft); // creates the flight lines for the aircraft
+    }
 }
 
 function startUpdate(){
