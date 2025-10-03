@@ -1,8 +1,13 @@
 
-
+body, html{
+  margin:0;
+  padding:0;
+  overflow:hidden;
+}
 #map{
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  position: relative;
 }
 
 .airport{
@@ -18,5 +23,27 @@
   font-size:20px;
   background:transparent;
   border:black;
-  color: yellow;
+  color: #F87431;
+}
+
+#addAircraftButton{
+  position: fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  border-radius: 50%;
+  border:none;
+  background-color: #000053;
+  cursor: pointer;
+  color: white;
+  font-size:24px;
+  transition: background 0.2s;
+
+
+}
+
+#addAircraftButton:hover{  /* triggers when the user hovers overthe button */
+  background-color: #1c1c84;
+  color: grey;
 }

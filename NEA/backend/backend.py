@@ -17,7 +17,6 @@ from enum import Enum # for named values
 
 # using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
-logging.basicConfig(filename="collision.log", level=logging.WARNING) # sets up logging to a file, logs warnings and above (error, critical) to the file
 
 application = Flask(__name__)  # creates flask webserver
 
@@ -25,20 +24,20 @@ CORS(application)  # enables CORS for the application, allowing cross-origin req
 cache = Cache(application, config = { # refers to the https://flask-caching.readthedocs.io/en/latest/ documentation
     "CACHE_TYPE": "SimpleCache",  # using simple cache for caching responses
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
-})  # initializes cache 
+})  # initialises cache 
 
 airportCache = {}; # this stores the airports in the cache as fetching everytime from the api is not optimal, also airport data rarely changes 
-earthRadiusKM = 6378.0 # radius of the Earth in kilometers
+earthRadiusKM = 6378.0 
 degreeToRadians = math.pi / 180.0
 radianToDegree = 180.0 / math.pi
-nmToKM = 1.852 # conversion factor from nautical miles to kilometers
-msToK = 1.94384 # conversion factor from meters per second to knots
-kToKMH = 1.852 # conversion factor from knots to kilometers per hour
-degreesToMeters = 111320 # conversion factor from degrees to meters
-feetToMeters = 0.3048 # conversion factor from feet to meters
-knotsToMs = 0.514444 # conversion factor from knots to meters per second
-feetPerMinToMS = 0.00508 # conversion factor from feet per minute to meters per second
-feetToKM = 0.0003048 # conversion factor from feet to kilometers
+nmToKM = 1.852 
+msToK = 1.94384 
+kToKMH = 1.852 
+degreesToMeters = 111320 
+feetToMeters = 0.3048 
+knotsToMs = 0.514444 
+feetPerMinToMS = 0.00508 
+feetToKM = 0.0003048
 
 
 
@@ -175,6 +174,7 @@ class Aircraft:
         self.waypointTolerance = 5.0 # tolerance in kilometres 
         self.headingChangeRate = 2.0 # rate of change in heading in degrees, used for smooth changes
         self.flightStatus = "Departure"  # flight status, can be "Departure", "Enroute","Arriving", "Arrived", etc. used to determine the current phase of flight
+        self.hasArrived = False  # flag to indicate if the aircraft has arrived at its destination
 
     def setFlightPath(self, departurePosition: Position, arrivalPosition: Position):
         self.flightPath = flightPath(departurePosition, arrivalPosition)
@@ -196,6 +196,7 @@ class Aircraft:
             if self.flightPath.pathIsComplete():  # checks if the flight path is complete
                 self.flightStatus = "Arrived"  # sets the flight status to "Arrival" if the flight path is complete
                 self.tas = 0 # sets the speed of the plane to 0
+                self.hasArrived = True
                 print(f"{self.callsign} has arrived at {self.arrivalICAO} from {self.departureICAO}.")  # prints a message to the console when the aircraft arrives at its destination
             elif self.flightPath.currentWaypointIndex == len(self.flightPath.waypoints) - 1: # checks if the current waypoint is the last waypoint in the flight path
                 self.flightStatus = "Arriving"
@@ -216,7 +217,8 @@ class Aircraft:
 
     def updateAircraftPosition(self, time: float = 1.0): 
         with self.updateLOCK:
-            if(self.flightStatus == "Arrived"):
+            
+            if(self.hasArrived):
                 return
             
             self.navigateWaypoint()  # navigates to the next waypoint in the flight path
@@ -317,7 +319,6 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
         return CPA(timeToCollision=0,distanceAtCPA=currDistance/1000, cpaPosition1=(aircraft1.position.lat, aircraft1.position.lon, aircraft1.alt), cpaPosition2=(aircraft2.position.lat, aircraft2.position.lon, aircraft2.alt))  
         
     # t_cpa = -(dr · dv) / |dv|²
-    # https://www.khanacademy.org/math/multivariable-calculus/thinking-about-multivariable-function/x786f2022:vectors-and-matrices/a/dot-products-mvc
     drDotDv = dx * dvx + dy * dvy + dz * dvz  # dot product of position and velocity vectors
     dvSquared = dvx * dvx + dvy * dvy + dvz * dvz  # squared magnitude of the velocity vector
 
@@ -340,7 +341,7 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
 
    #https://en.wikipedia.org/wiki/Euclidean_distance
    # d(p,q) = sqrt((x2 - x1)² + (y2 - y1)² + (z2 - z1)²)
-    distanceAtCPA = math.sqrt((x1atCPA - x2atCPA) ** 2 + (y1atCPA - y2atCPA) ** 2 + (z1atCPA - z2atCPA) ** 2)  # calculates distance between aircraft at CPA
+    distanceAtCPA = math.sqrt((x1atCPA - x2atCPA) ** 2 + (y1atCPA - y2atCPA) ** 2 + (z1atCPA - z2atCPA) ** 2)  # calculates distance between aircraft at CPA 
     
     lat1atCPA = y1atCPA / degreesToMeters  # converts y coordinate back to latitude
     lon1atCPA = x1atCPA / (degreesToMeters * math.cos(avgLAT)) # converts x coordinate back to longitude
@@ -457,9 +458,10 @@ class simAirspace:
                     currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
 
                 # # normalises the risk to a value between 0 and 1, 1 being the highest risk
-                    horizontalRisk = max(0, 1 - (cpa.distanceAtCPA / minimumSeperationDistanceKM))  
-                    verticalRisk = max(0, 1-(altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT))  
-                    timeRisk = max(0, 1 - (cpa.timeToCollision / (lookaheadTime * 60)))
+                    # ill use exponential decay functions to normalise as my weighted formula just made everything 1.0 risk score
+                    horizontalRisk = math.exp(-cpa.distanceAtCPA / minimumSeperationDistanceKM) 
+                    verticalRisk = math.exp(-altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT)
+                    timeRisk = math.exp(-cpa.timeToCollision / (lookaheadTime * 60))
 
                 # placeholders until the actual function is implemented
                     speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
@@ -575,6 +577,17 @@ class simAirspace:
         # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
+    def removeArrivedAircraft(self): # use when aircraft reaches their destiantion
+        with self.LOCK:
+            removeList = [callsign for callsign, aircraft in self.aircraft.items() if aircraft.hasArrived]
+            for callsign in removeList:
+                print(f"Removing {callsign} from airspace") # for test/debug can remove this later
+                del self.aircraft[callsign]
+            
+            if removeList:
+                print(f"Removed {len(removeList)} aircraft from airspace, {len(self.aircraft)} remaining aircraft on the map")
+
+
 @dataclass
 class aStarNode: # node for a star
     position: Position
@@ -969,26 +982,26 @@ def generateRandomAircraft(callsign = None):
     
     airportICAOS = [ # splited into continents with OSM supported icao codes, havent fully tested them yet
         # europe
-        "EGLL", "EGKK", "EDDM", "LFPG", "LFPO", "LIRF",
-        "LOWW", "LTFM", "EBBR", "EIDW", "ESSA", "ENGM", "EFHK", "BIKF",
+        "EGLL", "EGKK", "LFPG", "LFPO", "LIRF",
+         "LTFM", "EBBR",  "ESSA", "ENGM", "EFHK", "BIKF",
 
         # north America
-        "KJFK", "KLAX", "KORD", "KATL", "KSFO", "KSEA", "CYYZ", "CYVR", "CYUL",
-        "KIAH", "KBOS", "KPHL", "KIAD", "KLGA", "KDEN", "KSLC",
-        "KTPA", "KFLL", "KEWR",
+        "KJFK", "KLAX", "KORD", "KATL",  "KSEA", "CYYZ", "CYVR",
+          "KPHL", "KIAD",  "KDEN", "KSLC",
+        "KFLL",
     
         # south America
         "SBGR", "SAEZ", "SPJC", "SKBO", "TJSJ", "MDPC", "MKJP",
     
         # asia
-        "OMDB", "RJTT", "VHHH", "WSSS", "ZBAA", "RKSI", "OTHH", "VABB", "VIDP",
-        "ZSPD", "RPLL", "RPVM", "VTBS", "WMKK", "VOCI", "VCBI", "VOBL",
+        "OMDB", "RJTT",  "WSSS", "ZBAA",  "OTHH", "VABB", 
+        "ZSPD",  "RPVM", "WMKK", "VOCI",  "VOBL",
     
         # oceania
-        "YSSY", "YPAD",
+        "YSSY", 
     
         # middle East
-        "OEJN", "OERK", "OIIE", "OTHH", "OOMS",
+         "OERK",  "OTHH",
     
         # africa
         "FAOR", "DNMM", "GMMN"
@@ -1066,7 +1079,7 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(200)  # this controls how many aircraft are created
+airspace = initialiseAirspace(50)  # this controls how many aircraft are created
 
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
@@ -1074,6 +1087,7 @@ airspace = initialiseAirspace(200)  # this controls how many aircraft are create
 def getAircraft(): # executes when /aircraft is accessed
    try:
        airspace.updateAirspace(5) # updates the airspace with a time step of 5 second
+       airspace.removeArrivedAircraft() # removes aircraft that have arrived at their destination
        return jsonify(airspace.getAircraftData())  # returns the aircraft data in JSON format
    except Exception as e:
        traceback.print_exc()
@@ -1094,7 +1108,27 @@ def getConflicts():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
-
+@application.route('/addAircraft', methods=['POST']) # defines route to add an aircraft when clicking the button via a POST request
+def addRandomAircraft():
+    try:
+        ac = generateRandomAircraft()
+        airspace.addAircraft(ac)
+        print(f"Added aircraft {ac.callsign}")
+        
+        return jsonify({
+            "success": True, 
+            "aircraft": {
+                "callsign": ac.callsign,
+                "departureICAO": ac.departureICAO,
+                "arrivalICAO": ac.arrivalICAO
+            }
+        })
+    except Exception as e:
+        print(f"error occured when adding the aircraft: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
        
 if __name__ == '__main__':
     print("Starting Simulation..")

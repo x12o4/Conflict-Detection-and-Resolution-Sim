@@ -119,12 +119,12 @@ function getFlightColourPath(aircraft){ // changes colour depending on altitude 
         return '#FF69B4' // used hotpink as pink is too hard to see
     }
     else if(aircraft.altitude >= 12500){
-        return 'red'
+        return 'green'
     }
 }
 
 function clearFlightLines(aircraftID){
-    if(flightPathLines(aircraftID)){
+    if(flightPathLines[aircraftID]){
         map.removeLayer(flightPathLines[aircraftID]); // removes the flight path line from the map
         delete flightPathLines[aircraftID]; // deletes the flight path line from the flight path lines dictionary
     }
@@ -290,7 +290,44 @@ async function displayConflicts(){
 
     
 }
+function addAircraftButton(){
+    const button = document.getElementById('addAircraftButton');
 
+    button.style.display = 'flex';
+    button.style.alignItems = 'center';
+    button.style.justifyContent = 'center';
+    button.style.zIndex = 100000; // makes sure the button is above the map
+    button.style.visibility = 'visible'; 
+    button.style.opacity= 1;
+
+    button.addEventListener('click', () => {
+        generateRandomAircraft();
+    });
+}
+async function generateRandomAircraft(){
+    try{
+        const res = await fetch("http://localhost:5000/addAircraft",{
+            method: 'POST', // this will send the request to the flask server
+            headers: {
+                'Content-Type': 'application/json', // tells the server that the request body is in json format
+            },
+        });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const result = await res.json();
+
+        if (result.success){
+            console.log(`randomly generated ${result.aircraft.callsign}`)
+            updateAircraftData();
+            alert(`Successfully generated aircraft ${result.aircraft.callsign}`);
+        }
+        else{
+            console.log("generation failed:", result.error)
+        }
+    } catch(error){
+        console.error("Error generating random aircraft:", error);
+    }
+}
 async function updateAircraftData(){
     const data = await fetchAircraftData(); // waits to fetch the aircraft data from the flask server
     if(data.error){
@@ -340,7 +377,7 @@ async function updateAircraftData(){
         createFlightLines(aircraft); // creates the flight lines for the aircraft
     }
 }
-
+document.addEventListener('DOMContentLoaded', addAircraftButton); // adds the aircraft button when the DOM is loaded
 function startUpdate(){
     updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
     displayConflicts(); // calls the displayConflicts function to fetch and display the conflicts data
