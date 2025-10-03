@@ -1,6 +1,9 @@
 // init map
 console.log("main.js loaded");
 
+const checkEnv = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'; // checks if we are in development or prod
+const apiBaseURL = checkEnv ? 'http://localhost:5000' : ''; // sets the api url based on the environment
+
 var map = L.map('map', {
     minZoom: 2,
     worldCopyJump: true, // allows markers to stay on a single map (e.g if a marker flies to the west of america it will show near the west of the earth instead of moving to another map)
@@ -152,7 +155,7 @@ function toggleFlightPath(){
 
 async function fetchAirport(icao){
     try{
-        const response = await fetch(`http://localhost:5000/airport/${icao}`); // fetches the airport data from the flask server
+        const response = await fetch(`${apiBaseURL}/airport/${icao}`); // fetches the airport data from the flask server
         if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
         const data = await response.json(); // returns the response as json
         return data;
@@ -216,7 +219,7 @@ map.on('zoomend', () => { // zoomend event is triggered when the zoom level anim
 async function fetchAircraftData(){
     try{
         
-        const response = await fetch("http://localhost:5000/aircraft"); // fetches the aircraft data from the flask server
+        const response = await fetch(`${apiBaseURL}/aircraft`); // fetches the aircraft data from the flask server
         if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); // throws an error if the response is not ok
         const data = await response.json(); // returns the response as json
         console.log("aircraft data from server:", data);
@@ -251,7 +254,7 @@ function calculateMidpoint(latlng1, latlng2) {
 
 async function displayConflicts(){
     try{
-        const response = await fetch("http://localhost:5000/conflicts"); // fetches the conflicts data from the flask server
+        const response = await fetch(`${apiBaseURL}/conflicts`); // fetches the conflicts data from the flask server
         if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`); 
         const conflicts = await response.json(); 
         console.log("conflicts data from flask:", conflicts); 
@@ -293,20 +296,25 @@ async function displayConflicts(){
 function addAircraftButton(){
     const button = document.getElementById('addAircraftButton');
 
-    button.style.display = 'flex';
-    button.style.alignItems = 'center';
-    button.style.justifyContent = 'center';
-    button.style.zIndex = 100000; // makes sure the button is above the map
-    button.style.visibility = 'visible'; 
-    button.style.opacity= 1;
+    if(!button) return;
+
+    button.replaceWith(button.cloneNode(true)); // remove existing event listeners on the button
+    const newButton = document.getElementById('addAircraftButton');
+
+    newButton.style.display = 'flex';
+    newButton.style.alignItems = 'center';
+    newButton.style.justifyContent = 'center';
+    newButton.style.zIndex = 100000; // makes sure the button is above the map
+    newButton.style.visibility = 'visible'; 
+    newButton.style.opacity= 1;
 
     button.addEventListener('click', () => {
         generateRandomAircraft();
-    });
+    }, { once: false }); // ensures the event listener is only added once
 }
 async function generateRandomAircraft(){
     try{
-        const res = await fetch("http://localhost:5000/addAircraft",{
+        const res = await fetch(`${apiBaseURL}/addAircraft`,{
             method: 'POST', // this will send the request to the flask server
             headers: {
                 'Content-Type': 'application/json', // tells the server that the request body is in json format
@@ -378,7 +386,12 @@ async function updateAircraftData(){
     }
 }
 document.addEventListener('DOMContentLoaded', addAircraftButton); // adds the aircraft button when the DOM is loaded
+let updateInterval = null;
+let conflictInterval = null;
 function startUpdate(){
+    if(updateInterval) clearInterval(updateInterval); // clears the previous interval if it exists
+    if(conflictInterval) clearInterval(conflictInterval); // clears the previous interval if it exists
+
     updateAircraftData(); // calls the updateAircraftData function to fetch and update the aircraft data
     displayConflicts(); // calls the displayConflicts function to fetch and display the conflicts data
     setInterval(updateAircraftData, 2000); // updates the aircraft data every 2 seconds

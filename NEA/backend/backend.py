@@ -1079,7 +1079,7 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(50)  # this controls how many aircraft are created
+airspace = initialiseAirspace(100)  # this controls how many aircraft are created
 
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
@@ -1133,7 +1133,7 @@ def addRandomAircraft():
 if __name__ == '__main__':
     print("Starting Simulation..")
     
-    application.run(debug=True, port=5000, use_reloader=False)
+    application.run(debug=False, host='0.0.0.0', port=5000)
 
 
 
