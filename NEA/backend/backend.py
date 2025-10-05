@@ -20,6 +20,8 @@ import os
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 
 application = Flask(__name__)  # creates flask webserver
+application.static_folder = '../frontend' # serves static files from the frontend folder
+application.static_url_path = ''  # serves static files from the root directory
 
 CORS(application)  # enables CORS for the application, allowing cross-origin requests from the frontend
 cache = Cache(application, config = { # refers to the https://flask-caching.readthedocs.io/en/latest/ documentation
@@ -27,7 +29,7 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initialises cache 
 
-port = int(os.getenv("PORT", 5000))  # gets port from environment variable or defaults to 5000 (i used this because render wont detect an open port otherwise) 
+
 airportCache = {}; # this stores the airports in the cache as fetching everytime from the api is not optimal, also airport data rarely changes 
 earthRadiusKM = 6378.0 
 degreeToRadians = math.pi / 180.0
@@ -1137,7 +1139,8 @@ def showHTML():
     return render_template("index.html")
 if __name__ == '__main__':
     print("Starting Simulation..")
-    
+    port = int(os.getenv("PORT", 5000))  # gets port from environment variable or defaults to 5000 (i used this because render wont detect an open port otherwise) 
+    print(f"Using port {port}")
     application.run(debug=False, host='0.0.0.0', port=port)
 
 

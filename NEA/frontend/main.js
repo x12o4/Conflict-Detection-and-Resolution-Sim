@@ -23,7 +23,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var AeroplaneIcon = L.icon({
-    iconUrl: '/NEA/frontend/ICONS/airplane.svg', // sets image for the aeroplane
+    iconUrl: 'ICONS/airplane.svg', // sets image for the aeroplane
     iconSize: [30, 30], // size of the icon
     iconAnchor: [15, 15] // centers the icon on long, lat coordinates.
 })
