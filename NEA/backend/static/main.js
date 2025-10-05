@@ -199,7 +199,7 @@ function ScaleIcon(zoom){
     const scaleFactor = Math.min(maximumScale, Math.max(minimumScale, Math.pow(1.2,DefaultZoom - zoom))); // calculates the scale factor based on the zoom level, ensuring it stays within the minimum and maximum scale limits
     // scale factor is calculated by taking the difference between the default zoom level and the current zoom level, and raising 1.2 to that power, then clamping it between the minimum and maximum scale limits
     return L.icon({        
-        iconUrl: 'ICONS/airplane.svg',
+        iconUrl: '/static/ICONS/airplane.svg',
         iconSize: defaultIconSize.map(size => size * scaleFactor), // scales the icon size based on the zoom level
         iconAnchor: [defaultIconSize[0]/2 * scaleFactor, defaultIconSize[1]/2 * scaleFactor] // centers the icon on long, lat coordinates based on the scaled size
     })
