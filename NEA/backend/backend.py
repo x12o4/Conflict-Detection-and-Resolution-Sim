@@ -1082,7 +1082,7 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(100)  # this controls how many aircraft are created
+airspace = initialiseAirspace(20)  # this controls how many aircraft are created
 
 
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
