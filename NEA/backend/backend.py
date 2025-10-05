@@ -14,6 +14,7 @@ import logging
 from typing import Tuple, Optional, Set, List # used for type hinting
 from dataclasses import dataclass, field
 from enum import Enum # for named values
+import os
 
 # using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
@@ -26,6 +27,7 @@ cache = Cache(application, config = { # refers to the https://flask-caching.read
     "CACHE_DEFAULT_TIMEOUT": 0.5 # 0.5 for smoother updates 
 })  # initialises cache 
 
+port = int(os.getenv("PORT", 5000))  # gets port from environment variable or defaults to 5000 (i used this because render wont detect an open port otherwise) 
 airportCache = {}; # this stores the airports in the cache as fetching everytime from the api is not optimal, also airport data rarely changes 
 earthRadiusKM = 6378.0 
 degreeToRadians = math.pi / 180.0
@@ -53,7 +55,7 @@ def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API
     overpassURL = 'https://overpass-api.de/api/interpreter'
     overpassQuery = f'[out:json];(nwr[aeroway~"aerodrome|airport"][icao="{icao.upper()}"];);out center;'
     try:
-        response = requests.get(overpassURL, params={'data': overpassQuery}, timeout=5) # make GET request to overpass
+        response = requests.get(overpassURL, params={'data': overpassQuery}, timeout=15) # make GET request to overpass
         if response.status_code == 200: # checks if the request was successful
             data = response.json() # converts to json
             for element in data.get('elements', []): # iterate through elements in the response
@@ -1133,7 +1135,7 @@ def addRandomAircraft():
 if __name__ == '__main__':
     print("Starting Simulation..")
     
-    application.run(debug=False, host='0.0.0.0', port=5000)
+    application.run(debug=False, host='0.0.0.0', port=port)
 
 
 
