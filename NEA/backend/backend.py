@@ -1,5 +1,5 @@
 
-from flask import Flask, jsonify  # Flask web framework for building APIs, jsonify for converting python data to JSON
+from flask import Flask, jsonify, render_template  # Flask web framework for building APIs, jsonify for converting python data to JSONl, render_template for rendering HTML 
 from flask_caching import Cache  # flask caching for caching responses to improve performance, pip install -U flask-caching
 import random
 import requests # used to make HTTP requests, pip install requests
@@ -1131,7 +1131,10 @@ def addRandomAircraft():
             "success": False,
             "error": str(e)
         }), 500
-       
+
+@application.route('/') # i need this to serve the html file to render as i didnt have a predefined route for "/" 
+def showHTML():
+    return render_template("index.html")
 if __name__ == '__main__':
     print("Starting Simulation..")
     
