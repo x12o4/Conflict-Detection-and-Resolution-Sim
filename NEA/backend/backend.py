@@ -20,8 +20,7 @@ import os
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
 
 application = Flask(__name__)  # creates flask webserver
-application.static_folder = '../frontend' # serves static files from the frontend folder
-application.static_url_path = ''  # serves static files from the root directory
+
 
 CORS(application)  # enables CORS for the application, allowing cross-origin requests from the frontend
 cache = Cache(application, config = { # refers to the https://flask-caching.readthedocs.io/en/latest/ documentation
