@@ -1099,7 +1099,6 @@ def getAircraft(): # executes when /aircraft is accessed
 @application.route('/conflicts') # defines route to retrieve live aircraft data at localhost/aircraft
 def getConflicts():
     try:
-        airspace.updateAirspace(1) # for faster checks
         conflicts = airspace.DetectConflicts(
                 minimumSeperationDistanceKM=nmToKM * 5,  # 5 NM 
                 minimumAltitudeDifferenceFT=1000,      # 1000 ft 
