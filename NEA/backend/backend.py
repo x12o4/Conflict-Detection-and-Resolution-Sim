@@ -420,7 +420,7 @@ class simAirspace:
                 if cpa is None:  # if CPA is None, the aircraft are not on a collision course
                     continue  # skip to the next pair of aircraft
 
-                if cpa.timeToCollision <= 60 or cpa.distanceAtCPA < 1.0:  # 1 minute or 1km
+                if cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:  # 20 seconds or 0.8km
                     print(f"conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
                     if self.resolveConflicts(aircraft1, aircraft2):
                         resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
