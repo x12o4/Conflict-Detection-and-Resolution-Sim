@@ -14,7 +14,7 @@ import logging
 from typing import Tuple, Optional, Set, List # used for type hinting
 from dataclasses import dataclass, field
 from enum import Enum # for named values
-import os
+import os # need to access environment port
 
 # using git bash for terminal 
 # cd 'C:\Users\ethan\OneDrive\Desktop\NEA\NEA\backend' ignore this its just for me to cd into the file easier
@@ -391,11 +391,15 @@ class simAirspace:
     
       # minimum separation distance in kilometers, set to 5 nautical miles
      # minimum altitude difference in feet, set to 1000 feet
+    def calculateRiskScore(self, aircraft1: Aircraft, aircraft2: Aircraft, horizontalRisk: int, verticalRisk: int, timeRisk: int, speedRisk: int):
+        riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
+        return riskScore
 
+        
     # priority queue implementation
     def DetectConflicts(self, minimumSeperationDistanceKM: float = nmToKM * 1,
                     minimumAltitudeDifferenceFT: float = 500, lookaheadTime: float = 5):  # looks 5 mins ahead for conflicts 
-
+        
         conflictHeap = []  # list to store current conflicts
         aircraftList = list(self.aircraft.values())  # converts the dictionary of aircraft to a list 
         resolvedConflicts = []
@@ -416,7 +420,7 @@ class simAirspace:
                 if cpa is None:  # if CPA is None, the aircraft are not on a collision course
                     continue  # skip to the next pair of aircraft
 
-                if cpa.timeToCollision <= 60 or cpa.distanceAtCPA < 1.0:  # 1 minute or 1km
+                if cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:  # 20 seconds or 0.8km
                     print(f"conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
                     if self.resolveConflicts(aircraft1, aircraft2):
                         resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
@@ -470,8 +474,7 @@ class simAirspace:
                     speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
 
                 # risk score ranging from 0 to 1, used to determine the place in the priority queue
-                    riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
-                    self.conflictCounter += 1  
+                    riskScore = self.calculateRiskScore(aircraft1, aircraft2, horizontalRisk, verticalRisk, timeRisk, speedRisk)
                 #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
                     if riskScore > 0.8: # high risk
                         print(f"High risk conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
