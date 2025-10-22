@@ -11,8 +11,24 @@
     
 </head>
 <body>
-     <div id="map"></div>
-     <div id="addAircraftButton" title="Add aircraft"><img src="/static/ICONS/airplane.svg"></div>
+    <div id="init-airspace-container">
+        <div id="init-airspace-content">
+            <h2>Initialise Airspace</h2>
+            <div class="airspace-input">
+                <label for="aircraftCount">Number of aircraft:</label>
+                <input type="number" id="aircraftCount" name="aircraftCount" min="1" max="200" value="20" placeholder="Enter a number of aircraft">
+                <span class="error" id="error">Please enter a number between 1 and 200</span>
+            </div>
+            <div id="infoMessage">The aircraft will take a bit of time to load so be patient</div>
+            <div class="init-button-container">
+                <button class="init-button" id="simButton">
+                    Start Simulation
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
+    <div id="addAircraftButton" title="Add aircraft"><img src="/static/ICONS/airplane.svg"></div>
 </body>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="

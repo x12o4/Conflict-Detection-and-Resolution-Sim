@@ -4,6 +4,57 @@ console.log("main.js loaded");
 const checkEnv = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'; // checks if we are in development or prod
 const apiBaseURL = checkEnv ? 'http://localhost:5000' : ''; // sets the api url based on the environment
 
+function validateInput(){
+    const input = document.getElementById('aircraftCount')
+    const error = document.getElementById('error');
+    const value = parseInt(input.value);
+
+    if(isNaN(value) || value < 1 || value > 200){
+        error.style.display = 'block';
+        return false;
+    }
+    error.style.display = 'none';
+    return true;
+}
+async function initialiseAirspace(){
+    if(!validateInput()) return;
+
+    const input = document.getElementById('aircraftCount')
+    const aircraftCount = parseInt(input.value);
+    const button = document.querySelector('.init-button')
+    const container = document.getElementById('init-airspace-container')
+    const infoMessage = document.getElementById('infoMessage');
+
+    button.disabled = true; // disables the button to prevent multiple clicks
+    button.textContent="Loading...."
+    infoMessage.style.display = 'block';
+    try{
+        const response = await fetch(`${apiBaseURL}/initAirspace/${aircraftCount}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const res = await response.json();
+
+        if(res.success){
+            console.log(`Fully initialised airspace with ${aircraftCount} aircraft.`);
+            container.style.display = 'none'; // hides the initialisation container
+            infoMessage.style.display = 'none'; // hides the info message
+            startUpdate(); // starts updating the aircraft data after initialising the airspace
+        } else {
+            console.error("Failed to initialise airspace:", result.error);
+        }
+    } catch(error){
+        console.error("Error initialising airspace:", error);
+        button.disabled = false;
+        button.textContent = "Start Simulation"
+        loadingMessage.style.display = 'none';
+    }
+}
 var map = L.map('map', {
     minZoom: 2,
     worldCopyJump: true, // allows markers to stay on a single map (e.g if a marker flies to the west of america it will show near the west of the earth instead of moving to another map)
@@ -77,7 +128,7 @@ function createFlightLines(aircraft){
         flightPathLines[aircraftID] = pathLine; // adds the flight path line to the flight path lines dictionary
     }
 
-    const waypointMarkerArray = []; // to create waypoint markers 
+    /*const waypointMarkerArray = []; // to create waypoint markers 
     for(let i = aircraft.currentWaypointIndex || 0; i < aircraft.waypoints.length; i++){
         const waypoint = aircraft.waypoints[i]; // gets the waypoint
         const currentTarget = i === (aircraft.currentWaypointIndex || 0)
@@ -90,10 +141,10 @@ function createFlightLines(aircraft){
             fillOpacity: 0.5
         }).addTo(map);
 
-        waypointMarker.bindPopup(`Waypoint: ${waypoint.name}<br>Aircraft: ${aircraft.id}`)
+        waypointMarker.bindPopup(`Waypoint: ${waypoint.name}<br>Aircraft: ${aircraft.id}`) 
     }
 
-    waypointMarkers[aircraftID] = waypointMarkerArray; // adds the waypoint markers to the waypoint markers dictionary
+    waypointMarkers[aircraftID] = waypointMarkerArray; // adds the waypoint markers to the waypoint markers dictionary */
 }
 function getFlightColourPath(aircraft){ // changes colour depending on altitude https://support.fr24.com/support/solutions/articles/3000115027-why-does-the-aircraft-s-trail-change-colour- for reference
     if(aircraft.altitude < 100){
@@ -271,7 +322,7 @@ async function displayConflicts(){
                 
                 // ? is used like a boolean but its just shorter for me to use than if !distance etc
                 const distance = conflict.distanceKM != undefined ? conflict.distanceKM.toFixed(2) : 'n/a'
-                const altDiff = conflict.altitudeDifferenceFT != undefined ? conflict.distanceKM.toFixed(0) : 'n/a'
+                const altDiff = conflict.altitudeDifferenceFT != undefined ? conflict.altitudeDifferenceFT.toFixed(0) : 'n/a'
                 const riskScore = conflict.riskScore != undefined ? (conflict.riskScore * 100).toFixed(0) : 'n/a'
                 const timeToCollision = conflict.timeToCollision != undefined ? conflict.timeToCollision.toFixed(2) : 'n/a';
                 const status = conflict.status || 'unknown' 
@@ -282,7 +333,7 @@ async function displayConflicts(){
                         html: `&#9888;`,
                         iconSize: [100, 100] 
                     })
-                 }).bindPopup(`Conflict between ${conflict.aircraft1} and ${conflict.aircraft2}<br>Distance: ${distance}m<br>Altitude difference: ${altDiff}ft<br>Risk Score: ${riskScore}<br>Time till collision: ${timeToCollision} mins <br> Status: ${status}`).addTo(map); // binds a popup to the marker with the conflict information
+                 }).bindPopup(`Conflict between ${conflict.aircraft1} and ${conflict.aircraft2}<br>Distance: ${distance}km<br>Altitude difference: ${altDiff}ft<br>Risk Score: ${riskScore}<br>Time till collision: ${timeToCollision} mins <br> Status: ${status}`).addTo(map); // binds a popup to the marker with the conflict information
                 conflictMarkers[`${conflict.aircraft1}-${conflict.aircraft2}`] = conflictMarker; // adds the conflict marker to the conflict markers dictionary
         }
     });
@@ -336,6 +387,24 @@ async function generateRandomAircraft(){
         console.error("Error generating random aircraft:", error);
     }
 }
+
+function cleanUpAirportMarkers(activeAircraft){
+    const currentAirportsUsed = new Set(); // tracks the current airports being used
+    activeAircraft.forEach(aircraft => { // collect aall active airport
+        if (aircraft.departureICAO) currentAirportsUsed.add(aircraft.departureICAO);
+        if (aircraft.arrivalICAO) currentAirportsUsed.add(aircraft.arrivalICAO);
+    });
+    Object.keys(airportMarkers).forEach(icao => { // removes any airport markers that are no longer being used
+        if(!currentAirportsUsed.has(icao)){
+            if(airportMarkers[icao]){
+                map.removeLayer(airportMarkers[icao]);
+                delete airportMarkers[icao];
+                console.log("Removed airport marker for", icao);
+            }
+        }
+    });
+        
+}
 async function updateAircraftData(){
     const data = await fetchAircraftData(); // waits to fetch the aircraft data from the flask server
     if(data.error){
@@ -349,17 +418,19 @@ async function updateAircraftData(){
         if (!currentAircraftIDs.has(id)) {
             map.removeLayer(aircraftMarkers[id]);
             delete aircraftMarkers[id];
-            clearFlightLines(id); // clears the flight lines 
+            clearFlightLines(id); // clears the flight lines
         }
     });
-        
+    
+    cleanUpAirportMarkers(data); // cleans up any airport markers that are no longer being used
+
     // updates/adds markers for the aircraft/aircrafts
     for (const aircraft of data) {
         const Rotation = calculateRotation(aircraft.heading);
-        if (aircraft.departureICAO){
+        if (aircraft.departureICAO && !airportMarkers[aircraft.departureICAO]){
             await createAirportMarker(aircraft.departureICAO);
         } 
-        if (aircraft.arrivalICAO){
+        if (aircraft.arrivalICAO && !airportMarkers[aircraft.arrivalICAO]){
             await createAirportMarker(aircraft.arrivalICAO);
         }
 
@@ -385,7 +456,21 @@ async function updateAircraftData(){
         createFlightLines(aircraft); // creates the flight lines for the aircraft
     }
 }
-document.addEventListener('DOMContentLoaded', addAircraftButton); // adds the aircraft button when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    addAircraftButton();
+    const startButton = document.getElementById('simButton');
+    if (startButton) {
+        startButton.addEventListener('click', initialiseAirspace);
+    }
+    const aircraftInput = document.getElementById('aircraftCount');
+    if (aircraftInput) {
+        aircraftInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                initialiseAirspace();
+            }
+        });
+    }
+});
 let updateInterval = null;
 let conflictInterval = null;
 function startUpdate(){
@@ -398,5 +483,5 @@ function startUpdate(){
     setInterval(displayConflicts, 2000); // updates the conflicts data every 2 seconds
 }
 
-map.whenReady(startUpdate); // when the map is ready, start updating the aircraft data
+//map.whenReady(startUpdate); // when the map is ready, start updating the aircraft data
 // ensures that the map is fully loaded before starting the update process

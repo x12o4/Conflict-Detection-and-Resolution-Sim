@@ -4,6 +4,85 @@ body, html{
   padding:0;
   overflow:hidden;
 }
+#init-airspace-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e0dede;
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000;
+  
+}
+#init-airspace-content{
+  background-color: rgba(var(--primary600));
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  opacity: 100%;
+}
+
+#init-airspace-content h2{
+  margin-top: 0;
+  text-align: center;
+  color: linear-gradient(to right, #386df0 0%, #386df0 100%);
+}
+.airspace-input{
+  margin: 20px 0;
+  width: 94%;
+  
+}
+
+.airspace-input label{
+  display: block;
+  margin-bottom: 8px;
+  color: black;
+  font-weight: bold;
+}
+.init-button-container{
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.init-button{
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: green;
+}
+.init-button:hover{
+  background-color: darkgreen;
+}
+
+.error{
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+  display: none;
+}
+
+#aircraftCount {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+#aircraftCount:focus {
+  outline: none;
+  border-color: #000053;
+}
+
 #map{
   height: 100vh;
   width: 100vw;

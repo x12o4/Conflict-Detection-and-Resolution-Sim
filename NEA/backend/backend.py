@@ -22,6 +22,7 @@ import os # need to access environment port
 application = Flask(__name__)  # creates flask webserver
 
 
+
 CORS(application)  # enables CORS for the application, allowing cross-origin requests from the frontend
 cache = Cache(application, config = { # refers to the https://flask-caching.readthedocs.io/en/latest/ documentation
     "CACHE_TYPE": "SimpleCache",  # using simple cache for caching responses
@@ -75,10 +76,10 @@ def overpassAirportAPI(icao): # https://wiki.openstreetmap.org/wiki/Overpass_API
     except Exception as e:
         logging.warning(f"Error fetching airport data for {icao}: {str(e)}")
         return None  # returns None if no data is found or an error occurs
-
+airportCacheLock = Lock()  # lock to ensure thread safety when accessing the airport cache
 @application.route('/airport/<icao>')  # defines route to retrieve airport data at localhost/airport/ICAO
 def fetchAirport(icao):
-    with Lock():
+    with airportCacheLock:
         cacheKey = f"{icao} airport" # same thing as above happens here
         if cacheKey in airportCache:
             cacheData, timestamp = airportCache[cacheKey]
@@ -273,7 +274,7 @@ class Aircraft:
         }
     
 class CPA(): # store result of cpa
-    def __init__(self, timeToCollision: float, distanceAtCPA: float, cpaPosition1: Tuple[float,float], cpaPosition2: Tuple[float,float]):
+    def __init__(self, timeToCollision: float, distanceAtCPA: float, cpaPosition1: Tuple[float,float, float], cpaPosition2: Tuple[float,float, float]):
         self.timeToCollision = timeToCollision
         self.distanceAtCPA = distanceAtCPA
         self.cpaPosition1 = cpaPosition1
@@ -391,9 +392,13 @@ class simAirspace:
     
       # minimum separation distance in kilometers, set to 5 nautical miles
      # minimum altitude difference in feet, set to 1000 feet
-    def calculateRiskScore(self, aircraft1: Aircraft, aircraft2: Aircraft, horizontalRisk: int, verticalRisk: int, timeRisk: int, speedRisk: int):
+    def calculateRiskScore(self, aircraft1: Aircraft, aircraft2: Aircraft, horizontalRisk: float, verticalRisk: float, timeRisk: float, speedRisk: float, cpa = None):
         riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
+        if cpa and cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:
+            emergencyRisk = 1.0 + (1.0 - min(cpa.timeToCollision / 20, 1.0))
+            riskScore = min(1.0, riskScore * emergencyRisk)  # increases risk score for immediate conflicts, capped at 1.0
         return riskScore
+    
 
         
     # priority queue implementation
@@ -420,8 +425,18 @@ class simAirspace:
                 if cpa is None:  # if CPA is None, the aircraft are not on a collision course
                     continue  # skip to the next pair of aircraft
 
+                altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])
+                # ill use exponential decay functions to normalise as my weighted formula
+                horizontalRisk = math.exp(-cpa.distanceAtCPA / minimumSeperationDistanceKM) 
+                verticalRisk = math.exp(-altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT)
+                timeRisk = math.exp(-cpa.timeToCollision / (lookaheadTime * 60))
+                speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
+
+                # risk score ranging from 0 to 1, used to determine the place in the priority queue
+                riskScore = self.calculateRiskScore(aircraft1, aircraft2, horizontalRisk, verticalRisk, timeRisk, speedRisk, cpa)
+                #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
                 if cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:  # 20 seconds or 0.8km
-                    print(f"conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
+                    print(f"emergency conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
                     if self.resolveConflicts(aircraft1, aircraft2):
                         resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
                         print(f"Rerouted {aircraft1.callsign}")
@@ -430,23 +445,23 @@ class simAirspace:
                         heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {  # -1.0 highest priority
                             "aircraft1": aircraft1.callsign,
                             "aircraft2": aircraft2.callsign,
-                            "timeToCPA": cpa.timeToCollision,
-                            "distanceAtCPA": cpa.distanceAtCPA,
-                            "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
-                            "riskScore": 1.0,  #  max risk
+                            "timeToCollision": round(cpa.timeToCollision / 60, 2),
+                            "distanceKM": round(cpa.distanceAtCPA, 2),
+                            "altitudeDifferenceFT": round(abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]), 0),
+                            "riskScore": round(riskScore,3),  
                             "status": "Resolved"
                         }
                     ))
                     else:
                         print(f"Failed to resolve: {aircraft1.callsign} : {aircraft2.callsign}")
                         self.conflictCounter += 1  
-                        heapq.heappush(conflictHeap,(-1.0, self.conflictCounter, {
+                        heapq.heappush(conflictHeap,(-riskScore, self.conflictCounter, {
                             "aircraft1": aircraft1.callsign,
                             "aircraft2": aircraft2.callsign,
-                            "timeToCPA": cpa.timeToCollision,
-                            "distanceAtCPA": cpa.distanceAtCPA,
-                            "altitudeDifference": abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]),
-                            "riskScore": 1.0,
+                            "timeToCollision": round(cpa.timeToCollision / 60, 2),
+                            "distanceKM": round(cpa.distanceAtCPA, 2),
+                            "altitudeDifferenceFT": round(abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2]), 0),
+                            "riskScore": round(riskScore,3),  
                             "status": "Unresolved"
                         }))
                     continue  # skip to the next pair of aircraft
@@ -455,7 +470,6 @@ class simAirspace:
                     continue  
             
                 horizontalViolation = cpa.distanceAtCPA < minimumSeperationDistanceKM  # checks if the distance at CPA is less than the minimum separation distance
-                altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])  # calculates the altitude difference at CPA
                 verticalViolation = altitudeDifferenceAtCPA < minimumAltitudeDifferenceFT  # checks if the altitude difference at CPA is less than the minimum altitude difference
             
             # checks if the distance and altitude difference are below the minimum standard for aeroplanes by ICAO standards
@@ -464,18 +478,7 @@ class simAirspace:
                     currDistance = aircraft1.position.distancefrom(aircraft2.position)
                     currAltitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
 
-                # # normalises the risk to a value between 0 and 1, 1 being the highest risk
-                    # ill use exponential decay functions to normalise as my weighted formula just made everything 1.0 risk score
-                    horizontalRisk = math.exp(-cpa.distanceAtCPA / minimumSeperationDistanceKM) 
-                    verticalRisk = math.exp(-altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT)
-                    timeRisk = math.exp(-cpa.timeToCollision / (lookaheadTime * 60))
-
-                # placeholders until the actual function is implemented
-                    speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
-
-                # risk score ranging from 0 to 1, used to determine the place in the priority queue
-                    riskScore = self.calculateRiskScore(aircraft1, aircraft2, horizontalRisk, verticalRisk, timeRisk, speedRisk)
-                #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
+                 
                     if riskScore > 0.8: # high risk
                         print(f"High risk conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
                         if self.resolveConflicts(aircraft1, aircraft2):
@@ -488,11 +491,12 @@ class simAirspace:
                     else:
                         conflictStatus = "Monitoring"
                     
+                    self.conflictCounter += 1 # increments the conflict counter to ensure unique entries in the priority queue
                     heapq.heappush(conflictHeap, (-riskScore, self.conflictCounter,   {
-                        "aircraft1": aircraft1.callsign,  # callsign of aircraft 1
-                        "aircraft2": aircraft2.callsign,  # callsign of aircraft 2
+                        "aircraft1": aircraft1.callsign,  
+                        "aircraft2": aircraft2.callsign,  
                         "distanceKM": round(currDistance, 2),
-                        "altitudeDifferenceFT": round(currAltitudeDifference, 0),  # current altitude difference in feet
+                        "altitudeDifferenceFT": round(currAltitudeDifference, 0),  
                         "timeToCollision": round(cpa.timeToCollision / 60, 2),  # time to collision in minutes
                         "distanceAtCPAKM": round(cpa.distanceAtCPA, 2),  # distance at CPA in kilometers
                         "altitudeDiffCpaFT": round(altitudeDifferenceAtCPA, 0),  # altitude difference at CPA in feet   
@@ -530,12 +534,12 @@ class simAirspace:
      
                 
     
-    def velocityvector(self, aircraft: Aircraft): # calculates the velocity vector of an aircraft in km/h
-        speedKMs = (aircraft.tas * kToKMH) / 3600  # converts speed from knots to kilometers per second
+    def velocityvector(self, aircraft: Aircraft): # calculates the velocity vector of an aircraft in km/s
+        speedKMh = (aircraft.tas * kToKMH)   # converts speed from knots to kilometers per hour
         headingRadians = aircraft.hdg * degreeToRadians
 
-        vEast = speedKMs * math.sin(headingRadians)  # calculates eastward velocity component, formula is v = speed * sin(heading) for eastward velocity
-        vNorth = speedKMs * math.cos(headingRadians)  # calculates northward velocity component, formula is v = speed * cos(heading) for northward velocity
+        vEast = speedKMh * math.sin(headingRadians)  # calculates eastward velocity component, formula is v = speed * sin(heading) for eastward velocity
+        vNorth = speedKMh * math.cos(headingRadians)  # calculates northward velocity component, formula is v = speed * cos(heading) for northward velocity
 
         return (vEast, vNorth)  # returns the velocity vector as a tuple (eastward velocity, northward velocity) in km/h
     def calculateSpeedRisk(self, aircraft1: Aircraft, aircraft2: Aircraft): # calculates speed risk between two aircraft
@@ -631,7 +635,7 @@ class conflictResolutionStrategy(Enum): # used for different strategies when rer
 
 @dataclass
 class conflictResolution: # container for resolution info
-    aircraftID = str
+    aircraftID: float
     strategy: conflictResolutionStrategy
     newAltitude: float
     newWaypoints: Optional[List['Position']] = None # can either be a list of positions or none
@@ -739,7 +743,7 @@ class aStarPathfinding: # nodes - 3D pos (lat,lon,alt)  edges - possible movemen
         predictedLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))
         predictedLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1), math.cos(angularDistance) - math.sin(lat1) * math.sin(predictedLat))
         
-        return Position(predictedLon * radianToDegree, predictedLon * radianToDegree)
+        return Position(predictedLat * radianToDegree, predictedLon * radianToDegree)
 
     def getMovementCost(self, fNode: aStarNode, tNode: aStarNode): # calculates cost of moving from one node to another
         horDistance = fNode.position.distancefrom(tNode.position)
@@ -956,7 +960,7 @@ class conflictResolver:
         return True
     
     def getAirportData(self, icao: str): # same thing as Overpass 
-        with Lock():
+        with airportCacheLock:
             cacheKey = f"{icao} airport"
             if cacheKey in airportCache:
                 cacheData, timestamp = airportCache[cacheKey]
@@ -1070,9 +1074,9 @@ def generateRandomAircraft(callsign = None):
     )
     aircraft.setFlightPath(departurePos, arrivalPos)  
     return aircraft
-
+airspace = simAirspace()
 def initialiseAirspace(numAircraft = 10):
-    airspace = simAirspace()  # creates an instance of the simAirspace class to manage aircraft data and conflicts
+    airspace = simAirspace()  
     print(f"Creating {numAircraft} random aircraft for the simulation")
 
     for i in range(numAircraft):
@@ -1085,9 +1089,37 @@ def initialiseAirspace(numAircraft = 10):
     return airspace
 
 
-airspace = initialiseAirspace(20)  # this controls how many aircraft are created
+#airspace = initialiseAirspace(20)  # this controls how many aircraft are created
 
+@application.route('/initAirspace/<int:numAircraft>', methods=['POST'])
+def initialiseAirspaceEndpoint(numAircraft: int):
+    global airspace # declare airspace as global to modify it outside the function
+    try:
+        if numAircraft < 1 or numAircraft > 100:
+            return jsonify({"success": False, "error": "Number of aircraft must be between 1 and 100"}), 400
+        
+        airspace = simAirspace()
 
+        print(f"Creating {numAircraft} aircraft for the simulation")
+        for i in range(numAircraft):
+            try:
+                aircraft = generateRandomAircraft()
+                airspace.addAircraft(aircraft) 
+                print(f"Aircraft {aircraft.callsign} added to the simulation")  
+            except Exception as e:
+                print(f"Error creating aircraft: {str(e)}")
+        return jsonify({
+            "success": True,
+            "aircraftCount": len(airspace.aircraft),
+            "message": f"Airspace created with {len(airspace.aircraft)} aircraft"
+        })
+    except Exception as e:
+        print(f"Error initialising airspace: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+    
 @application.route('/aircraft') # defines route to retrieve live aircraft data at localhost/aircraft
 @cache.cached(timeout=0.5)  # caches the response for 0.5 seconds to reduce server load
 def getAircraft(): # executes when /aircraft is accessed
