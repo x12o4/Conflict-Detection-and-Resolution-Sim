@@ -171,14 +171,14 @@ class Aircraft:
         self.tas = speed
         self.verticalspeed = verticalspeed
         self.updateLOCK = Lock()  # lock to ensure thread safety when updating aircraft data
-        self.departureICAO = departureICAO  # ICAO code of the departure airport
-        self.arrivalICAO = arrivalICAO  # ICAO code of the arrival airport
-        self.flightPath = None # flight path set to none until it is assigned
-        self.targetHeading = hdg  # target heading for the aircraft, used for autopilot and navigation purposes
-        self.waypointTolerance = 5.0 # tolerance in kilometres 
+        self.departureICAO = departureICAO  
+        self.arrivalICAO = arrivalICAO  
+        self.flightPath = None # set to none until it is assigned
+        self.targetHeading = hdg  # target heading for the aircraft
+        self.waypointTolerance = 5.0 # tolerance in kilometres
         self.headingChangeRate = 2.0 # rate of change in heading in degrees, used for smooth changes
         self.flightStatus = "Departure"  # flight status, can be "Departure", "Enroute","Arriving", "Arrived", etc. used to determine the current phase of flight
-        self.hasArrived = False  # flag to indicate if the aircraft has arrived at its destination
+        self.hasArrived = False  
 
     def setFlightPath(self, departurePosition: Position, arrivalPosition: Position):
         self.flightPath = flightPath(departurePosition, arrivalPosition)
@@ -191,7 +191,7 @@ class Aircraft:
             return
         
         self.targetHeading = self.position.bearingTo(curWaypoint.position)  # sets the target heading to the bearing to the current waypoint
-        distanceFromWaypoint = self.position.distancefrom(curWaypoint.position)  # calculates the distance from the current waypoint
+        distanceFromWaypoint = self.position.distancefrom(curWaypoint.position)  
 
         if distanceFromWaypoint < self.waypointTolerance:  # checks if the aircrft is within waypoint tolerance
             print(f"Aircraft {self.callsign} reached waypoint {curWaypoint.name}")
@@ -225,10 +225,10 @@ class Aircraft:
             if(self.hasArrived):
                 return
             
-            self.navigateWaypoint()  # navigates to the next waypoint in the flight path
+            self.navigateWaypoint()  # navigates to next waypoint 
             self.updateHeading(time)
             speedKMs = (self.tas * nmToKM) / 3600 # converts speed from knots to kilometers per second
-            headingRadians = self.hdg * degreeToRadians  # converts heading from degrees to radians
+            headingRadians = self.hdg * degreeToRadians  # degrees to radians
             distance = speedKMs * time  # distance = speed x time
             angularDistance = distance / earthRadiusKM  # angular distance in radians used for calculating new position
 
@@ -239,12 +239,12 @@ class Aircraft:
             newLat = math.asin(math.sin(lat1) * math.cos(angularDistance) + math.cos(lat1) * math.sin(angularDistance) * math.cos(headingRadians))  
             newLon = lon1 + math.atan2(math.sin(headingRadians) * math.sin(angularDistance) * math.cos(lat1),math.cos(angularDistance) - math.sin(lat1) * math.sin(newLat)) 
 
-            self.position.lat = newLat * radianToDegree  # converts latitude back to degrees
-            self.position.lon = newLon * radianToDegree  # converts longitude back to degrees
+            self.position.lat = newLat * radianToDegree  # convert latitude back to degrees
+            self.position.lon = newLon * radianToDegree  # convert longitude back to degrees
             self.alt += self.verticalspeed * (time/60)  # updates altitude based on vertical speed and time
 
 
-    def dataToJsonDictionary(self): # use of abstract data type Dictionary to convert aircraft data to JSON to send to the frontend
+    def dataToJsonDictionary(self): # used to convert aircraft data to JSON to send to the frontend
         waypoints = []
         if self.flightPath and self.flightPath.waypoints:
             waypoints = [
@@ -307,13 +307,15 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
 
     # calculate relative position and velocity vectors, Vab = Va - Vb
 
-    dx = x1 - x2  # difference in x coordinates
-    dy = y1 - y2  # difference in y coordinates
-    dz = z1 - z2  # difference in z coordinates
+    # calculate differences in x,y,z coordinates
+    dx = x1 - x2  
+    dy = y1 - y2  
+    dz = z1 - z2  
 
-    dvx = velocity1X - velocity2X  # difference in eastward velocity components
-    dvy = velocity1Y - velocity2Y  # difference in northward velocity components
-    dvz = velocity1Z - velocity2Z  # difference in vertical velocity components
+    # calculate differences in velocity components, eastward, northward and vertical
+    dvx = velocity1X - velocity2X  # eastward 
+    dvy = velocity1Y - velocity2Y  # northward 
+    dvz = velocity1Z - velocity2Z  # vertical
 
     altitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
     currDistance = math.sqrt(dx * dx + dy * dy + dz * dz)  # calculates current distance between aircraft using Euclidean distance formula
@@ -327,7 +329,7 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
     dvSquared = dvx * dvx + dvy * dvy + dvz * dvz  # squared magnitude of the velocity vector
 
 
-    if(abs(dvSquared) < 1e-6): #i used 1e-6 as a threshold to avoid division by zero
+    if(abs(dvSquared) < 1e-6): # used 1e-6 as a threshold to avoid division by zero
         return None # if squared magnitude of the velocity vector is small
 
     timeToCPA = -(drDotDv) / dvSquared  
@@ -335,13 +337,14 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
     if timeToCPA < 0:  # if time to CPA is negative, the aircraft are moving away from each other
         return None
 
-    x1atCPA = x1 + velocity1X * timeToCPA  # calculates x coordinate of aircraft 1 at CPA
-    y1atCPA = y1 + velocity1Y * timeToCPA  # calculates y coordinate of aircraft 1 at CPA
-    z1atCPA = z1 + velocity1Z * timeToCPA  # calculates z coordinate of aircraft 1 at CPA
+    # calculate x,y,z coordinates of aircraft 1 and 2 at CPA time
+    x1atCPA = x1 + velocity1X * timeToCPA  
+    y1atCPA = y1 + velocity1Y * timeToCPA  
+    z1atCPA = z1 + velocity1Z * timeToCPA  
 
-    x2atCPA = x2 + velocity2X * timeToCPA  # calculates x coordinate of aircraft 2 at CPA
-    y2atCPA = y2 + velocity2Y * timeToCPA  # calculates y coordinate of aircraft 2 at CPA
-    z2atCPA = z2 + velocity2Z * timeToCPA  # calculates z coordinate of aircraft 2 at CPA
+    x2atCPA = x2 + velocity2X * timeToCPA  
+    y2atCPA = y2 + velocity2Y * timeToCPA  
+    z2atCPA = z2 + velocity2Z * timeToCPA  
 
    #https://en.wikipedia.org/wiki/Euclidean_distance
    # d(p,q) = sqrt((x2 - x1)² + (y2 - y1)² + (z2 - z1)²)
@@ -390,18 +393,15 @@ class simAirspace:
         with self.LOCK:
             return [aircraft.dataToJsonDictionary() for aircraft in self.aircraft.values()] # returns a list of aircraft data in JSON format
     
-      # minimum separation distance in kilometers, set to 5 nautical miles
-     # minimum altitude difference in feet, set to 1000 feet
+      
     def calculateRiskScore(self, aircraft1: Aircraft, aircraft2: Aircraft, horizontalRisk: float, verticalRisk: float, timeRisk: float, speedRisk: float, cpa = None):
-        riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) 
-        if cpa and cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:
+        riskScore = (0.4 * horizontalRisk + 0.4 * verticalRisk + 0.1 * timeRisk + 0.1 * speedRisk) # uses exponential decay functions to calculate risk score
+        if cpa and cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8: # immediate conflict
             emergencyRisk = 1.0 + (1.0 - min(cpa.timeToCollision / 20, 1.0))
             riskScore = min(1.0, riskScore * emergencyRisk)  # increases risk score for immediate conflicts, capped at 1.0
         return riskScore
     
 
-        
-    # priority queue implementation
     def DetectConflicts(self, minimumSeperationDistanceKM: float = nmToKM * 1,
                     minimumAltitudeDifferenceFT: float = 500, lookaheadTime: float = 5):  # looks 5 mins ahead for conflicts 
         
@@ -426,16 +426,16 @@ class simAirspace:
                     continue  # skip to the next pair of aircraft
 
                 altitudeDifferenceAtCPA = abs(cpa.cpaPosition1[2] - cpa.cpaPosition2[2])
-                # ill use exponential decay functions to normalise as my weighted formula
+                # exponential decay functions 
                 horizontalRisk = math.exp(-cpa.distanceAtCPA / minimumSeperationDistanceKM) 
                 verticalRisk = math.exp(-altitudeDifferenceAtCPA / minimumAltitudeDifferenceFT)
                 timeRisk = math.exp(-cpa.timeToCollision / (lookaheadTime * 60))
                 speedRisk = self.calculateSpeedRisk(aircraft1, aircraft2)
 
-                # risk score ranging from 0 to 1, used to determine the place in the priority queue
+                # risk score ranging from 0 to 1, used to determine the place in the priority queue, 1 being the highest/first risk
                 riskScore = self.calculateRiskScore(aircraft1, aircraft2, horizontalRisk, verticalRisk, timeRisk, speedRisk, cpa)
                 #  -riskScore is used to implement a maxheap (finding the highest priority first) as python's heapq  is a minheap (finds the lowest priority) by default
-                if cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:  # 20 seconds or 0.8km
+                if cpa.timeToCollision <= 20 or cpa.distanceAtCPA < 0.8:  # 20 seconds or 0.8km, can be adjusted
                     print(f"emergency conflict detected: {aircraft1.callsign} : {aircraft2.callsign}")
                     if self.resolveConflicts(aircraft1, aircraft2):
                         resolvedConflicts.append(f"{aircraft1.callsign} : {aircraft2.callsign}")
@@ -564,7 +564,7 @@ class simAirspace:
 
     def calculateTimeToCollision(self, aircraft1: Aircraft, aircraft2: Aircraft):
         if not self.Converging(aircraft1, aircraft2): # checks if the two aircraft are converging
-            return float('inf') # if aircraft are not converging, return infinity as there is no risk of collision (mathimatically, this means they are not on a collision course)
+            return float('inf') # if aircraft are not converging, return infinity as there is no risk of collision (mathematically, this means they are not on a collision course)
         
         currentDistanceKM = aircraft1.position.distancefrom(aircraft2.position)  # calculates current distance between two aircraft
         closingSpeedKMH = self.getClosingSpeed(aircraft1, aircraft2)  # calculates closing speed between two aircraft in km/h
@@ -587,7 +587,7 @@ class simAirspace:
         # closing speed = √[(V₁ₓ - V₂ₓ)² + (V₁ᵧ - V₂ᵧ)²]
         return math.sqrt(relativeEast ** 2 + relativeNorth ** 2) * kToKMH # returns closing speed in km/h
     
-    def removeArrivedAircraft(self): # use when aircraft reaches their destiantion
+    def removeArrivedAircraft(self): # use when aircraft reaches their destination
         with self.LOCK:
             removeList = [callsign for callsign, aircraft in self.aircraft.items() if aircraft.hasArrived]
             for callsign in removeList:
