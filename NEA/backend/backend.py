@@ -307,20 +307,15 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
 
     # calculate relative position and velocity vectors, Vab = Va - Vb
 
-    dx = x1 - x2  # difference in x coordinates
-    dy = y1 - y2  # difference in y coordinates
-    dz = z1 - z2  # difference in z coordinates
+    dx = x2 - x1  # difference in x coordinates
+    dy = y2 - y1 # difference in y coordinates
+    dz = z2 - z1  # difference in z coordinates
 
-    dvx = velocity1X - velocity2X  # difference in eastward velocity components
-    dvy = velocity1Y - velocity2Y  # difference in northward velocity components
-    dvz = velocity1Z - velocity2Z  # difference in vertical velocity components
+    dvx = velocity2X - velocity1X  # difference in eastward velocity components
+    dvy = velocity2Y - velocity1Y  # difference in northward velocity components
+    dvz = velocity2Z - velocity1Z  # difference in vertical velocity components
 
-    altitudeDifference = abs(aircraft1.alt - aircraft2.alt)  
-    currDistance = math.sqrt(dx * dx + dy * dy + dz * dz)  # calculates current distance between aircraft using Euclidean distance formula
-
-    # check for conflict immediately
-    if currDistance < 5000 and altitudeDifference < 1000:
-        return CPA(timeToCollision=0,distanceAtCPA=currDistance/1000, cpaPosition1=(aircraft1.position.lat, aircraft1.position.lon, aircraft1.alt), cpaPosition2=(aircraft2.position.lat, aircraft2.position.lon, aircraft2.alt))  
+      
         
     # t_cpa = -(dr · dv) / |dv|²
     drDotDv = dx * dvx + dy * dvy + dz * dvz  # dot product of position and velocity vectors
@@ -343,19 +338,40 @@ def calculateCPA(aircraft1: Aircraft, aircraft2: Aircraft):
     y2atCPA = y2 + velocity2Y * timeToCPA  # calculates y coordinate of aircraft 2 at CPA
     z2atCPA = z2 + velocity2Z * timeToCPA  # calculates z coordinate of aircraft 2 at CPA
 
+    altitudeDifference = abs(z2 - z1) / feetToMeters
+    currDistance = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)  # calculates current distance between aircraft using Euclidean distance formula
+
+    lat1atCPA = y1atCPA / degreesToMeters  # converts y coordinate back to latitude
+    lat2atCPA = y2atCPA / degreesToMeters  # converts y coordinate back to latitude
+    avgLatAtCpa = (lat1atCPA + lat2atCPA) / 2
+    cosAvgLat = math.cos(math.radians(avgLatAtCpa))
+    lon1atCPA = x1atCPA / (degreesToMeters * cosAvgLat) # converts x coordinate back to longitude
+    alt1atCPA = z1atCPA / feetToMeters  # converts z coordinate back to altitude in feet
+    lon2atCPA = x2atCPA / (degreesToMeters * cosAvgLat)  # converts x coordinate back to longitude
+    alt2atCPA = z2atCPA / feetToMeters  # converts z coordinate back to altitude in feet
+    
+    # Immediate conflict check of current positions
+    if currDistance < 5000 and altitudeDifference < 1000:
+        return CPA(
+        timeToCollision=0,
+        distanceAtCPA=currDistance / 1000,
+        cpaPosition1=(aircraft1.position.lat, aircraft1.position.lon, aircraft1.alt),
+        cpaPosition2=(aircraft2.position.lat, aircraft2.position.lon, aircraft2.alt)
+        )
    #https://en.wikipedia.org/wiki/Euclidean_distance
    # d(p,q) = sqrt((x2 - x1)² + (y2 - y1)² + (z2 - z1)²)
     distanceAtCPA = math.sqrt((x1atCPA - x2atCPA) ** 2 + (y1atCPA - y2atCPA) ** 2 + (z1atCPA - z2atCPA) ** 2)  # calculates distance between aircraft at CPA 
+    altitudeDifferenceAtCPA = abs(z2atCPA - z1atCPA) / feetToMeters  # calculates altitude difference between aircraft at CPA in feet
     
-    lat1atCPA = y1atCPA / degreesToMeters  # converts y coordinate back to latitude
-    lon1atCPA = x1atCPA / (degreesToMeters * math.cos(avgLAT)) # converts x coordinate back to longitude
-    alt1atCPA = z1atCPA / feetToMeters  # converts z coordinate back to altitude in feet
-    lat2atCPA = y2atCPA / degreesToMeters  # converts y coordinate back to latitude
-    lon2atCPA = x2atCPA / (degreesToMeters * math.cos(avgLAT))  # converts x coordinate back to longitude
-    alt2atCPA = z2atCPA / feetToMeters  # converts z coordinate back to altitude in feet
+    if distanceAtCPA < 5000 and altitudeDifferenceAtCPA < 1000:
+        return CPA(
+        timeToCollision=timeToCPA,
+        distanceAtCPA=distanceAtCPA / 1000,
+        cpaPosition1=(lat1atCPA, lon1atCPA, alt1atCPA),
+        cpaPosition2=(lat2atCPA, lon2atCPA, alt2atCPA)
+        )
 
-    
-    
+
     return CPA(timeToCollision=timeToCPA, distanceAtCPA=distanceAtCPA / 1000,cpaPosition1=(lat1atCPA, lon1atCPA, alt1atCPA), cpaPosition2=(lat2atCPA, lon2atCPA, alt2atCPA))  # returns a CPA object with time to collision, distance to collision and positions of aircraft at CPA
 
     
